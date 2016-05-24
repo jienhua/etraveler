@@ -1,0 +1,31 @@
+.form-inline > * {
+   margin:5px 3px;
+}
+
+#status-buttons {  
+}
+#status-buttons a{ 
+	color:#FFF; 
+	display:inline-block; 
+	font-size:12px; 
+	margin-right:10px; 
+	text-align:center; 
+	text-transform:uppercase; 
+}
+#status-buttons a:hover{ 
+	text-decoration:none; 
+}
+
+#status-buttons span { 
+	background:#C0C0C0; 
+	display:block; 
+	height:30px; 
+	margin:0 auto 10px; 
+	padding-top:7px; 
+	width:30px; 
+    border-radius:20%; 
+}
+
+#status-buttons a.active span {
+	background:#989898; 
+}
