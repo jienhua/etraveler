@@ -3,26 +3,26 @@
 	"itemRecord": [
 		{
 			"id": 1,
-			"name": "A",
+			"value": "A",
 			"Description": "AA"
 		},
 		{
 			"id":2,
-			"name": "B",
+			"value": "B",
 			"Description": "BB"
 		}
 	],
 	"steps":[
 		{
-			"setp":1,
+			"step":1,
 			"type": "IQC",
 			"list": [
 				{
-					"sub_step":"1.1",
+					"sub_step":1,
 					"Description": "Outer Box"
 				},
 				{
-					"sub_step":"1.2",
+					"sub_step":2,
 					"Description": "Inner and Foam"
 				}
 			]
@@ -32,11 +32,11 @@
 			"type": "IQC",
 			"list":[
 				{
-					"sub_step":"2.1",
+					"sub_step":1,
 					"Description": "Visual Test Against"
 				},
 				{
-					"sub_step": "2.2",
+					"sub_step":2,
 					"Description": "SW Version check"
 				}
 			]
