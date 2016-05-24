@@ -1,0 +1,22 @@
+{
+  "name": "etraveler",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "\u0016https://github.com/jienhua/etraveler.git"
+  },
+  "author": "jienhua",
+  "license": "ISC",
+  "devDependencies": {
+    "body-parser": "^1.15.1",
+    "express": "^4.13.4",
+    "method-override": "^2.3.5",
+    "mongoose": "^4.4.17",
+    "morgan": "^1.7.0"
+  }
+}

@@ -1,0 +1,45 @@
+{
+	"SN": 1234567,
+	"itemRecord": [
+		{
+			"id": 1,
+			"name": "A",
+			"Description": "AA"
+		},
+		{
+			"id":2,
+			"name": "B",
+			"Description": "BB"
+		}
+	],
+	"steps":[
+		{
+			"setp":1,
+			"type": "IQC",
+			"list": [
+				{
+					"sub_step":"1.1",
+					"Description": "Outer Box"
+				},
+				{
+					"sub_step":"1.2",
+					"Description": "Inner and Foam"
+				}
+			]
+		},
+		{
+			"step":2,
+			"type": "IQC",
+			"list":[
+				{
+					"sub_step":"2.1",
+					"Description": "Visual Test Against"
+				},
+				{
+					"sub_step": "2.2",
+					"Description": "SW Version check"
+				}
+			]
+		}
+	]
+}
