@@ -7,7 +7,7 @@
 	<div class='form-inline' role='form'>
 		<div class='form-group' ng-repeat='item in forms.itemRecord'>
 			<label for='{{item.Description}}'>{{item.Description}}: </label>
-			<input type='text' class='form-control' id='{{item.Description}}' value='{{item.value}}'>
+			<input type='text' class='form-control' id='{{item.Description}}' ng-model='travelerData.itemRecord[item.id]'>
 		</div>
 	</div>
 	<hr>
@@ -16,19 +16,99 @@
 <div name='steps'>
 
 	<div id='form-container'>
-		<h4>Step</h4>
+		<h4>Step {{currentStep}}.{{currentSubStep}}</h4>
 
 		<div id='status-buttons' class='text-right'>
-			<a ng-class='{active: currentStep == step.step}'ng-repeat='step in forms.steps' ng-click='statusPage(step.step)'><span>{{step.step}}</span></a>
+			<a ng-class='{active: currentStep == step.step}' ng-repeat='step in forms.steps' ng-click='statusPage(step.step)'><span>{{step.step}}</span></a>
 		</div>
 
 		<div id='steps' ng-repeat='step in forms.steps'>
-			<p ng-show='currentStep == step.step'>Type: {{step.type}}</p>
+			<p ng-if='currentStep == step.step'>
+			 {{step.type}} | {{step.Description}} 
+
+			</p>
+			<!-- Step -->
 			<div ng-repeat='subStep in step.list'>
-				<div class='jumbotron' ng-show='subStep.sub_step== currentSubStep && currentStep == step.step'>{{subStep.sub_step}}: {{subStep.Description}}</div>
+
+				<!-- form -->
+				<form class='form-horizontal' role='form' ng-show='subStep.sub_step== currentSubStep && currentStep == step.step'>
+					<h4>{{subStep.Description}}</h4>
+					<div class='form-group'>
+						<label class='control-label col-sm-2'>Qulity: </label>
+						<div class='col-sm-10'>
+							<input 
+								type='number' 
+								class='form-control' 
+								placeholder='0' 
+								ng-model='travelerData.step[step.step][subStep.sub_step]["qty"]'>
+						</div>
+					</div>
+
+					<!-- radio -->
+					<div ng-if='subStep.radio' class='form-group'>
+						<label class='control-label col-sm-2'>{{subStep.radio.name}}</label>
+						<div class='col-sm-10'>
+							<div ng-repeat='option in subStep.radio.options'>
+								<div class='radio'>
+									<label><input 
+										type='radio' 
+										name='radio' 
+										value='{{option}}' 
+										ng-model='travelerData.step[step.step][subStep.sub_step]["radio"]'>{{option}}
+									</label>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- checkbox -->
+					<div ng-if='subStep.checkbox' class='form-group'>
+						<label class='control-label col-sm-2'>{{subStep.checkbox.name}}</label>
+						<div class='col-sm-10'>
+							<div ng-repeat='option in subStep.checkbox.options'>
+								<div class='checkbox'>
+									<label><input 
+										type='checkbox' 
+										value='{{option}}' 
+										ng-model='travelerData.step[step.step][subStep.sub_step]["checkbox"][option]'>{{option}}
+									</label>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<!-- select -->
+					<div ng-if='subStep.select' class='form-group'>
+						<label class='control-label col-sm-2'>{{subStep.select.name}}</label>
+						<div class='col-sm-10'>
+							<select class='form-control' ng-model='travelerData.step[step.step][subStep.sub_step]["select"]'>
+								<option value="">---Please select---</option>
+								<option ng-repeat='option in subStep.select.options' value='{{option}}'>
+									{{option}}
+								</option>
+							</select>
+						</div>
+					</div>
+
+					<!-- comment -->
+					<div class='form-group'>
+						<label for='comment' class='control-label col-sm-2'>Comment: </label>
+						<div class='col-sm-10'>
+							<textarea class='form-control' row='5' id='comment' ng-model='travelerData.step[step.step][subStep.sub_step]["comment"]'></textarea>
+						</div>
+					</div>
+				</form>
+			</div>
+
+			<!-- status sub page -->
+			<div id='status-buttons-sub' class='text-right'>
+				<a ng-class='{active: currentSubStep == subStep.sub_step}' ng-repeat='subStep in step.list' ng-if='currentStep==step.step' ng-click='statusSubPage(subStep.sub_step)'><span>{{step.step}}.{{subStep.sub_step}}</span></a>
 			</div>
 		</div>	
-		<input type="button" name="next" value='next' ng-click='next()'/>
+
+		<input type="button" name="next" value='next' ng-click='nextStep()'/>
 	</div> 
+
+	travelerData: {{travelerData}}
 </div>
 

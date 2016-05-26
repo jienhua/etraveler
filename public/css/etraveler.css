@@ -4,7 +4,7 @@
 
 #status-buttons {  
 }
-#status-buttons a{ 
+#status-buttons a, #status-buttons-sub a{ 
 	color:#FFF; 
 	display:inline-block; 
 	font-size:12px; 
@@ -12,11 +12,11 @@
 	text-align:center; 
 	text-transform:uppercase; 
 }
-#status-buttons a:hover{ 
+#status-buttons a:hover, #status-buttons-sub a:hover{ 
 	text-decoration:none; 
 }
 
-#status-buttons span { 
+#status-buttons span, #status-buttons-sub span { 
 	background:#C0C0C0; 
 	display:block; 
 	height:30px; 
@@ -26,6 +26,16 @@
     border-radius:20%; 
 }
 
-#status-buttons a.active span {
+#status-buttons-sub span{
+	height:25px; 
+	width:25px;
+}
+
+#status-buttons span:hover, #status-buttons-sub span:hover{
+	background-color: gray;
+}
+
+#status-buttons a.active span, #status-buttons-sub a.active span {
 	background:#989898; 
 }
+
