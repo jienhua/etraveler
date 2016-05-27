@@ -1,3 +1,4 @@
+<div ng-if='!readySubmit' class='container'>
 <div name='header'>
 	<h4>SN: <input type="text" ng-model='travelerData.sn'/></h4>
 	<hr>
@@ -16,7 +17,7 @@
 <div name='steps'>
 
 	<div id='form-container'>
-		<h4 ng-if='!readySubmit'>Step {{currentStep}}.{{currentSubStep}}</h4>
+		<h4>Step {{currentStep}}.{{currentSubStep}}</h4>
 
 		<div id='status-buttons' class='text-right'>
 			<a ng-class='{active: currentStep == step.step}' ng-repeat='step in forms.steps' ng-click='statusPage(step.step)'><span>{{step.step}}</span></a>
@@ -106,10 +107,17 @@
 			</div>
 		</div>	
 
-		<input ng-if='!readySubmit' type="button" name="next" value='next' ng-click='nextStep()'/>
-		<input ng-if='readySubmit' type="button" name="next" value='submit' ng-click='submit()'/>
+		
 	</div> 
 
-	travelerData: {{travelerData}}
+	
+</div>
 </div>
 
+<div ng-if='readySubmit' ui-view='formReview'></div>
+
+<input class='btn myButton btn-lg pull-right' ng-if='!readySubmit' type="button" value='next' ng-click='nextStep()'/>
+<input class='btn myButton btn-lg pull-right' ng-if='readySubmit' type='button' value='edit' ng-click='edit()'/>
+<input class='btn myButton btn-lg pull-right' ng-if='readySubmit' type="button" value='submit' ng-click='submit()'/>
+
+travelerData: {{travelerData}}

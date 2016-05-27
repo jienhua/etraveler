@@ -1,0 +1,59 @@
+<div class='container'>
+	<h1 class='text-center'>Review Form</h1>
+	<h4>formID: {{reviewData.formId}}</h4>
+	<h3>Item Record</h3>
+
+	<form class='form-horizontal'>
+		<div class='form-group formGroupMargin' ng-repeat='item in reviewData.itemRecord'>
+			<label class='control-label col-sm-2'>{{forms.itemRecord[$index].Description}}</label>
+			<div class='col-sm-10'>
+				<p class='itemRecorditem'>{{item}}</p>
+			</div>
+		</div>
+	</form>
+
+
+
+	<!-- <div ng-repeat='item in reviewData.itemRecord'>
+		{{forms.itemRecord[$index].Description}} ==>> {{item}}
+	</div> -->
+
+	<h3>Steps</h3>
+	
+	<table class='table table-bordered'>
+		<tbody ng-repeat='list in reviewData.step'>
+			<tr>
+				<td class='tableHead'>{{forms.steps[$index].type}} | {{forms.steps[$index].Description}}</td>
+				<td class='tableHead'>Qulity</td>
+				<td class='tableHead'>Options</td>
+				<td class='tableHead'>Comment</td>
+			</tr>
+			<tr ng-repeat='item in list'>
+				<td>{{forms.steps[$parent.$index].list[$index].Description}}</td>
+				<td>{{item.qty}}</td>
+				<td>
+					<!-- if has radio option-->
+					<div ng-if='forms.steps[$parent.$index].list[$index].radio'>
+						{{forms.steps[$parent.$index].list[$index].radio.name}} -
+						{{item.radio}}
+					</div> 
+
+					<!-- if has checkbox option -->
+					<div ng-if='forms.steps[$parent.$index].list[$index].checkbox'>
+						{{forms.steps[$parent.$index].list[$index].checkbox.name}} -
+						<label class='normalFont' ng-repeat='(key, value) in item.checkbox' ng-if='value'>	
+						{{key}}&nbsp;
+						</label>
+					</div> 
+
+					<!-- if has select option -->
+					<div ng-if='forms.steps[$parent.$index].list[$index].select'>
+						{{forms.steps[$parent.$index].list[$index].select.name}} -
+						{{item.select}}
+					</div>
+				</td>
+				<td>{{item.comment}}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

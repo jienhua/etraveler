@@ -2,7 +2,7 @@ angular.module('TravelerCtrl', [])
 	
 	.controller('TravelerController', ['$scope','Traveler', 'Form',  function($scope, Traveler, Form){
 
-		$scope.travelerData ={};
+		$scope.travelerData = {"formId":1,"sn":"123123","itemRecord":{"1":"12312","2":"31231"},"step":{"1":{"1":{"qty":23123,"checkbox":{"Option2":true,"Option3":true},"radio":"Green","select":"3","comment":"123123"},"2":{"qty":1231,"comment":"23123"}},"2":{"1":{"qty":12312,"comment":"3123"},"2":{"qty":12312,"comment":"3123"}}},"createAt":"2016-05-27T00:59:00.903Z"};
 
 		$scope.currentStep = 1;
 		$scope.currentSubStep = 1;
@@ -29,7 +29,8 @@ angular.module('TravelerCtrl', [])
 				$scope.currentStep += 1;
 				$scope.currentSubStep = 1;
 				if($scope.currentStep > $scope.lastStep){
-					$scope.readySubmit = true;
+					Traveler.setReviewData($scope.travelerData);
+					$scope.readySubmit = true;		
 				}
 			}
 		};
@@ -42,6 +43,12 @@ angular.module('TravelerCtrl', [])
 
 		$scope.statusSubPage = function(page){
 			$scope.currentSubStep = page;
+		}
+
+		$scope.edit = function(){
+			$scope.currentStep = 1;
+			$scope.currentSubStep = 1;
+			$scope.readySubmit = false;
 		}
 
 		$scope.submit = function(){

@@ -1,0 +1,15 @@
+.tableHead{
+	background-color: #F0F0F0;
+	font-weight: bold;
+}
+
+.itemRecorditem{
+	padding-top: 7px;
+	padding-right: 15px;
+	padding-left: 15px;
+}
+
+.formGroupMargin{
+	margin-bottom: 0px;
+	color: white;
+}
