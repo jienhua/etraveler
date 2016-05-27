@@ -19,6 +19,12 @@ angular.module('appRoutes', ['ui.router'])
 				url: '/traveler',
 				templateUrl: 'views/traveler.html',
 				controller: 'TravelerController'
+			})
+
+			.state('searchTraveler',{
+				url: '/searchTraveler',
+				templateUrl: 'views/searchTraveler.html',
+				controller: 'SearchTravelerController'
 			});
 
 		$locationProvider.html5Mode(true);

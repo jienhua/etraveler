@@ -1,5 +1,5 @@
 <div name='header'>
-	<h4>SN: {{forms.SN}}</h4>
+	<h4>SN: <input type="text" ng-model='travelerData.sn'/></h4>
 	<hr>
 </div>
 
@@ -16,7 +16,7 @@
 <div name='steps'>
 
 	<div id='form-container'>
-		<h4>Step {{currentStep}}.{{currentSubStep}}</h4>
+		<h4 ng-if='!readySubmit'>Step {{currentStep}}.{{currentSubStep}}</h4>
 
 		<div id='status-buttons' class='text-right'>
 			<a ng-class='{active: currentStep == step.step}' ng-repeat='step in forms.steps' ng-click='statusPage(step.step)'><span>{{step.step}}</span></a>
@@ -106,7 +106,8 @@
 			</div>
 		</div>	
 
-		<input type="button" name="next" value='next' ng-click='nextStep()'/>
+		<input ng-if='!readySubmit' type="button" name="next" value='next' ng-click='nextStep()'/>
+		<input ng-if='readySubmit' type="button" name="next" value='submit' ng-click='submit()'/>
 	</div> 
 
 	travelerData: {{travelerData}}
