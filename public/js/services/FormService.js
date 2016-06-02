@@ -4,8 +4,12 @@ angular.module('FormService', [])
 
 		return {
 
-			get: function(){
-				return $http.get('/api/forms');
+			getFormList: function(){
+				return $http.get('/api/forms/');
+			},
+
+			get: function(formId){
+				return $http.get('/api/forms/'+formId);
 			}
 		};
 }]);

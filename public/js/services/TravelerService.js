@@ -1,30 +1,35 @@
 angular.module('TravelerService', [])
+       
+    .factory('Traveler', ['$http', function($http){
 
-	.factory('Traveler', ['$http', function($http){
+        var reviewData = {};
+            
+        return {
+	
+            // these will work when more API routes are defined on the Node side of things
+            // call to POST and create a new form
+            create: function(formData){
+            	return $http.post('/api/traveler', formData);
+            }, 
 
-                var reviewData = {};
-                
-		return {
+            getReviewData: function(){
+                return reviewData;
+            },
 
-                        getReviewData: function(){
-                                return reviewData;
-                        },
+            get: function(_id){
+                return $http.get('/api/traveler?_id='+ _id);
+            },
 
-                        setReviewData: function(data){
-                                reviewData = data;
-        		},	
-                        // these will work when more API routes are defined on the Node side of things
-                	// call to POST and create a new form
-                	create: function(formData){
-                		return $http.post('/api/travelers', formData);
-                	}, 
+            setReviewData: function(data){
+                reviewData = data;
+            },
 
-                	search: function(sn){
-                		return $http.get('/api/travelers/search/'+ sn);
-                	}
-                	// call to DELETE a form
-                	// delete: function(id){
-                	// 	return $http.delete('api/nerds/' + id);
-                	// }
-		}			
+            searchLike: function(sn){
+            	return $http.get('/api/traveler/searchLike/'+ sn);
+            }
+            // call to DELETE a form
+            // delete: function(id){
+            // 	return $http.delete('api/nerds/' + id);
+            // }
+	}			
 }]);

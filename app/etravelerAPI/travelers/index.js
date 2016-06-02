@@ -1,8 +1,10 @@
-var travelers = require('express').Router();
-var create = require('./create');
-var search = require('./search');
+var travelers  = require('express').Router();
+var create     = require('./create');
+var single     = require('./single');
+var searchLike = require('./searchLike');
 
 travelers.post('/', create);
-travelers.get('/search/:sn', search);
+travelers.get('/searchLike/:sn', searchLike);
+travelers.get('/', single);
 
 module.exports = travelers;

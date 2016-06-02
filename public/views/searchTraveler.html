@@ -26,6 +26,7 @@
 					<th>Form ID</th>
 					<th>Serial Number</th>
 					<th>Created At</th>
+					<th>Edit</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -33,7 +34,8 @@
 					<td>{{item._id}}</td>
 					<td>{{item.formId}}</td>
 					<td>{{item.sn}}</td>
-					<td>{{item.createAt}}</td>
+					<td>{{item.createAt | date: 'medium'}}</td>
+					<td><i class="fa fa-pencil-square-o fa-2x edit-icon" ng-click='editTraveler(item._id, item.formId)'></i></td>
 				</tr>
 			</tbody>
 		</table>

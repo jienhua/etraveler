@@ -9,12 +9,16 @@ angular.module('SearchTravelerCtrl', [])
 			$scope.isSearch = true;
 			if($scope.searchInput){
 				let sn = $scope.searchInput.toString();
-				Traveler.search(sn)
+				Traveler.searchLike(sn)
 
 					.success( data =>{
 						$scope.result=data;
 
 					});
 			}
+		}
+
+		$scope.editTraveler = function(_id, formId){
+			window.open('traveler?_id='+_id+'&formId='+formId, '_blank');
 		}
 	}]);

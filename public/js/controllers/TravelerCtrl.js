@@ -1,23 +1,49 @@
 angular.module('TravelerCtrl', [])
 	
-	.controller('TravelerController', ['$scope','Traveler', 'Form',  function($scope, Traveler, Form){
-
-		$scope.travelerData = {"formId":1,"sn":"123123","itemRecord":{"1":"12312","2":"31231"},"step":{"1":{"1":{"qty":23123,"checkbox":{"Option2":true,"Option3":true},"radio":"Green","select":"3","comment":"123123"},"2":{"qty":1231,"comment":"23123"}},"2":{"1":{"qty":12312,"comment":"3123"},"2":{"qty":12312,"comment":"3123"}}},"createAt":"2016-05-27T00:59:00.903Z"};
-
+	.controller('TravelerController', ['$scope','Traveler', 'Form','$stateParams', function($scope, Traveler, Form, $stateParams){
+		
+		
+		$scope.travelerData = {};
 		$scope.currentStep = 1;
 		$scope.currentSubStep = 1;
 		$scope.readySubmit = false;
 
-		Form.get()
+		Form.getFormList()
 			.success(function(data){
-				$scope.forms = data.forms;
-				
-				// find the last subStep
-				$scope.lastStep = data.forms.steps.length;
-				$scope.travelerData.formId = data.forms.formId;
-				// $scope.lastSubStep = data.forms.steps[data.forms.steps.length-1].list.length;
-			});
+				$scope.formList = data;
+		});
 
+		$scope.updateForm = function() {
+			
+			if($scope.formId){
+				Form.get($scope.formId)
+					.success(function(data){
+
+						$scope.forms = data;
+						
+						// find the last subStep
+						$scope.lastStep = data.steps.length;
+						$scope.travelerData.formId = data.formId;
+
+						// $scope.lastSubStep = data.forms.steps[data.forms.steps.length-1].list.length;
+					});
+			}
+		}
+
+		if($stateParams.formId){
+			$scope.formId = $stateParams.formId;
+			$scope.updateForm();
+		}
+
+
+		if($stateParams._id){
+			Traveler.get($stateParams._id)
+				.success(function(data){
+					// data is a array. result could be more than one
+					// need to deal wit this.
+					$scope.travelerData = data;
+				});
+		}
 
 		$scope.nextStep = function(){
 			var object = $scope.forms.steps[$scope.currentStep-1];
@@ -54,6 +80,8 @@ angular.module('TravelerCtrl', [])
 		$scope.submit = function(){
 			var condition = true;
 			if(condition){
+				$scope.travelerData.completed = false;
+				$scope.travelerData.submited = true;
 				$scope.travelerData.createAt = new Date();
 				Traveler.create($scope.travelerData)
 

@@ -8,6 +8,6 @@ routes.get('/', (req, res) => {
 });
 
 routes.use('/forms', forms);
-routes.use('/travelers', travelers);
+routes.use('/traveler', travelers);
 
 module.exports = routes;

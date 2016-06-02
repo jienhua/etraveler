@@ -14,9 +14,9 @@ angular.module('appRoutes', ['ui.router'])
 				controller: 'MainController'
 			})
 
-			// nerds page that will use the NerdController
+			
 			.state('traveler', {
-				url: '/traveler',
+				url: '/traveler?_id&formId',
 				views:{
 					'':{
 						templateUrl: 'views/traveler.html',
@@ -26,7 +26,6 @@ angular.module('appRoutes', ['ui.router'])
 						templateUrl: 'views/formReview.html',
 						controller: function($scope, Traveler, Form){
 							$scope.reviewData = Traveler.getReviewData();
-							// console.log($scope.reviewData.step["1"]["1"]["checkbox"]["Option2"]);
 							Form.get()
 								.success(function(data){
 									$scope.forms = data.forms;
@@ -36,12 +35,9 @@ angular.module('appRoutes', ['ui.router'])
 				}
 			})
 
-			// .state('home.formReview',{
-			// 	url: '/formReview',
-			// 	templateUrl: 'views/formReview.html',
-			// 	controller: function($scope, TravelerService){
-
-			// 	}
+			// .state('newTraveler',{
+			// 	url: '/newTraveler',
+			// 	templateUrl: 'views/newTraveler.html'
 			// })
 
 			.state('searchTraveler',{
