@@ -20,6 +20,10 @@ angular.module('TravelerService', [])
                 return $http.get('/api/traveler?_id='+ _id);
             },
 
+            save: function(data){
+                return $http.put('/api/traveler', data);
+            },
+
             setReviewData: function(data){
                 reviewData = data;
             },

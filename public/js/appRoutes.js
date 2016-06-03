@@ -26,7 +26,8 @@ angular.module('appRoutes', ['ui.router'])
 						templateUrl: 'views/formReview.html',
 						controller: function($scope, Traveler, Form){
 							$scope.reviewData = Traveler.getReviewData();
-							Form.get()
+							// console.log($scope.reviewData);
+							Form.get($scope.reviewData.formId)
 								.success(function(data){
 									$scope.forms = data.forms;
 							});

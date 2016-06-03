@@ -14,7 +14,8 @@ angular.module('TravelerCtrl', [])
 		});
 
 		$scope.updateForm = function() {
-			
+			console.log('updateform');
+			$scope.travelerData = {};
 			if($scope.formId){
 				Form.get($scope.formId)
 					.success(function(data){
@@ -46,6 +47,7 @@ angular.module('TravelerCtrl', [])
 		}
 
 		$scope.nextStep = function(){
+			console.log('nextStep');
 			var object = $scope.forms.steps[$scope.currentStep-1];
 
 
@@ -71,10 +73,27 @@ angular.module('TravelerCtrl', [])
 			$scope.currentSubStep = page;
 		}
 
-		$scope.edit = function(){
+		$scope.goBack = function(){
 			$scope.currentStep = 1;
 			$scope.currentSubStep = 1;
 			$scope.readySubmit = false;
+		}
+
+		$scope.save = function(){
+
+			if(!$scope.readySubmit){
+				Traveler.setReviewData($scope.travelerData);
+				$scope.readySubmit = true;
+				alert('review your thing before save');
+			}else{
+				Traveler.save($scope.travelerData)
+					.success( data => {
+						// do something
+						$scope.travelerData = data;
+					});
+			}	
+
+			
 		}
 
 		$scope.submit = function(){
