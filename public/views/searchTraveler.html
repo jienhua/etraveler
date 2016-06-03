@@ -27,6 +27,7 @@
 					<th>Serial Number</th>
 					<th>Created At</th>
 					<th>Edit</th>
+					<th>Delete</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -36,6 +37,7 @@
 					<td>{{item.sn}}</td>
 					<td>{{item.createAt | date: 'medium'}}</td>
 					<td><i class="fa fa-pencil-square-o fa-2x edit-icon" ng-click='editTraveler(item._id, item.formId)'></i></td>
+					<td><i class="fa fa-trash-o fa-2x trash-icon" ng-click='removeTraveler(item._id, $index)'></i></td>
 				</tr>
 			</tbody>
 		</table>

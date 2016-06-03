@@ -30,10 +30,11 @@ angular.module('TravelerService', [])
 
             searchLike: function(sn){
             	return $http.get('/api/traveler/searchLike/'+ sn);
-            }
+            },
             // call to DELETE a form
-            // delete: function(id){
-            // 	return $http.delete('api/nerds/' + id);
-            // }
+            removeTraveler: function(_id, input){
+                console.log(_id);
+            	return $http.delete('/api/traveler/'+ _id+'/'+input);
+            }
 	}			
 }]);

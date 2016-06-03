@@ -2,3 +2,8 @@
 	color:blue;
 	cursor:pointer;
 }
+
+.trash-icon:hover{
+	color:red;
+	cursor:pointer;
+}

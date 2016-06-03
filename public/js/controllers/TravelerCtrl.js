@@ -2,11 +2,16 @@ angular.module('TravelerCtrl', [])
 	
 	.controller('TravelerController', ['$scope','Traveler', 'Form','$stateParams', function($scope, Traveler, Form, $stateParams){
 		
-		
-		$scope.travelerData = {};
-		$scope.currentStep = 1;
-		$scope.currentSubStep = 1;
-		$scope.readySubmit = false;
+
+		var reset = function(){
+			$scope.travelerData = {};
+			$scope.currentStep = 1;
+			$scope.currentSubStep = 1;
+			$scope.readySubmit = false;
+			$scope.formId = '';
+		}
+
+		reset();
 
 		Form.getFormList()
 			.success(function(data){
@@ -89,7 +94,6 @@ angular.module('TravelerCtrl', [])
 				Traveler.save($scope.travelerData)
 					.success( data => {
 						// do something
-						$scope.travelerData = data;
 					});
 			}	
 
@@ -112,4 +116,7 @@ angular.module('TravelerCtrl', [])
 			}
 		}
 
+		$scope.new = function(){
+			reset();
+		}
 }])
