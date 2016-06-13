@@ -21,8 +21,7 @@
 	<h3>Steps</h3>
 	
 	<table class='table table-bordered'>
-		<tbody ng-repeat='(key, value) in reviewData.step'>
-			{{list}}
+		<tbody ng-repeat='step in forms.steps'>
 			<tr>
 				<td class='tableHead'>Step</td>
 				<td class='tableHead'>{{forms.steps[$index].type}} | {{forms.steps[$index].Description}}</td>
@@ -30,32 +29,32 @@
 				<td class='tableHead'>Options</td>
 				<td class='tableHead'>Comment</td>
 			</tr>
-			<tr ng-repeat='item in value'>
-				<td>{{$parent.$index+1}}.{{$index+1}}</td>
+			<tr ng-repeat='item in step.list'>
+				<td>{{step.step}}.{{$index+1}}</td>
 				<td>{{forms.steps[$parent.$index].list[$index].Description}}</td>
-				<td>{{item.qty}}</td>
+				<td>{{reviewData.step[step.step][$index+1].qty}}</td>
 				<td>
 					<!-- if has radio option-->
-					<div ng-if='forms.steps[$parent.$index].list[$index].radio'>
-						{{forms.steps[$parent.$index].list[$index].radio.name}} -
-						{{item.radio}}
+					<div ng-if='reviewData.step[step.step][item.sub_step].radio'>
+						{{item.radio.name}} -
+						{{reviewData.step[step.step][item.sub_step].radio}}
 					</div> 
 
 					<!-- if has checkbox option -->
-					<div ng-if='forms.steps[$parent.$index].list[$index].checkbox'>
-						{{forms.steps[$parent.$index].list[$index].checkbox.name}} -
-						<label class='normalFont' ng-repeat='(key, value) in item.checkbox' ng-if='value'>	
+					<div ng-if='reviewData.step[step.step][item.sub_step].checkbox'>
+						{{item.checkbox.name}} -
+						<label class='normalFont' ng-repeat='(key, value) in reviewData.step[step.step][item.sub_step].checkbox' ng-if='value'>	
 						{{key}}&nbsp;
 						</label>
 					</div> 
 
 					<!-- if has select option -->
-					<div ng-if='forms.steps[$parent.$index].list[$index].select'>
-						{{forms.steps[$parent.$index].list[$index].select.name}} -
-						{{item.select}}
+					<div ng-if='reviewData.step[step.step][item.sub_step].select'>
+						{{item.select.name}} -
+						{{reviewData.step[step.step][item.sub_step].select}}
 					</div>
 				</td>
-				<td>{{item.comment}}</td>
+				<td>{{reviewData.step[step.step][item.sub_step].comment}}</td>
 			</tr>
 		</tbody>
 	</table>
