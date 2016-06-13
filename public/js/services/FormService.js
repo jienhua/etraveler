@@ -4,6 +4,10 @@ angular.module('FormService', [])
 
 		return {
 
+			create: function(data){
+				return $http.post('/api/forms', data);
+			},
+
 			getFormList: function(){
 				return $http.get('/api/forms/');
 			},

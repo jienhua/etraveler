@@ -26,10 +26,16 @@ angular.module('appRoutes', ['ui.router'])
 						templateUrl: 'views/formReview.html',
 						controller: function($scope, Traveler, Form){
 							$scope.reviewData = Traveler.getReviewData();
+							// alert(123);
 							// console.log($scope.reviewData);
+							// alert($scope.reviewData);
+							// console.log(123);
 							Form.get($scope.reviewData.formId)
 								.success(function(data){
-									$scope.forms = data.forms;
+									// console.log('review here?');
+									console.log($scope.reviewData.formId);
+									console.log(data);
+									$scope.forms = data;
 							});
 						}
 					}
@@ -45,6 +51,12 @@ angular.module('appRoutes', ['ui.router'])
 				url: '/searchTraveler',
 				templateUrl: 'views/searchTraveler.html',
 				controller: 'SearchTravelerController'
+			})
+
+			.state('formGenerator',{
+				url: '/formGenerator',
+				templateUrl: 'views/formGenerator.html',
+				controller: 'FormGeneratorController'
 			});
 
 		$locationProvider.html5Mode(true);

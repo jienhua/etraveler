@@ -6,6 +6,7 @@ angular.module('sampleApp',
 		'MainCtrl', 
 		'TravelerCtrl', 
 		'SearchTravelerCtrl', 
+		'FormGenCtrl.js',
 		
 		'TravelerService', 
 		'FormService'

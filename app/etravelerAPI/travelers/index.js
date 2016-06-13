@@ -9,6 +9,6 @@ travelers.post('/', create);
 travelers.get('/searchLike/:sn', searchLike);
 travelers.get('/', single);
 travelers.put('/', save);
-travelers.delete('/:_id/:input', deleteTraveler);
+travelers.delete('/:_id', deleteTraveler);
 
 module.exports = travelers;

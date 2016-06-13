@@ -23,9 +23,9 @@ angular.module('SearchTravelerCtrl', [])
 		}
 
 		$scope.removeTraveler = function(_id, index){
-			console.log('removeTraveler: '+_id);
-			console.log('index'+ index);
-			Traveler.removeTraveler(_id, $scope.currentInput)
+			// console.log('removeTraveler: '+_id);
+			// console.log('index'+ index);
+			Traveler.removeTraveler(_id)
 				.success( data => {
 					// $scope.result=data;
 					$scope.result.splice(index, 1);

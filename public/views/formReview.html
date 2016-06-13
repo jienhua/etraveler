@@ -21,7 +21,8 @@
 	<h3>Steps</h3>
 	
 	<table class='table table-bordered'>
-		<tbody ng-repeat='list in reviewData.step'>
+		<tbody ng-repeat='(key, value) in reviewData.step'>
+			{{list}}
 			<tr>
 				<td class='tableHead'>Step</td>
 				<td class='tableHead'>{{forms.steps[$index].type}} | {{forms.steps[$index].Description}}</td>
@@ -29,7 +30,7 @@
 				<td class='tableHead'>Options</td>
 				<td class='tableHead'>Comment</td>
 			</tr>
-			<tr ng-repeat='item in list'>
+			<tr ng-repeat='item in value'>
 				<td>{{$parent.$index+1}}.{{$index+1}}</td>
 				<td>{{forms.steps[$parent.$index].list[$index].Description}}</td>
 				<td>{{item.qty}}</td>
@@ -59,3 +60,5 @@
 		</tbody>
 	</table>
 </div>
+
+<!-- {{forms}} -->

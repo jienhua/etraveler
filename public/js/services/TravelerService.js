@@ -34,7 +34,7 @@ angular.module('TravelerService', [])
             // call to DELETE a form
             removeTraveler: function(_id, input){
                 console.log(_id);
-            	return $http.delete('/api/traveler/'+ _id+'/'+input);
+            	return $http.delete('/api/traveler/'+ _id);
             }
 	}			
 }]);

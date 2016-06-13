@@ -119,4 +119,14 @@ angular.module('TravelerCtrl', [])
 		$scope.new = function(){
 			reset();
 		}
+
+		$scope.delete = function(){
+			alert('delete click');
+			if($scope.travelerData._id){
+				Traveler.removeTraveler($scope.travelerData._id)
+					.success(data => {
+						reset();
+					});
+			}
+		}
 }])
