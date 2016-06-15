@@ -86,16 +86,24 @@ angular.module('TravelerCtrl', [])
 
 		$scope.save = function(){
 
-			if(!$scope.readySubmit){
-				Traveler.setReviewData($scope.travelerData);
-				$scope.readySubmit = true;
-				alert('review your thing before save');
-			}else{
+			// if(!$scope.readySubmit){
+			// 	Traveler.setReviewData($scope.travelerData);
+			// 	$scope.readySubmit = true;
+			// 	alert('review your thing before save');
+			// }else{
+			// 	Traveler.save($scope.travelerData)
+			// 		.success( data => {
+			// 			// do something
+			// 		});
+			// }
+			if($scope.travelerData.created){
 				Traveler.save($scope.travelerData)
-					.success( data => {
+					.success(data =>{
 						// do something
 					});
-			}	
+			}else{
+				$scope.submit();
+			}
 
 			
 		}
@@ -103,15 +111,15 @@ angular.module('TravelerCtrl', [])
 		$scope.submit = function(){
 			var condition = true;
 			if(condition){
-				$scope.travelerData.completed = false;
-				$scope.travelerData.submited = true;
+				// $scope.travelerData.completed = false;
+				$scope.travelerData.created = true;
 				$scope.travelerData.createAt = new Date();
 				Traveler.create($scope.travelerData)
 
 					// if successful create
 					.success( data =>{
 						console.log(data);
-						// do something.
+						$scope.travelerData = data;
 					});
 			}
 		}

@@ -4,7 +4,7 @@
 	<form role='form'>
 		<div class='form-group'>
 			<label for='select-formId'>Select a Template:</label>
-			<select class='form-control' id='select-formId' ng-model='formId' ng-change='updateForm()' ng-disabled='travelerData.submited'>
+			<select class='form-control' id='select-formId' ng-model='formId' ng-change='updateForm()' ng-disabled='travelerData.created'>
 				<option value="">---Please select---</option>
 				<option ng-repeat='option in formList' value='{{option.formId}}'>{{option.formId}} - {{option.formName}}</option>
 			</select>
@@ -141,8 +141,8 @@
 
 <br>
 <!-- <input class='btn btn-primary myButton btn-lg pull-right' ng-if='!readySubmit' type="button" value='next' ng-click='nextStep()'/> -->
-<input class='btn btn-primary myButton btn-lg pull-right' ng-if='readySubmit && !travelerData.submited' type="button" value='submit' ng-click='submit()'/>
-<input class='btn btn-primary myButton btn-lg pull-right' ng-if='readySubmit && travelerData.submited' type='button' value='Save/Update' ng-click='save()'/>
+<input class='btn btn-primary myButton btn-lg pull-right' ng-if='readySubmit && !travelerData.created' type="button" value='submit' ng-click='submit()'/>
+<input class='btn btn-primary myButton btn-lg pull-right'  type='button' value='Save/Update' ng-click='save()'/>
 <input class='btn btn-primary myButton btn-lg pull-right' ng-if='readySubmit' type='button' value='Go Back' ng-click='goBack()'/>
 
 
