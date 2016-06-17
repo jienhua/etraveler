@@ -36,5 +36,5 @@ angular.module('TravelerService', [])
                 console.log(_id);
             	return $http.delete('/api/traveler/'+ _id);
             }
-	}			
+	};		
 }]);

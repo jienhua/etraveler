@@ -3,7 +3,6 @@ angular.module('FormGenCtrl.js', [])
 	.controller('FormGeneratorController', ['$scope','Form' , function($scope, Form){
 
 		$scope.submit = function(){
-			// console.log($scope.template);
 			var password = prompt('password');
 			if(password === '123'){
 			Form.create($scope.template)
@@ -14,5 +13,5 @@ angular.module('FormGenCtrl.js', [])
 			}else{
 				alert('go home son');
 			}
-		}
+		};
 	}]);

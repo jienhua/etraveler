@@ -14,7 +14,7 @@ angular.module('TravelerCtrl', [])
 						// $scope.lastSubStep = data.forms.steps[data.forms.steps.length-1].list.length;
 					});
 			}
-		}
+		};
 
 		$scope.nextStep = function(){
 			// appendSubStepEditInfo();
@@ -36,18 +36,18 @@ angular.module('TravelerCtrl', [])
 			$scope.currentStep = page;
 			$scope.currentSubStep = 1;
 			$scope.readySubmit = false;
-		}
+		};
 
 		$scope.statusSubPage = function(page){
 			// appendSubStepEditInfo();
 			$scope.currentSubStep = page;
-		}
+		};
 
 		$scope.goBack = function(){
 			$scope.currentStep = 1;
 			$scope.currentSubStep = 1;
 			$scope.readySubmit = false;
-		}
+		};
 
 		$scope.save = function(){
 
@@ -62,7 +62,7 @@ angular.module('TravelerCtrl', [])
 			}else{
 				$scope.submit();
 			}
-		}
+		};
 
 		$scope.submit = function(){
 			if(document.getElementById('username').value){
@@ -80,11 +80,11 @@ angular.module('TravelerCtrl', [])
 			}else{
 				alert('enter you name plz');
 			}
-		}
+		};
 
 		$scope.new = function(){
 			reset();
-		}
+		};
 
 		$scope.delete = function(){
 			alert('delete click');
@@ -94,7 +94,7 @@ angular.module('TravelerCtrl', [])
 						reset();
 					});
 			}
-		}
+		};
 
 
 		var appendSubStepEditInfo = function(){
@@ -104,18 +104,18 @@ angular.module('TravelerCtrl', [])
 				var currentSubStep = $scope.currentSubStep;
 				$scope.travelerData.step[currentStep][currentSubStep].editBy = username;
 				$scope.travelerData.step[currentStep][currentSubStep].editTime = new Date();
-				return true
+				return true;
 			}
 			alert('enter your name');
-			return false
-		}
+			return false;
+		};
 
 		var loadFormList = function(){
 			Form.getFormList()
 				.success(function(data){
 					$scope.formList = data;
 			});
-		}
+		};
 
 
 		var reset = function(){
@@ -125,7 +125,7 @@ angular.module('TravelerCtrl', [])
 			$scope.readySubmit = false;
 			$scope.formId = '';
 			$scope.isNew = true;
-		}
+		};
 
 		var startWatch = function(){
 			$scope.$watch(
@@ -139,7 +139,7 @@ angular.module('TravelerCtrl', [])
 					}
 				}, true
 			);
-		}
+		};
 
 		var main = function(){
 			reset();
@@ -162,7 +162,7 @@ angular.module('TravelerCtrl', [])
 						startWatch();
 					});
 			}
-		}
+		};
 
 		main();
-}])
+}]);
