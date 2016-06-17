@@ -52,13 +52,13 @@ angular.module('TravelerCtrl', [])
 		$scope.save = function(){
 
 			if($scope.travelerData.created){
-				if(appendSubStepEditInfo()){
+				// if(appendSubStepEditInfo()){
 
 					Traveler.save($scope.travelerData)
 						.success(data =>{
 							// do something
 						});
-				}
+				// }
 			}else{
 				$scope.submit();
 			}
@@ -159,9 +159,9 @@ angular.module('TravelerCtrl', [])
 						// data is a array. result could be more than one
 						// need to deal wit this.
 						$scope.travelerData = data;
-						startWatch();
 					});
 			}
+			startWatch();
 		};
 
 		main();

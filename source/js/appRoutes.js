@@ -24,28 +24,16 @@ angular.module('appRoutes', ['ui.router'])
 					},
 					'formReview@traveler':{
 						templateUrl: 'views/formReview.html',
-						controller: function($scope, Traveler, Form){
+						controller: ['$scope', 'Traveler', 'Form',function($scope, Traveler, Form){
 							$scope.reviewData = Traveler.getReviewData();
-							// alert(123);
-							// console.log($scope.reviewData);
-							// alert($scope.reviewData);
-							// console.log(123);
 							Form.get($scope.reviewData.formId)
 								.success(function(data){
-									// console.log('review here?');
-									console.log($scope.reviewData.formId);
-									console.log(data);
 									$scope.forms = data;
 							});
-						}
+						}]
 					}
 				}
 			})
-
-			// .state('newTraveler',{
-			// 	url: '/newTraveler',
-			// 	templateUrl: 'views/newTraveler.html'
-			// })
 
 			.state('searchTraveler',{
 				url: '/searchTraveler',
