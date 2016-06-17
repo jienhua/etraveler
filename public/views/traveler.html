@@ -14,7 +14,10 @@
 
 <div ng-if='!readySubmit && formId' class='container'>
 <div name='header'>
-	<h4>SN: <input type="text" ng-model='travelerData.sn'/></h4>
+	<h4>
+		Name: <input type='text' id='username' value='John Snow'>
+		SN: <input type="text" ng-model='travelerData.sn'/>
+	</h4>
 	<hr>
 </div>
 
