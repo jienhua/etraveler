@@ -5,7 +5,7 @@ module.exports = (req, res) => {
 	// const forms = data;
 	var formId = req.params.formId;
 
-	formTemplates.findOne({'formId': parseInt(formId)}, (err,data)=>{
+	formTemplates.findOne({'_id': formId}, (err,data)=>{
 		if(err)
 			res.send(err);
 		res.json(data);

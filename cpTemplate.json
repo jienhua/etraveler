@@ -1,6 +1,6 @@
 {
-	"formId":4,
-	"formName":"TEST TEST",
+	"formNo":"RF-750-010-327",
+	"formRev": "09",
 	"customer:":"CHECK POINT",
 	"itemRecord":[
 		{
@@ -57,13 +57,16 @@
 		{
 			"id":6,
 			"Description":"Panther",
-			"select":[
-				"PB-10",
-				"PB-20",
-				"PL-10",
-				"PL-20",
-				"PL-30"
-			]
+			"select":{
+				"name":"",
+				"options":[
+					"PB-10",
+					"PB-20",
+					"PL-10",
+					"PL-20",
+					"PL-30"
+				]
+			}
 		}
 	],
 	"steps":[

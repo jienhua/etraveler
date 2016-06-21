@@ -10,14 +10,17 @@ angular.module('TravelerCtrl', [])
 						$scope.forms = data;				
 						// find the last subStep
 						$scope.lastStep = data.steps.length;
-						$scope.travelerData.formId = data.formId;
+						// init the travelerData from formData
+						$scope.travelerData.formId = data._id;
+						$scope.travelerData.formRev = data.formRev;
+						$scope.travelerData.formNo = data.formNo;
+						$scope.travelerData.customer = data.customer;
 						// $scope.lastSubStep = data.forms.steps[data.forms.steps.length-1].list.length;
 					});
 			}
 		};
 
 		$scope.nextStep = function(){
-			// appendSubStepEditInfo();
 			var object = $scope.forms.steps[$scope.currentStep-1];
 			if(object.list.length >= $scope.currentSubStep+1){
 				$scope.currentSubStep += 1;	
@@ -32,14 +35,12 @@ angular.module('TravelerCtrl', [])
 		};
 
 		$scope.statusPage = function(page){
-			// appendSubStepEditInfo();
 			$scope.currentStep = page;
 			$scope.currentSubStep = 1;
 			$scope.readySubmit = false;
 		};
 
 		$scope.statusSubPage = function(page){
-			// appendSubStepEditInfo();
 			$scope.currentSubStep = page;
 		};
 
@@ -94,8 +95,7 @@ angular.module('TravelerCtrl', [])
 			}
 		};
 
-
-		var appendSubStepEditInfo = function(){
+		$scope.appendSubStepEditInfo = function(){
 			var username = document.getElementById('username').value;
 			if(username !== ''){
 				var currentStep = $scope.currentStep;
@@ -106,7 +106,21 @@ angular.module('TravelerCtrl', [])
 			}
 			alert('enter your name');
 			return false;
-		};
+		}
+
+		// var appendSubStepEditInfo = function(){
+		// 	alert(123123);
+		// 	var username = document.getElementById('username').value;
+		// 	if(username !== ''){
+		// 		var currentStep = $scope.currentStep;
+		// 		var currentSubStep = $scope.currentSubStep;
+		// 		$scope.travelerData.step[currentStep][currentSubStep].editBy = username;
+		// 		$scope.travelerData.step[currentStep][currentSubStep].editTime = new Date();
+		// 		return true;
+		// 	}
+		// 	alert('enter your name');
+		// 	return false;
+		// };
 
 		var loadFormList = function(){
 			Form.getFormList()
@@ -125,19 +139,19 @@ angular.module('TravelerCtrl', [])
 			$scope.isNew = true;
 		};
 
-		var startWatch = function(){
-			$scope.$watch(
-				'travelerData.step',
-				function(newValue, oldValue){
-					if(!$scope.isNew){
-						$scope.isNew = true;
-					}else{
-						console.log($scope.currentStep + ';'+$scope.currentSubStep+'changed');
-						appendSubStepEditInfo();
-					}
-				}, true
-			);
-		};
+		// var startWatch = function(){
+		// 	$scope.$watch(
+		// 		'travelerData.step',
+		// 		function(newValue, oldValue){
+		// 			if(!$scope.isNew){
+		// 				$scope.isNew = true;
+		// 			}else{
+		// 				// console.log($scope.currentStep + ';'+$scope.currentSubStep+'changed');
+		// 				appendSubStepEditInfo();
+		// 			}
+		// 		}, true
+		// 	);
+		// };
 
 		var main = function(){
 			reset();
@@ -159,7 +173,7 @@ angular.module('TravelerCtrl', [])
 						$scope.travelerData = data;
 					});
 			}
-			startWatch();
+			// startWatch();
 		};
 
 		main();

@@ -6,7 +6,7 @@
 			<label for='select-formId'>Select a Template:</label>
 			<select class='form-control' id='select-formId' ng-model='formId' ng-change='updateForm()' ng-disabled='travelerData.created'>
 				<option value="">---Please select---</option>
-				<option ng-repeat='option in formList' value='{{option.formId}}'>{{option.formId}} - {{option.formName}}</option>
+				<option ng-repeat='option in formList' value='{{option._id}}'>Doc. {{option.formNo}} Rev. {{option.formRev}}</option>
 			</select>
 		</div>
 	</form>
@@ -67,7 +67,8 @@
 								type='number' 
 								class='form-control' 
 								placeholder='0' 
-								ng-model='travelerData.step[step.step][subStep.sub_step]["qty"]'>
+								ng-model='travelerData.step[step.step][subStep.sub_step]["qty"]'
+								ng-change='appendSubStepEditInfo()'>
 						</div>
 					</div>
 
@@ -81,7 +82,9 @@
 										type='radio' 
 										name='radio' 
 										value='{{option}}' 
-										ng-model='travelerData.step[step.step][subStep.sub_step]["radio"]'>{{option}}
+										ng-model='travelerData.step[step.step][subStep.sub_step]["radio"]'
+										ng-change='appendSubStepEditInfo()'
+										>{{option}}
 									</label>
 								</div>
 							</div>
@@ -97,7 +100,9 @@
 									<label><input 
 										type='checkbox' 
 										value='{{option}}' 
-										ng-model='travelerData.step[step.step][subStep.sub_step]["checkbox"][option]'>{{option}}
+										ng-model='travelerData.step[step.step][subStep.sub_step]["checkbox"][option]'
+										ng-change='appendSubStepEditInfo()'
+										>{{option}}
 									</label>
 								</div>
 							</div>
@@ -108,7 +113,7 @@
 					<div ng-if='subStep.select' class='form-group'>
 						<label class='control-label col-sm-2'>{{subStep.select.name}}</label>
 						<div class='col-sm-10'>
-							<select class='form-control' ng-model='travelerData.step[step.step][subStep.sub_step]["select"]'>
+							<select class='form-control' ng-model='travelerData.step[step.step][subStep.sub_step]["select"]' ng-change='appendSubStepEditInfo()'>
 								<option value="">---Please select---</option>
 								<option ng-repeat='option in subStep.select.options' value='{{option}}'>
 									{{option}}
@@ -121,7 +126,8 @@
 					<div class='form-group'>
 						<label for='comment' class='control-label col-sm-2'>Comment: </label>
 						<div class='col-sm-10'>
-							<textarea class='form-control' row='5' id='comment' ng-model='travelerData.step[step.step][subStep.sub_step]["comment"]'></textarea>
+							<textarea class='form-control' row='5' id='comment' ng-model='travelerData.step[step.step][subStep.sub_step]["comment"]' ng-change='appendSubStepEditInfo()'
+							></textarea>
 						</div>
 					</div>
 				</form>

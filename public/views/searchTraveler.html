@@ -23,7 +23,7 @@
 			<thead>
 				<tr>
 					<th>_ID</th>
-					<th>Form ID</th>
+					<th>Form</th>
 					<th>Serial Number</th>
 					<th>Created At</th>
 					<th>Edit</th>
@@ -33,7 +33,7 @@
 			<tbody>
 				<tr ng-repeat='item in result'>
 					<td>{{item._id}}</td>
-					<td>{{item.formId}}</td>
+					<td>Doc.{{item.formNo}} Rev. {{item.formRev}}</td>
 					<td>{{item.sn}}</td>
 					<td>{{item.createAt | date: 'medium'}}</td>
 					<td><i class="fa fa-pencil-square-o fa-2x edit-icon" ng-click='editTraveler(item._id, item.formId)'></i></td>
