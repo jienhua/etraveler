@@ -8,7 +8,7 @@ var babel      = require('gulp-babel'),
 
 
 // define the default task and add the watch
-// gulp.task('default', ['build-js']);
+gulp.task('default', ['watch']);
 
 gulp.task('jshint', function(){
 	return gulp.src('source/js/**/*.js')
@@ -25,4 +25,8 @@ gulp.task('build-js', function(){
 			.pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
 		.pipe(sourcemaps.write())
 		.pipe(gulp.dest('public/js'));			
+});
+
+gulp.task('watch',function(){
+	gulp.watch('source/js/**/*.js', ['build-js']);
 });

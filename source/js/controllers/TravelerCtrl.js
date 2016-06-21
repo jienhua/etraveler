@@ -52,13 +52,11 @@ angular.module('TravelerCtrl', [])
 		$scope.save = function(){
 
 			if($scope.travelerData.created){
-				// if(appendSubStepEditInfo()){
 
-					Traveler.save($scope.travelerData)
-						.success(data =>{
-							// do something
-						});
-				// }
+				Traveler.save($scope.travelerData)
+					.success(data =>{
+						// do something
+					});
 			}else{
 				$scope.submit();
 			}
