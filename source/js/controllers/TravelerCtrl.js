@@ -2,6 +2,16 @@ angular.module('TravelerCtrl', [])
 	
 	.controller('TravelerController', ['$scope','Traveler', 'Form','$stateParams', function($scope, Traveler, Form, $stateParams){
 
+		$scope.checkReadyReview = function(){
+			if($scope.travelerData.status && $scope.travelerData.status !== 'OPEN'){
+				$scope.travelerData.status = 'OPEN';
+				$scope.travelerData.readyReview = false;
+			}else{
+				$scope.travelerData.status = 'PANDING FOR REVIEW';
+				$scope.travelerData.readyReview = true;
+			}
+		}
+
 		$scope.updateForm = function() {
 			$scope.travelerData = {};
 			if($scope.formId){
@@ -15,7 +25,7 @@ angular.module('TravelerCtrl', [])
 						$scope.travelerData.formRev = data.formRev;
 						$scope.travelerData.formNo = data.formNo;
 						$scope.travelerData.customer = data.customer;
-						// $scope.lastSubStep = data.forms.steps[data.forms.steps.length-1].list.length;
+						$scope.travelerData.status = 'OPEN';
 					});
 			}
 		};
@@ -28,8 +38,9 @@ angular.module('TravelerCtrl', [])
 				$scope.currentStep += 1;
 				$scope.currentSubStep = 1;
 				if($scope.currentStep > $scope.lastStep){
-					Traveler.setReviewData($scope.travelerData);
-					$scope.readySubmit = true;		
+					// Traveler.setReviewData($scope.travelerData);
+					// $scope.travelerData.readyReview = true;		
+					$scope.checkReadyReview();
 				}
 			}
 		};
@@ -37,7 +48,8 @@ angular.module('TravelerCtrl', [])
 		$scope.statusPage = function(page){
 			$scope.currentStep = page;
 			$scope.currentSubStep = 1;
-			$scope.readySubmit = false;
+			// $scope.travelerData.readyReview = false;
+			$scope.checkReadyReview();
 		};
 
 		$scope.statusSubPage = function(page){
@@ -47,7 +59,8 @@ angular.module('TravelerCtrl', [])
 		$scope.goBack = function(){
 			$scope.currentStep = 1;
 			$scope.currentSubStep = 1;
-			$scope.readySubmit = false;
+			// $scope.travelerData.readyReview = false;
+			$scope.checkReadyReview();
 		};
 
 		$scope.save = function(){
@@ -63,11 +76,25 @@ angular.module('TravelerCtrl', [])
 			}
 		};
 
+		$scope.review = function(option){
+			if($scope.travelerData.reviewBy){
+			if(option === 'reject'){
+				$scope.travelerData.status = 'REJECT';
+			}else if(option === 'complete'){
+				$scope.travelerData.status = 'COMPLETED';
+			}
+			$scope.travelerData.reviewAt = new Date();
+			$scope.save();
+			}else{
+				alert('enter reviewer name');
+			}
+		}
+
 		$scope.submit = function(){
-			if(document.getElementById('username').value){
+			if($scope.username && $scope.travelerData.sn){
 				// $scope.travelerData.completed = false;
 				$scope.travelerData.created = true;
-				$scope.travelerData.createdBy = document.getElementById('username').value;
+				$scope.travelerData.createdBy = $scope.username;
 				$scope.travelerData.createAt = new Date();
 				Traveler.create($scope.travelerData)
 
@@ -77,7 +104,7 @@ angular.module('TravelerCtrl', [])
 						$scope.travelerData = data;
 					});
 			}else{
-				alert('enter you name plz');
+				alert('enter your name or serial number plz ');
 			}
 		};
 
@@ -96,7 +123,7 @@ angular.module('TravelerCtrl', [])
 		};
 
 		$scope.appendSubStepEditInfo = function(){
-			var username = document.getElementById('username').value;
+			var username = $scope.username;
 			if(username !== ''){
 				var currentStep = $scope.currentStep;
 				var currentSubStep = $scope.currentSubStep;
@@ -134,7 +161,7 @@ angular.module('TravelerCtrl', [])
 			$scope.travelerData = {};
 			$scope.currentStep = 1;
 			$scope.currentSubStep = 1;
-			$scope.readySubmit = false;
+			$scope.travelerData.readyReview = false;
 			$scope.formId = '';
 			$scope.isNew = true;
 		};
@@ -156,6 +183,7 @@ angular.module('TravelerCtrl', [])
 		var main = function(){
 			reset();
 			loadFormList();
+			$scope.username = 'John Snow';
 
 			if($stateParams.formId){
 				$scope.formId = $stateParams.formId;

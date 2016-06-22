@@ -24,13 +24,14 @@ angular.module('appRoutes', ['ui.router'])
 					},
 					'formReview@traveler':{
 						templateUrl: 'views/formReview.html',
-						controller: ['$scope', 'Traveler', 'Form',function($scope, Traveler, Form){
-							$scope.reviewData = Traveler.getReviewData();
-							Form.get($scope.reviewData.formId)
-								.success(function(data){
-									$scope.forms = data;
-							});
-						}]
+						// controller: ['$scope', 'Traveler', 'Form',function($scope, Traveler, Form){
+						// 	$scope.reviewData = Traveler.getReviewData();
+						// 	Form.get($scope.reviewData.formId)
+						// 		.success(function(data){
+						// 			$scope.forms = data;
+						// 	});
+						// }]
+						// controller: 'TravelerController'
 					}
 				}
 			})

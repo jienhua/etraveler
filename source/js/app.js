@@ -1,8 +1,10 @@
 angular.module('sampleApp', 
 	[
 		'ui.router', 
-		'appRoutes', 
+		'ui.bootstrap',
+		'appRoutes',
 
+		'AppCtrl',
 		'MainCtrl', 
 		'TravelerCtrl', 
 		'SearchTravelerCtrl', 

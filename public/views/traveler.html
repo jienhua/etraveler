@@ -12,12 +12,19 @@
 	</form>
 </div>
 
-<div ng-if='!readySubmit && formId' class='container'>
+<div ng-if='!travelerData.readyReview && formId' class='container'>
 <div name='header'>
 	<h4>
-		Name: <input type='text' id='username' value='John Snow'>
-		SN: <input type="text" ng-model='travelerData.sn'/>
+		Serial Number: <input type="text" ng-model='travelerData.sn'/>
+		Customer: {{forms.customer}}
+		Status:{{travelerData.status}}	
+		<span>
+			<button class='btn btn-primary btn-lg pull-right' ng-click='checkReadyReview()'>
+				<i class="fa fa-check" aria-hidden="true"></i> Ready for Review						
+			</button>
+		</span>
 	</h4>
+	<br>
 	<hr>
 </div>
 
@@ -48,12 +55,11 @@
 			<a ng-class='{active: currentStep == step.step}' ng-repeat='step in forms.steps' ng-click='statusPage(step.step)'><span>{{step.step}}</span></a>
 		</div>
 
-		<input class='btn btn-primary myButton btn-lg pull-right' ng-if='!readySubmit' type="button" value='next' ng-click='nextStep()'/>
+		<input class='btn btn-primary myButton btn-lg pull-right' ng-if='!travelerData.readyReview' type="button" value='next' ng-click='nextStep()'/>
 		<div id='steps' ng-repeat='step in forms.steps'>
-			<h4 ng-if='currentStep == step.step'>
-			 {{step.type}} :: {{step.Description}}
-			</h4>
-			<hr>
+			<div class='page-header' ng-if='currentStep == step.step'>
+			 <h4>{{step.type}} :: {{step.Description}}</h4>
+			</div>
 			<!-- Step -->
 			<div ng-repeat='subStep in step.list'>
 
@@ -146,13 +152,13 @@
 </div>
 </div>
 
-<div ng-if='readySubmit' ui-view='formReview'></div>
+<div ng-if='travelerData.readyReview' ui-view='formReview'></div>
 
 <br>
 <!-- <input class='btn btn-primary myButton btn-lg pull-right' ng-if='!readySubmit' type="button" value='next' ng-click='nextStep()'/> -->
-<input class='btn btn-primary myButton btn-lg pull-right' ng-if='readySubmit && !travelerData.created' type="button" value='submit' ng-click='submit()'/>
+<input class='btn btn-primary myButton btn-lg pull-right' ng-if='travelerData.readyReview && !travelerData.created' type="button" value='submit' ng-click='submit()'/>
 <input class='btn btn-primary myButton btn-lg pull-right'  type='button' value='Save/Update' ng-click='save()'/>
-<input class='btn btn-primary myButton btn-lg pull-right' ng-if='readySubmit' type='button' value='Go Back' ng-click='goBack()'/>
+<input class='btn btn-primary myButton btn-lg pull-right' ng-if='travelerData.readyReview' type='button' value='Go Back' ng-click='goBack()'/>
 
 
 <br>

@@ -22,7 +22,7 @@
 		<table class='table table-bordered table-striped'>
 			<thead>
 				<tr>
-					<th>_ID</th>
+					<th>Status</th>
 					<th>Form</th>
 					<th>Serial Number</th>
 					<th>Created At</th>
@@ -32,7 +32,7 @@
 			</thead>
 			<tbody>
 				<tr ng-repeat='item in result'>
-					<td>{{item._id}}</td>
+					<td>{{item.status}}</td>
 					<td>Doc.{{item.formNo}} Rev. {{item.formRev}}</td>
 					<td>{{item.sn}}</td>
 					<td>{{item.createAt | date: 'medium'}}</td>
