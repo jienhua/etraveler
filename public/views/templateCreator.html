@@ -1,0 +1,157 @@
+<div class='container-fluid'>
+  <br>
+  <div class='row'>
+		<div class='col-sm-6'>
+      <form class='form-horizontal' role='form'>
+        <div class='form-group'>
+          <label class='control-label col-sm-2' for='formNo'>Doc. #:</label>
+          <div class='col-sm-10'>
+            <input type="text" class='form-control' id='formNo' placeholder='RF-750-010-327' ng-model='create.formNo'>
+          </div>
+        </div>
+        <div class='form-group'>
+          <label class='control-label col-sm-2' for='formRev'>Rev.:</label>
+          <div class='col-sm-10'>
+            <input type="text" class='form-control' id='formRev' placeholder='09' ng-model='create.formRev'>
+          </div>
+        </div>
+        <div class='form-group'>
+          <label class='control-label col-sm-2' for='customer'>Customer:</label>
+          <div class='col-sm-10'>
+            <input type="text" class='form-control' id='customer' placeholder='CHECK POINT' ng-model='create.customer'>
+          </div>
+        </div>
+        <hr>
+        <h4>
+          Item Record 
+          <button class='btn btn-primary pull-right' type='button' ng-click='addItemRecord()'>
+            <i class="fa fa-plus" aria-hidden="true"> Record</i>
+          </button>
+        </h4><br>
+        <div class='form-group'>
+          <label class='control-label col-sm-2' for='itemRecord'>Record:</label>
+          <div class='col-sm-10'>
+            <input type="text" class='form-control' id='itemRecord' placeholder='Product Model' ng-model='inputItemRecord'>
+          </div>
+        </div>
+        <div class='form-group'>
+          <label class='control-label col-sm-2'>Type: </label>
+          <div class='col-sm-10'>
+          <label class='radio-inline'>
+              <input type="radio" ng-model='inputItemRecordType' value='text' />
+              Text
+            </label>
+            <label class='radio-inline'>
+              <input type="radio" ng-model='inputItemRecordType' value='select' />
+              Select
+          </label>
+          </div>
+        </div>
+        <div class='form-group' ng-show='inputItemRecordType=="select"'>
+          <label class='control-label col-sm-2' for='selectOption'>Select Options</label>
+          <div class='col-sm-10'>
+            <textarea class='form-control' row='2' id='selectOption' ng-model='selectOptions' placeholder='option1,option2,option3'
+              ></textarea>
+          </div>
+        </div>
+        <hr>
+        <h4>
+          Step
+          <button class='btn btn-primary btn-sm pull-right' type='button' ng-click='addStep()'>
+            <i class="fa fa-plus" aria-hidden="true"> Step</i>
+          </button>
+        </h4><br>
+        <div class='form-group'>
+          <label class='control-label col-sm-2' for ='Step'>Description:</label>
+          <div class='col-sm-10'>
+            <input type="text" class='form-control' id='Step' placeholder='Initial Visual Inspection' ng-model='inputStepDes'>
+          </div>
+        </div>
+        <div class='form-group'>
+          <label class='control-label col-sm-2' for ='steptype'>Type:</label>
+          <div class='col-sm-10'>
+            <input type="text" class='form-control' id='steptype' placeholder='IQC' ng-model='inputStepType'>
+          </div>
+        </div>
+        <div ng-show='tempStep'>
+          <hr>
+          <h4>
+            Sub-Step
+            <button class='btn btn-primary btn-sm pull-right' type='button' ng-click='addSubStep()' ng-disabled='! tempSub.selectStepForSubStep'>
+              <i class="fa fa-plus" aria-hidden="true"> Sub Step</i>
+            </button>
+          </h4><br>
+          <div class='form-group'>
+            <label class='control-label col-sm-2' for ='currentStep4Sub'>Selected Steps</label>
+            <div class='col-sm-10'>
+              <select class='form-control' id='currentStep4Sub' ng-model='tempSub.selectStepForSubStep'>
+                <option ng-repeat='step in tempStep' value='{{$index}}'>Step:{{step.step}} Dec:{{step.Description}} Type: {{step.type}}</option>
+              </select>
+            </div>
+          </div>
+          <div class='form-group'>
+            <label class='control-label col-sm-2' for='subStep'>Description:</label>
+            <div class='col-sm-10'>
+              <input type="text" class='form-control' id='subStep' placeholder='Inner Carton and Form' ng-model='tempSub.inputSubStepDes'>
+            </div>
+          </div>
+          <hr>
+          <h4>
+            Sub-Step Options
+          </h4><br>
+          <div class='form-group'>
+            <label class='control-label col-sm-2' for ='currentSub4SubOption'>Select Sub Step</label>
+            <div class='col-sm-10'>
+              <select class='form-control' id='currentSub4SubOption' ng-model='tempSubOption.selectSubForOption'>
+                <optgroup ng-if='step.list' ng-repeat='step in tempStep' label='Step:{{step.step}} Des:{{step.Description}}'>
+                  <option ng-repeat='sub in step.list' value='{{$parent.$index}},{{$index}}'>{{step.step}}-{{sub.sub_step}}. {{sub.Description}}
+                  </option>
+                </optgroup>
+              </select>
+            </div>
+          </div>
+
+          <div class='form-group' ng-show='tempSubOption.selectSubForOption'>
+            <label class='control-label col-sm-2' for='subSelectOption'>Options:</label>
+            <div class='col-sm-9' >
+              <select class='form-control' id='subSelectOption' ng-model='tempSubOption.subOptions.selectSubOption' ng-change='subSelectOptionChange()'>
+                <option value='checkbox'>Check Box</option>
+                <option value='select'>Select</option>
+                <option value='radio'>Radio</option>
+              </select>
+            </div>
+            <button 
+              class='btn btn-primary btn-sm' 
+              type='button' ng-click='addSubOption()' 
+              ng-disabled='!tempSubOption.subOptions.option.name || !tempSubOption.subOptions.option.input'>
+              <i class='fa fa-plus' aria-hidden='true'></i>
+            </button>
+          </div>
+
+          <div ng-show='tempSubOption.subOptions.selectSubOption'>
+            <div class='form-group'>
+              <label class='control-label col-sm-2' for='subOptionName'>Description:</label>
+              <div class='col-sm-10'>
+                <input type="text" class='form-control' id='subOptionName' placeholder='Description' ng-model='tempSubOption.subOptions.option.name'>
+              </div>
+            </div>
+            <div class='form-group'>
+              <label class='control-label col-sm-2' for='subOptionInput'>Input Options:</label>
+              <div class='col-sm-10'>
+              <textarea class='form-control' row='2' id='subOptionInput' ng-model='tempSubOption.subOptions.option.input' placeholder='option1,option2,option3'
+                ></textarea>
+              </div>
+            </div>
+          </div> 
+        </div>
+      </form>
+		</div>
+		<div class='col-sm-6'>
+			<pre>{{create | json}}</pre>
+      <pre>{{inputItemRecord | json}}</pre>
+      TempStep<pre>{{tempStep | json }}</pre>
+      TempSub<pre>{{tempSub | json}}</pre>
+      TempSubOption<pre>{{tempSubOption | json}}</pre>
+		</div>
+	</div>
+</div>

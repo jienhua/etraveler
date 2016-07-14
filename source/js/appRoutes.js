@@ -44,8 +44,19 @@ angular.module('appRoutes', ['ui.router'])
 
 			.state('formGenerator',{
 				url: '/formGenerator',
-				templateUrl: 'views/formGenerator.html',
-				controller: 'FormGeneratorController'
+				views:{
+					'':{
+						templateUrl: 'views/formGeneratorNav.html',
+						controller: 'FormGeneratorController'
+					},
+					'templateGenerator@formGenerator':{
+						templateUrl: 'views/templateGenerator.html'
+					},
+					'templateCreator@formGenerator':{
+						templateUrl: 'views/templateCreator.html',
+						controller: 'FormGeneratorController'
+					}
+				}
 			});
 
 		$locationProvider.html5Mode(true);

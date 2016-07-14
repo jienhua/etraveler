@@ -1,4 +1,4 @@
-angular.module('AppCtrl', ['ui.bootstrap','ngAnimate'])
+angular.module('AppCtrl', ['ngAnimate'])
 	
 	.controller('AppController', ['$scope', function($scope){
 
