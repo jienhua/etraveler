@@ -2,7 +2,8 @@
   <br>
   <div class='row'>
 		<div class='col-sm-6'>
-      <form class='form-horizontal' role='form'>
+
+      <form class='form-horizontal' role='form' >
         <div class='form-group'>
           <label class='control-label col-sm-2' for='formNo'>Doc. #:</label>
           <div class='col-sm-10'>
@@ -22,6 +23,10 @@
           </div>
         </div>
         <hr>
+      </form>
+
+
+      <form class='form-horizontal' role='form' ng-submit='addItemRecord()'>
         <h4>
           Item Record 
           <button class='btn btn-primary pull-right' type='button' ng-click='addItemRecord()'>
@@ -55,6 +60,10 @@
           </div>
         </div>
         <hr>
+      </form>
+
+      <!-- step form -->
+      <form  class='form-horizontal' role='form' ng-keyup="$event.keyCode == 13 && addStep()"'>
         <h4>
           Step
           <button class='btn btn-primary btn-sm pull-right' type='button' ng-click='addStep()'>
@@ -73,11 +82,14 @@
             <input type="text" class='form-control' id='steptype' placeholder='IQC' ng-model='inputStepType'>
           </div>
         </div>
-        <div ng-show='tempStep'>
-          <hr>
+        <hr>
+      </form>
+
+      <font class='form-horizontal' role='form' ng-keyup="$event.keyCode == 13 && addSubStep()">
+        <div ng-show='create.steps'>
           <h4>
             Sub-Step
-            <button class='btn btn-primary btn-sm pull-right' type='button' ng-click='addSubStep()' ng-disabled='! tempSub.selectStepForSubStep'>
+            <button class='btn btn-primary btn-sm pull-right' type='button' ng-click='addSubStep()' ng-disabled='! tempSub.selectStepForSubStep || !tempSub.inputSubStepDes'>
               <i class="fa fa-plus" aria-hidden="true"> Sub Step</i>
             </button>
           </h4><br>
@@ -85,7 +97,7 @@
             <label class='control-label col-sm-2' for ='currentStep4Sub'>Selected Steps</label>
             <div class='col-sm-10'>
               <select class='form-control' id='currentStep4Sub' ng-model='tempSub.selectStepForSubStep'>
-                <option ng-repeat='step in tempStep' value='{{$index}}'>Step:{{step.step}} Dec:{{step.Description}} Type: {{step.type}}</option>
+                <option ng-repeat='step in create.steps' value='{{$index}}'>Step:{{step.step}} Dec:{{step.Description}} Type: {{step.type}}</option>
               </select>
             </div>
           </div>
@@ -103,7 +115,7 @@
             <label class='control-label col-sm-2' for ='currentSub4SubOption'>Select Sub Step</label>
             <div class='col-sm-10'>
               <select class='form-control' id='currentSub4SubOption' ng-model='tempSubOption.selectSubForOption'>
-                <optgroup ng-if='step.list' ng-repeat='step in tempStep' label='Step:{{step.step}} Des:{{step.Description}}'>
+                <optgroup ng-if='step.list' ng-repeat='step in create.steps' label='Step:{{step.step}} Des:{{step.Description}}'>
                   <option ng-repeat='sub in step.list' value='{{$parent.$index}},{{$index}}'>{{step.step}}-{{sub.sub_step}}. {{sub.Description}}
                   </option>
                 </optgroup>
@@ -147,11 +159,89 @@
       </form>
 		</div>
 		<div class='col-sm-6'>
+
+      <h4 ng-show='create.formNo'>Doc. No. {{create.formNo}}</h4>
+      <h4 ng-show='create.formRev'>Rev. {{create.formRev}}</h4>
+      <h4 ng-show='create.customer'>Customer: {{create.customer}}</h4>
+      <div ng-show='create.itemRecord' >
+        <hr>
+        <h4>Item Record</h4>
+        <lu class='dndList' dnd-list='create.itemRecord' >
+          <li
+            ng-repeat='record in create.itemRecord'
+            dnd-draggable='record'
+            dnd-moved='create.itemRecord.splice($index,1)'
+            dnd-effect-allowed='move'
+            dnd-dragend='modItemRecordID(create.itemRecord)'
+            ng-init='editItemRecord[$index]=false'
+            style='padding-top: 1px; padding-bottom: 1px'
+          >
+            <form class='form-horizontal' role='form'>
+              <div class='form-group' style='margin-bottom: 0px'>
+                <div class='col-sm-9'>
+                  <h4>{{record.Description}}</h4>
+                </div>
+                <div class='col-sm-3'>
+                  <button 
+                    class='btn btn-danger btn-sm pull-right' 
+                    type='button' 
+                    ng-click='create.itemRecord.splice($index,1) && modItemRecordID(create.itemRecord)'
+                    style='margin-top: 6px;margin-right: 2px;'
+                    >
+                    <i class='fa fa-times' aria-hidden='true'></i>
+                  </button>
+                  <button 
+                    class='btn btn-primary btn-sm pull-right' 
+                    type='button' 
+                    ng-click='editItemRecord[$index]=!editItemRecord[$index]'
+                    style='margin-top: 6px;margin-right: 2px'
+                    >
+                    <i class='fa fa-pencil-square-o' aria-hidden='true' ></i>
+                  </button>
+                </div>
+              </div>
+              <div class='form-group' ng-if='record.select'>
+                <h4 class='col-sm-2'>Select:</h4>
+                <div class='col-sm-10'>
+                  <select class="form-control" style="width:auto;">
+                    <option ng-repeat='op in record.select.options'>{{op}}</option>
+                  </select>
+                </div>
+              </div>
+              
+              <div ng-show='editItemRecord[$index]==true' width: auto;'>
+                <hr>
+                <div class='form-group'>
+                  <label class='control-label col-sm-2'>Record:</label>
+                  <div class='col-sm-10'>
+                    <input type="text" dnd-nodrag maxlength="50" class='form-control' ng-model='record.Description'>
+                  </div>
+                </div>
+                <div class='form-group' ng-show='record.select' ng-init='editItemOptions = record.select.options'>
+                  <label class='control-label col-sm-2'>Select Options:</label>
+                  <div class='col-sm-10'>
+                    <textarea dnd-nodrag class='form-control' ng-model='editItemOptions'></textarea>
+                  </div>
+                </div>
+                <h5 style='color:red;'>* Please Save to update the change</h5>
+                <div class='form-group'>
+                  <div class='col-sm-12'>
+                    <button 
+                      class='btn btn-primary btn-sm pull-right' 
+                      type='button' 
+                      ng-click='editItemRecordOption(record.select, editItemOptions); editItemRecord[$index]=!editItemRecord[$index]'>
+                      <i class='fa fa-floppy-o' aria-hidden='true'></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+            </form>
+          </li>
+        </lu>
+      </div>
+      <br><br>
 			<pre>{{create | json}}</pre>
-      <pre>{{inputItemRecord | json}}</pre>
-      TempStep<pre>{{tempStep | json }}</pre>
-      TempSub<pre>{{tempSub | json}}</pre>
-      TempSubOption<pre>{{tempSubOption | json}}</pre>
 		</div>
 	</div>
 </div>

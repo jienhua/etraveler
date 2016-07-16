@@ -10,7 +10,7 @@ angular.module('TravelerCtrl', [])
 				$scope.travelerData.status = 'PANDING FOR REVIEW';
 				$scope.travelerData.readyReview = true;
 			}
-		}
+		};
 
 		$scope.updateForm = function() {
 			$scope.travelerData = {};
@@ -88,7 +88,7 @@ angular.module('TravelerCtrl', [])
 			}else{
 				alert('enter reviewer name');
 			}
-		}
+		};
 
 		$scope.submit = function(){
 			if($scope.username && $scope.travelerData.sn){
@@ -133,7 +133,7 @@ angular.module('TravelerCtrl', [])
 			}
 			alert('enter your name');
 			return false;
-		}
+		};
 
 		// var appendSubStepEditInfo = function(){
 		// 	alert(123123);

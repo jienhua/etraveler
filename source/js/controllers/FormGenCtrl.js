@@ -6,6 +6,7 @@ angular.module('FormGenCtrl.js', ['ui.bootstrap.tabs'])
 		// }
 		
 		$scope.create = {};
+		// $scope.create.itemRecord=[1,2,3,4,5];
 		$scope.inputItemRecordType = 'text';
 
 		$scope.submit = function(){
@@ -41,6 +42,7 @@ angular.module('FormGenCtrl.js', ['ui.bootstrap.tabs'])
 					for(let i = 0; i<holder.length;i++){
 						holder[i] = holder[i].trim();
 					}
+					holder = Array.from(new Set(holder));
 					item['select'] = {'name':''};
 					item.select['options'] = holder;
 				}
@@ -51,38 +53,36 @@ angular.module('FormGenCtrl.js', ['ui.bootstrap.tabs'])
 
 		$scope.addStep = function(){
 			// if($scope.inputStepDes && $scope.inputStepDes !== ''){
-				if(!$scope.tempStep){
-					$scope.tempStep = [];
+				if(!$scope.create.steps){
 					$scope.create.steps = [];
 				}
-				var len = $scope.tempStep.length;
+				var len = $scope.create.steps.length;
 				var step = {
 					"step": len+1,
 					"type": $scope.inputStepType || '',
 					"Description": $scope.inputStepDes || ''
 				};
-				$scope.tempStep.push(step);
+				$scope.create.steps.push(step);
 
 				$scope.inputStepDes = '';
-				$scope.inputStepType = '';
 			// }
 		};
 
 		$scope.addSubStep = function(){
 			if($scope.tempSub.inputSubStepDes && $scope.tempSub.inputSubStepDes !== ''){
 				let stepIndex = $scope.tempSub.selectStepForSubStep;
-				if(!$scope.tempStep[stepIndex].list){
-					$scope.tempStep[stepIndex].list=[];
+				if(!$scope.create.steps[stepIndex].list){
+					$scope.create.steps[stepIndex].list=[];
 				}
-				let len = $scope.tempStep[stepIndex].list.length;
+				let len = $scope.create.steps[stepIndex].list.length;
 				let subStep = {
 					"sub_step": len+1,
 					"Description": $scope.tempSub.inputSubStepDes
 				};
-				$scope.tempStep[stepIndex].list.push(subStep);
+				$scope.create.steps[stepIndex].list.push(subStep);
 				$scope.tempSub.inputSubStepDes = '';
 			}
-		}
+		};
 
 		$scope.addSubOption = function(){
 			let step = $scope.tempSubOption.selectSubForOption.split(',')[0];
@@ -92,12 +92,15 @@ angular.module('FormGenCtrl.js', ['ui.bootstrap.tabs'])
 			for(let i=0; i< options.length;i++){
 				options[i] = options[i].trim();
 			}
+			options = Array.from(new Set(options));
 			let subStepOption = {
 					"name": $scope.tempSubOption.subOptions.option.name,
 					"options": options
-			}
-			$scope.tempStep[step].list[sub][selectOption] = subStepOption;
-		}
+			};
+			$scope.create.steps[step].list[sub][selectOption] = subStepOption;
+			$scope.tempSubOption.subOptions.option.name = '';
+			$scope.tempSubOption.subOptions.option.input = '';
+		};
 		// $scope.subSelectOptionChange = function(value){
 		// 	delete $scope.tempSub.subOptions.option;
 		// }
@@ -105,4 +108,18 @@ angular.module('FormGenCtrl.js', ['ui.bootstrap.tabs'])
 		// $scope.addSubOption = function(){
 
 		// }
+		$scope.modItemRecordID = function(object){
+			for(let i=0; i<object.length;i++){
+				object[i].id = i+1;
+			}
+		};
+		
+		$scope.editItemRecordOption = function(address, input){
+			address.options = [];
+			input = input.split(',');
+			for(let i=0;i<input.length;i++){
+				address.options[i] = input[i].trim();
+			}
+			address.options = Array.from(new Set(address.options));
+		};
 	}]);
