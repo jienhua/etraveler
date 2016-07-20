@@ -69,6 +69,17 @@
 				<td>{{forms.steps[$parent.$index].list[$index].Description}}</td>
 				<td>{{travelerData.step[step.step][$index+1].qty}}</td>
 				<td>
+
+					<div ng-repeat='(key, op) in travelerData.step[step.step][$index+1].options'>
+						{{item.options[key].name}} -
+						<span ng-if='item.options[key].type==="checkbox"' >
+							<span ng-if='op[$index]' ng-repeat='checkOp in item.options[key].options'>{{checkOp}} </span>
+						</span>
+						<span ng-if='item.options[key].type==="select"'>{{item.options[key].options[op]}}</span>
+
+						<span ng-if='item.options[key].type==="radio"'>{{item.options[key].options[op]}}</span>
+					</div>
+
 					<!-- if has radio option-->
 					<div ng-if='travelerData.step[step.step][item.sub_step].radio'>
 						{{item.radio.name}} -
@@ -88,6 +99,9 @@
 						{{item.select.name}} -
 						{{travelerData.step[step.step][item.sub_step].select}}
 					</div>
+
+
+
 				</td>
 				<td>{{travelerData.step[step.step][item.sub_step].comment}}</td>
 				<td>

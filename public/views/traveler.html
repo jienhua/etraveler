@@ -79,8 +79,54 @@
 						</div>
 					</div>
 
+					<div ng-if='subStep.options'>
+						<div class='form-group' ng-repeat='op in subStep.options'>
+							<label class='control-label col-sm-2'>{{op.name}}:</label>
+							<div class='col-sm-10'>
+								<div ng-if='op.type ==="checkbox"'>
+								<!-- checkbox -->
+									<label
+										class='checkbox-inline' 
+										ng-repeat='checkOp in op.options'
+									>
+										<input 
+											type="checkbox" 
+											value='{{checkOp}}'
+											ng-model='travelerData.step[step.step][subStep.sub_step]["options"][$parent.$index][$index]'
+											ng-change='appendSubStepEditInfo()'
+											>{{checkOp}}
+									</label>
+								</div>
+								<div ng-if='op.type ==="select"'>
+								<!-- select -->
+									<select 
+										class='form-control'
+										ng-model='travelerData.step[step.step][subStep.sub_step]["options"][$parent.$index]'
+										ng-change='appendSubStepEditInfo()'>
+										<option value=''>---Please select---</option>
+										<option ng-repeat='selectOp in op.options'
+												value='{{$index}}'>{{selectOp}}</option>
+									</select>
+								</div>
+								<!-- radio -->
+								<div ng-if='op.type ==="radio"'>
+									<label ng-repeat='radioOp in op.options'
+										   class='radio-inline'>
+										<input 
+											type="radio"
+											name="radio"
+											value='{{$index}}'
+											ng-model='travelerData.step[step.step][subStep.sub_step]["options"][$parent.$index]'
+											ng-change='appendSubStepEditInfo()'
+											>{{radioOp}}
+									</label>
+								</div>
+							</div>
+						</div>
+					</div>
+
 					<!-- radio -->
-					<div ng-if='subStep.radio' class='form-group'>
+					<!-- <div ng-if='subStep.radio' class='form-group'>
 						<label class='control-label col-sm-2'>{{subStep.radio.name}}</label>
 						<div class='col-sm-10'>
 							<div ng-repeat='option in subStep.radio.options'>
@@ -96,10 +142,10 @@
 								</div>
 							</div>
 						</div>
-					</div>
+					</div> -->
 
 					<!-- checkbox -->
-					<div ng-if='subStep.checkbox' class='form-group'>
+<!-- 					<div ng-if='subStep.checkbox' class='form-group'>
 						<label class='control-label col-sm-2'>{{subStep.checkbox.name}}</label>
 						<div class='col-sm-10'>
 							<div ng-repeat='option in subStep.checkbox.options'>
@@ -114,10 +160,10 @@
 								</div>
 							</div>
 						</div>
-					</div>
+					</div> -->
 					
 					<!-- select -->
-					<div ng-if='subStep.select' class='form-group'>
+	<!-- 				<div ng-if='subStep.select' class='form-group'>
 						<label class='control-label col-sm-2'>{{subStep.select.name}}</label>
 						<div class='col-sm-10'>
 							<select class='form-control' ng-model='travelerData.step[step.step][subStep.sub_step]["select"]' ng-change='appendSubStepEditInfo()'>
@@ -128,7 +174,7 @@
 							</select>
 						</div>
 					</div>
-
+ -->
 					<!-- comment -->
 					<div class='form-group'>
 						<label for='comment' class='control-label col-sm-2'>Comment: </label>
@@ -166,7 +212,7 @@
 <br>
 <br>
 <br>
-travelerData: {{travelerData}}<br>
-formTemplate: {{forms}}<br>
+travelerData: <pre>{{travelerData |json}}</pre><br>
+formTemplate: <pre>{{forms |json}}</pre><br>
 formId{{formId}}
 </div>

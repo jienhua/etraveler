@@ -46,10 +46,10 @@ angular.module('TravelerCtrl', [])
 		};
 
 		$scope.statusPage = function(page){
-			$scope.currentStep = page;
 			$scope.currentSubStep = 1;
+			$scope.currentStep = page;
 			// $scope.travelerData.readyReview = false;
-			$scope.checkReadyReview();
+			// $scope.checkReadyReview();
 		};
 
 		$scope.statusSubPage = function(page){
