@@ -90,10 +90,12 @@
     margin-bottom: -1px;
 }
 
-/**
- * Show selected elements in green
- */
-.dndList li.selected {
-    background-color: #dff0d8;
-    color: #3c763d;
-}
+.hideInputEffect{
+    border: none;
+    margin-top: 3px;
+} 
+/*
+.dragList{
+    padding-top: 1px; 
+    padding-bottom: 1px;
+}*/

@@ -85,7 +85,7 @@
         <hr>
       </form>
 
-      <font class='form-horizontal' role='form' ng-keyup="$event.keyCode == 13 && addSubStep()">
+      <form class='form-horizontal' role='form' ng-keyup="$event.keyCode == 13 && addSubStep()">
         <div ng-show='create.steps'>
           <h4>
             Sub-Step
@@ -107,6 +107,10 @@
               <input type="text" class='form-control' id='subStep' placeholder='Inner Carton and Form' ng-model='tempSub.inputSubStepDes'>
             </div>
           </div>
+        </div>
+      </form>
+      <form class='form-horizontal' role='form'>
+        <div ng-show='create.steps'>
           <hr>
           <h4>
             Sub-Step Options
@@ -158,23 +162,58 @@
         </div>
       </form>
 		</div>
-		<div class='col-sm-6'>
 
+		<div class='col-sm-6'>
+      <button class='btn' ng-click='jsonView = !jsonView'>
+        <i ng-show='!jsonView' class="fa fa-code-fork" aria-hidden="true"> JSON</i>
+        <i ng-show='jsonView' class='fa fa-file-code-o' aria-hidden='true'> GUI</i>
+      </button>
+      <button class='btn' ng-click='create.isPublish = !create.isPublish'>
+        <i ng-show='create.isPublish' class="fa fa-check-square-o" aria-hidden="true"> Publish</i>
+        <i ng-show='!create.isPublish' class='fa fa-square-o' aria-hidden='true'> Not Publish</i>
+      </button>
+      <button class='btn' ng-click='save()'>
+        <i class="fa fa-floppy-o" aria-hidden="true"> Save</i>
+      </button>
+      <button class='btn btn-danger' ng-click='delete()'>
+        <i class="fa fa-trash-o" aria-hidden="true"> Delete</i>
+      </button>
+    
+      <br>
+      <div ng-show='!jsonView'>
       <h4 ng-show='create.formNo'>Doc. No. {{create.formNo}}</h4>
       <h4 ng-show='create.formRev'>Rev. {{create.formRev}}</h4>
       <h4 ng-show='create.customer'>Customer: {{create.customer}}</h4>
-      <div ng-show='create.itemRecord' >
+      <div ng-show='create.itemRecord' ng-init='itemRecordCollapse = true; showItemRecord = true;' >
         <hr>
-        <h4>Item Record</h4>
-        <lu class='dndList' dnd-list='create.itemRecord' >
+        <h4>
+          Item Record
+          <button
+            class='btn btn-default btn-xs pull-right'
+            type='button'
+            ng-click='itemRecordCollapse = !itemRecordCollapse; showItemRecord = !showItemRecord'
+            ng-show='itemRecordCollapse'
+          >
+            <i class="fa fa-minus-square-o" aria-hidden="true"></i>
+          </button>
+          <button
+            class='btn btn-default btn-xs pull-right'
+            type='button'
+            ng-click='itemRecordCollapse = !itemRecordCollapse; showItemRecord = !showItemRecord'
+            ng-show='!itemRecordCollapse'
+          >
+            <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+          </button>
+        </h4>
+        <lu class='dndList' dnd-list='create.itemRecord' ng-show='showItemRecord'>
           <li
             ng-repeat='record in create.itemRecord'
             dnd-draggable='record'
             dnd-moved='create.itemRecord.splice($index,1)'
             dnd-effect-allowed='move'
-            dnd-dragend='modItemRecordID(create.itemRecord)'
+            dnd-dragend='modifyID(create.itemRecord, "itemRecord")'
             ng-init='editItemRecord[$index]=false'
-            style='padding-top: 1px; padding-bottom: 1px'
+            style='padding-top: 1px; padding-bottom: 1px;background-color:#F8F8FF'
           >
             <form class='form-horizontal' role='form'>
               <div class='form-group' style='margin-bottom: 0px'>
@@ -185,7 +224,7 @@
                   <button 
                     class='btn btn-danger btn-sm pull-right' 
                     type='button' 
-                    ng-click='create.itemRecord.splice($index,1) && modItemRecordID(create.itemRecord)'
+                    ng-click='create.itemRecord.splice($index,1); modifyID(create.itemRecord, "itemRecord");'
                     style='margin-top: 6px;margin-right: 2px;'
                     >
                     <i class='fa fa-times' aria-hidden='true'></i>
@@ -200,7 +239,7 @@
                   </button>
                 </div>
               </div>
-              <div class='form-group' ng-if='record.select'>
+              <div class='form-group' ng-if='record.select' style='margin-bottom: 0px'>
                 <h4 class='col-sm-2'>Select:</h4>
                 <div class='col-sm-10'>
                   <select class="form-control" style="width:auto;">
@@ -214,7 +253,7 @@
                 <div class='form-group'>
                   <label class='control-label col-sm-2'>Record:</label>
                   <div class='col-sm-10'>
-                    <input type="text" dnd-nodrag maxlength="50" class='form-control' ng-model='record.Description'>
+                    <input type="text" dnd-nodrag maxlength="70" class='form-control' ng-model='record.Description'>
                   </div>
                 </div>
                 <div class='form-group' ng-show='record.select' ng-init='editItemOptions = record.select.options'>
@@ -224,12 +263,12 @@
                   </div>
                 </div>
                 <h5 style='color:red;'>* Please Save to update the change</h5>
-                <div class='form-group'>
+                <div class='form-group' >
                   <div class='col-sm-12'>
                     <button 
                       class='btn btn-primary btn-sm pull-right' 
                       type='button' 
-                      ng-click='editItemRecordOption(record.select, editItemOptions); editItemRecord[$index]=!editItemRecord[$index]'>
+                      ng-click='editOption(record.select, editItemOptions); editItemRecord[$index]=!editItemRecord[$index]'>
                       <i class='fa fa-floppy-o' aria-hidden='true'></i>
                     </button>
                   </div>
@@ -239,9 +278,219 @@
             </form>
           </li>
         </lu>
+      </div> <!-- end of item record -->
+
+      <div ng-show='create.itemRecord' ng-init='stepsCollapse = true;'>
+        <hr>
+        <h4>
+          Steps 
+          <button
+            class='btn btn-default btn-xs pull-right'
+            type='button'
+            ng-click='stepsCollapse = !stepsCollapse;'
+            ng-show='stepsCollapse'
+          >
+            <i class="fa fa-minus-square-o" aria-hidden="true"></i>
+          </button>
+          <button
+            class='btn btn-default btn-xs pull-right'
+            type='button'
+            ng-click='stepsCollapse = !stepsCollapse;'
+            ng-show='!stepsCollapse'
+          >
+            <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+          </button>
+        </h4>
+
+        <ul class='dndList' 
+            dnd-list='create.steps'
+            dnd-allowed-types="['step']"
+            ng-show='stepsCollapse'>
+          <li
+            ng-repeat='step in create.steps'
+            dnd-draggable='step'
+            dnd-type="'step'"
+            dnd-moved='create.steps.splice($index, 1)'
+            dnd-effect-allowed='move'
+            dnd-dragend='modifyID(create.steps, "steps")'
+            ng-init='editSteps[$index]=false'
+            style='padding-top: 1px; padding-bottom: 10px; background-color:#F8F8FF'
+          >
+            <form class='form-horizontal' role='form'>
+              <div class='form-group' style='margin-bottom: 0px'>
+                <div class='col-sm-1'>
+                  <h4>{{step.step}}</h4>
+                </div>
+                <div class='col-sm-8'>
+                  <input type='text' dnd-nodrag class='hideInputEffect form-control' ng-model='step.Description' maxlength="70" style='background-color:#F8F8FF'/>
+                </div>
+                <div class='col-sm-3'>
+                  <button
+                    class='btn btn-danger btn-sm pull-right'
+                    type='button'
+                    ng-click='create.steps.splice($index,1); modifyID(create.steps, "steps");'
+                    style='margin-top: 6px;margin-right: 2px;'
+                  >
+                    <i class='fa fa-times' aria-hidden='true'></i>
+                  </button>
+                  <button 
+                    class='btn btn-primary btn-sm pull-right' 
+                    type='button' 
+                    ng-click='editSteps[$index]=!editSteps[$index]'
+                    style='margin-top: 6px;margin-right: 2px'
+                    >
+                    <i class='fa fa-pencil-square-o' aria-hidden='true' ></i>
+                  </button>
+                </div>
+              </div>
+              <div ng-show='editSteps[$index]==true'>
+                <ul class='dndList' 
+                    dnd-list='create.steps[$index].list'
+                    dnd-allowed-types='["sub_step"]'>
+                  <li ng-repeat='sub in create.steps[$index].list'
+                      dnd-draggable='sub'
+                      dnd-type='"sub_step"'
+                      dnd-moved='create.steps[$parent.$index].list.splice($index,1)'
+                      dnd-effect-allowed='move'
+                      dnd-dragend='modifyID(create.steps[$parent.$index].list, "sub_step")'
+                      ng-init='editSubSteps[$index]=false'
+                      style='padding-top: 1px; padding-bottom: 10px; 
+                    >
+                    <form class='form-horizontal' role='form'>
+                      <div class='form-group' style='margin-bottom: 0px'>
+                        <div class='col-sm-1'>
+                          <h4>{{step.step}}.{{sub.sub_step}}</h4>
+                        </div>
+                        <div class='col-sm-8'>
+                          <input type='text' dnd-nodrag class='hideInputEffect form-control' ng-model='sub.Description' maxlength="70" />
+                        </div>
+                        <div class='col-sm-3'>
+                          <button
+                            class='btn btn-danger btn-xs pull-right'
+                            type='button'
+                            ng-click='create.steps[$parent.$index].list.splice($index,1);modifyID(create.steps[$parent.$index].list, "sub_step");'
+                            style='margin-top: 6px;margin-right: 2px;'
+                          >
+                            <i class='fa fa-times' aria-hidden='true'></i>
+                          </button>
+                          <button 
+                            class='btn btn-primary btn-xs pull-right' 
+                            type='button' 
+                            ng-click='editSubSteps[$index]=!editSubSteps[$index]'
+                            style='margin-top: 6px;margin-right: 2px'
+                            >
+                            <i class='fa fa-pencil-square-o' aria-hidden='true' ></i>
+                          </button>
+                        </div>
+                      </div>
+
+                      <ul class='dndList'
+                          dnd-list='sub.options'
+                          dnd-allowed-types='["sub_step_options"]'
+                          ng-show='sub.options'>
+                        <li ng-repeat='op in sub.options'
+                            dnd-draggable='op'
+                            dnd-type='"sub_step_options"'
+                            dnd-moved='sub.options.splice($index,1)'
+                            dnd-effect-allowed='move'
+                            style='padding-top: 1px; padding-bottom: 1px;' >
+                          <div class='form-group' style='margin-bottom: 0px'>
+                            <div class='col-sm-3'>
+                              <h5>{{op.name}}</h5>
+                            </div>
+                            <div class='col-sm-6'>
+                              <div ng-show='op.type==="checkbox"'>
+                                <label class='checkbox-inline' ng-repeat='checkOp in op.options'>
+                                  <input type="checkbox">{{checkOp}}
+                                </label>
+                              </div>
+                              <div ng-show='op.type==="select"'>
+                                <select class='form-control'>
+                                  <option ng-repeat='selectOp in op.options'>
+                                    {{selectOp}}
+                                  </option>
+                                </select>
+                              </div>
+                              <div ng-show='op.type==="radio"'>
+                                <label class='radio-inline' ng-repeat='radioOp in op.options'>
+                                  <input type="radio" name='radioOp'>{{radioOp}}
+                                </label>
+                              </div>
+                            </div>
+                            <div class='col-sm-3'>
+                              <button
+                                class='btn btn-danger btn-xs pull-right'
+                                type='button'
+                                ng-click='sub.options.splice($index,1);'
+                                style='margin-top: 6px;margin-right: 2px;'
+                              >
+                                <i class='fa fa-times' aria-hidden='true'></i>
+                              </button>
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+
+
+
+
+                      <div ng-show='editSubSteps[$index] == true'> <!--sub step options edit form-->
+                        <hr>
+                        <ul style='padding-left: 0px'>
+                          <li ng-repeat='op in sub.options' ng-init='subOption[$index] = op.options'>
+                            <div class='form-group'>
+                              <label class='control-label col-sm-2'>Description:</label>
+                              <div class='col-sm-10'>
+                                <input type="text" dnd-nodrag maxlength='50' class='form-control' ng-model='op.name'>
+                              </div>
+                            </div>
+                            <div class='form-group'>
+                              <label class='control-label col-sm-2'>Type:</label>
+                              <div class='col-sm-10'>
+                                <select ng-model='op.type' class='form-control'>
+                                  <option value='checkbox'>Check Box</option>
+                                  <option value='select'>Select</option>
+                                  <option value='radio'>Radio</option>
+                                </select>
+                              </div>
+                            </div>
+                            <div class='form-group'>
+                              <label class='control-label col-sm-2'>Options</label>
+                              <div class='col-sm-10'>
+                                <textarea dnd-nodrag class='form-control' ng-model='subOption[$index]'></textarea>
+                              </div>
+                            </div>
+                            <h5 style='color:red;'>* Please Save to update the change</h5>
+                            <div class='form-group' >
+                              <div class='col-sm-12'>
+                                <button 
+                                  class='btn btn-primary btn-xs pull-right' 
+                                  type='button' 
+                                  ng-click='editOption(op, subOption[$index]);'>
+                                  <i class='fa fa-floppy-o' aria-hidden='true'></i>
+                                </button>
+                              </div>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+
+
+
+                    </form>
+                  </li>
+                </ul>
+              </div>
+            </form>
+          </li>
+        </ul>
       </div>
       <br><br>
-			<pre>{{create | json}}</pre>
-		</div>
+      </div>
+      <div ng-show='jsonView'>
+        <br>
+			  <pre>{{create | json}}</pre>
+      </div>
+		</div> <!-- class col-sm-6 half page -->
 	</div>
 </div>

@@ -14,6 +14,12 @@ angular.module('FormService', [])
 
 			get: function(formId){
 				return $http.get('/api/forms/'+formId);
+			},
+			save: function(data){
+				return $http.put('/api/forms', data);
+			},
+			delete: function(formId){
+				return $http.delete('/api/forms/'+formId);
 			}
 		};
 }]);

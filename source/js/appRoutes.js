@@ -50,7 +50,8 @@ angular.module('appRoutes', ['ui.router'])
 						controller: 'FormGeneratorController'
 					},
 					'templateGenerator@formGenerator':{
-						templateUrl: 'views/templateGenerator.html'
+						templateUrl: 'views/templateGenerator.html',
+						controller: 'FormGeneratorController'
 					},
 					'templateCreator@formGenerator':{
 						templateUrl: 'views/templateCreator.html',
