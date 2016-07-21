@@ -1,0 +1,1049 @@
+{
+  "isPublish": true,
+  "formNo": "RF-750-010-327",
+  "formRev": "09",
+  "customer": "CHECK POINT",
+  "itemRecord": [
+    {
+      "id": 1,
+      "Description": "Product Model",
+      "select": {
+        "name": "",
+        "options": [
+          "UTM",
+          "POWER",
+          "VSX",
+          "CONNECTRA",
+          "IPS",
+          "DLP",
+          "RUSSIA",
+          "U10 (CP 270)",
+          "MU20 (CP 570)",
+          "U20 (CP 1070)",
+          "U30 (CP 2070)",
+          "U40 (CP 3070)",
+          "P-10 (CP 5070)",
+          "P-20 (CP 9070)",
+          "P-30 (CP 11070)",
+          "P-110 (CP 2200)",
+          "T-120 (CP 4200)",
+          "T-140 (CP 4400)",
+          "T-160 (CP 4600)",
+          "T-180 (CP 4800)",
+          "P-210 (CP 12200)",
+          "P-220 (CP 12400)",
+          "P-230 (CP 12600)",
+          "VSX_P210 (CP 12200 VSX)",
+          "VSX_P220 (CP 12400 VSX)",
+          "VSX_P230(CP 12600 VSX)"
+        ]
+      }
+    },
+    {
+      "id": 2,
+      "Description": "Panther",
+      "select": {
+        "name": "",
+        "options": [
+          "PB-10",
+          "PB-20",
+          "PL-10",
+          "PL-20",
+          "PL-30"
+        ]
+      }
+    },
+    {
+      "id": 3,
+      "Description": "SW VER"
+    },
+    {
+      "id": 4,
+      "Description": "SO#"
+    },
+    {
+      "id": 5,
+      "Description": "MAC#"
+    },
+    {
+      "id": 6,
+      "Description": "Remark"
+    }
+  ],
+  "steps": [
+    {
+      "step": 1,
+      "type": "IQC",
+      "Description": "Initial Visual Inspection",
+      "list": [
+        {
+          "sub_step": 1,
+          "Description": "Outer Box",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Check List",
+              "options": [
+                "Checked",
+                "Damaged/Replaced"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 2,
+          "Description": "Inner Carton and Form",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Check List",
+              "options": [
+                "Checked"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 3,
+          "Description": "Appliance Surface Cosmetic & LCD Inspection",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Check List",
+              "options": [
+                "Checked",
+                "Damaged/ Put Aside-RMA"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 4,
+          "Description": "All Screws Assembly Well",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Check List",
+              "options": [
+                "Checked"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 5,
+          "Description": "Release Note",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Check List",
+              "options": [
+                "Checked"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 6,
+          "Description": "Assembly Kit",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Check List",
+              "options": [
+                "Checked"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 7,
+          "Description": "Warranty Label",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Check List",
+              "options": [
+                "Checked"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "step": 2,
+      "type": "IQC",
+      "Description": "",
+      "list": [
+        {
+          "sub_step": 1,
+          "Description": "CVER Test",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Check List",
+              "options": [
+                "Passed",
+                "Upload Test Log to Server"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 2,
+          "Description": "SW Version & Log in Screen Check",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Check List",
+              "options": [
+                "Failed",
+                "Put Aside and Issue RMA"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 3,
+          "Description": "LCD Check",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Check List",
+              "options": [
+                "Checked"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 4,
+          "Description": "FAN Check",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Check List",
+              "options": [
+                "Checked"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 5,
+          "Description": "LOM Test",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Check List",
+              "options": [
+                "Checked"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 6,
+          "Description": "PSU Check",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Check List",
+              "options": [
+                "Checked"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "step": 3,
+      "type": "IQC",
+      "Description": "Packaging Check",
+      "list": [
+        {
+          "sub_step": 1,
+          "Description": "Appliance SN matched with Box SN",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Check List",
+              "options": [
+                "Checked"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 2,
+          "Description": "Plastic Bag in Good Condition",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Check List",
+              "options": [
+                "Checked"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 3,
+          "Description": "All Screws Assembly Welll",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Check List",
+              "options": [
+                "Checked"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 4,
+          "Description": "Warranty Well",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Check List",
+              "options": [
+                "Checked"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 5,
+          "Description": "Sealed the Box",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Check List",
+              "options": [
+                "Checked"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "step": 4,
+      "type": "OQC",
+      "Description": "Expansion Cards",
+      "list": [
+        {
+          "sub_step": 1,
+          "Description": "CPAC-4-1C",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "PN",
+              "options": [
+                "309848"
+              ]
+            },
+            {
+              "type": "checkbox",
+              "name": "Check List",
+              "options": [
+                "Installed",
+                "Ship Alone"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 2,
+          "Description": "CPAC-8-1C/B",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "PN",
+              "options": [
+                "309818",
+                "317275"
+              ]
+            },
+            {
+              "type": "checkbox",
+              "name": "Check List",
+              "options": [
+                "Installed",
+                "Ship Alone"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 3,
+          "Description": "CPAC-4-1F/B",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "PN",
+              "options": [
+                "309816",
+                "317272"
+              ]
+            },
+            {
+              "type": "checkbox",
+              "name": "Check List",
+              "options": [
+                "Installed",
+                "Ship Alone"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 4,
+          "Description": "CPAC-4-10F/B",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "PN",
+              "options": [
+                "309817",
+                "317271"
+              ]
+            },
+            {
+              "type": "checkbox",
+              "name": "Check List",
+              "options": [
+                "Installed",
+                "Ship Alone"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 5,
+          "Description": "CPAC-2-1F",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "PN",
+              "options": [
+                "309911"
+              ]
+            },
+            {
+              "type": "checkbox",
+              "name": "Check List",
+              "options": [
+                "Installed",
+                "Ship Alone"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 6,
+          "Description": "CPAC-2-10F/B",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "PN",
+              "options": [
+                "309847",
+                "317270"
+              ]
+            },
+            {
+              "type": "checkbox",
+              "name": "Check List",
+              "options": [
+                "Installed",
+                "Ship Alone"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 7,
+          "Description": "CPAC-4-1C-BP/B",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "PN",
+              "options": [
+                "311577",
+                "317350"
+              ]
+            },
+            {
+              "type": "checkbox",
+              "name": "Check List",
+              "options": [
+                "Installed",
+                "Ship Alone"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 8,
+          "Description": "CPAC-4-1FSR-BP",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "PN",
+              "options": [
+                "311579"
+              ]
+            },
+            {
+              "type": "checkbox",
+              "name": "Check List",
+              "options": [
+                "Installed",
+                "Ship Alone"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 9,
+          "Description": "CPAC-4-1FLR-BP",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "PN",
+              "options": [
+                "311582"
+              ]
+            },
+            {
+              "type": "checkbox",
+              "name": "Check List",
+              "options": [
+                "Installed",
+                "Ship Alone"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 10,
+          "Description": "CPAC-2-10FLR-BP",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "PN",
+              "options": [
+                "311590"
+              ]
+            },
+            {
+              "type": "checkbox",
+              "name": "Check List",
+              "options": [
+                "Installed",
+                "Ship Alone"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 11,
+          "Description": "CPAC-2-10FSR-BP/B",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "PN",
+              "options": [
+                "311587",
+                "317348"
+              ]
+            },
+            {
+              "type": "checkbox",
+              "name": "Check List",
+              "options": [
+                "Installed",
+                "Ship Alone"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 12,
+          "Description": "CPAC-2-40P-B",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "PN",
+              "options": [
+                "317269"
+              ]
+            },
+            {
+              "type": "checkbox",
+              "name": "Check List",
+              "options": [
+                "Installed",
+                "Ship Alone"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "step": 5,
+      "type": "OQC",
+      "Description": "Optical Transceivers",
+      "list": [
+        {
+          "sub_step": 1,
+          "Description": "CPAC-TR-1LX/B",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "PN",
+              "options": [
+                "309855",
+                "317354"
+              ]
+            },
+            {
+              "type": "checkbox",
+              "name": "Check List",
+              "options": [
+                "Ship Alone"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 2,
+          "Description": "CPAC-TR-1SX/B",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "PN",
+              "options": [
+                "309821",
+                "317355"
+              ]
+            },
+            {
+              "type": "checkbox",
+              "name": "Check List",
+              "options": [
+                "Ship Alone"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 3,
+          "Description": "CPAC-TR-10SR/B",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "PN",
+              "options": [
+                "309822",
+                "317353"
+              ]
+            },
+            {
+              "type": "checkbox",
+              "name": "Check List",
+              "options": [
+                "Ship Alone"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 4,
+          "Description": "CPAC-TR-10LR/B",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "PN",
+              "options": [
+                "309856",
+                "317352"
+              ]
+            },
+            {
+              "type": "checkbox",
+              "name": "Check List",
+              "options": [
+                "Ship Alone"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 5,
+          "Description": "CPAC-TR-1T/B",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "PN",
+              "options": [
+                "309869",
+                "317356"
+              ]
+            },
+            {
+              "type": "checkbox",
+              "name": "Check List",
+              "options": [
+                "Ship Alone"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 6,
+          "Description": "CPAC-TR-40LR-QSFP-10Km",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "PN",
+              "options": [
+                "316655"
+              ]
+            },
+            {
+              "type": "checkbox",
+              "name": "Check List",
+              "options": [
+                "Ship Alone"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 7,
+          "Description": "CPAC-TR-40SR-QSFP-300m",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "PN",
+              "options": [
+                "316654"
+              ]
+            },
+            {
+              "type": "checkbox",
+              "name": "Check List",
+              "options": [
+                "Ship Alone"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "step": 6,
+      "type": "OQC",
+      "Description": "EVER Test",
+      "list": [
+        {
+          "sub_step": 1,
+          "Description": "CVER Test",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Check List",
+              "options": [
+                "Passed",
+                "Upload Test Log to server",
+                "Failed",
+                "Put Aside and Issue RMA"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "step": 7,
+      "type": "OQC",
+      "Description": "Software Testing Procedure(Refer to Model SOP)",
+      "list": [
+        {
+          "sub_step": 1,
+          "Description": "Software Testing Procedure (Refer to Model SOP)",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Check List",
+              "options": [
+                "Checked"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "step": 8,
+      "type": "OQC",
+      "Description": "Memory",
+      "list": [
+        {
+          "sub_step": 1,
+          "Description": "CPAC-RAM4GB for 4600/4800/12200 (PN 309934)",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Check List",
+              "options": [
+                "Installed",
+                "Ship Alone"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 2,
+          "Description": "CPAC-RAM4GB-12400 FOR 12400 (PN 309935)",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Check List",
+              "options": [
+                "Installed",
+                "Ship Alone"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 3,
+          "Description": "CPAC-RAM6GB-12600 FOR 12600 (PN 310189)",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Check List",
+              "options": [
+                "Installed",
+                "Ship Alone"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 4,
+          "Description": "CPAC-RAM8GB-5000 (PN 317280)",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Check List",
+              "options": [
+                "Installed",
+                "Ship Alone"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "step": 9,
+      "type": "OQC",
+      "Description": "",
+      "list": [
+        {
+          "sub_step": 1,
+          "Description": "CPAC-LOM-B (PN 317357)",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Check List",
+              "options": [
+                "Installed",
+                "Ship Alone"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "step": 10,
+      "type": "OQC",
+      "Description": "PSU",
+      "list": [
+        {
+          "sub_step": 1,
+          "Description": "CPAP-PSU-4800B/12200B (PN 316658)",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Check List",
+              "options": [
+                "Installed",
+                "Ship Alone"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 2,
+          "Description": "CPAC-PSU-3200/2200 (PN 317286)",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Check List",
+              "options": [
+                "Installed",
+                "Ship Alone"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 3,
+          "Description": "CPAC-PSU-5600/5800/4800/12200 (PN 317280)",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Check List",
+              "options": [
+                "Installed",
+                "Ship Alone"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "step": 11,
+      "type": "OQC",
+      "Description": "HDD ADD ON",
+      "list": [
+        {
+          "sub_step": 1,
+          "Description": "CPAC-HDD-500G-12200-T (PN 313286)",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Check List",
+              "options": [
+                "Installed",
+                "RAID SYNC",
+                "Ship Alone"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 2,
+          "Description": "CPAC-HDD-500G-12400-T (PN 313285)",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Check List",
+              "options": [
+                "Installed",
+                "RAID SYNC",
+                "Ship Alone"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "step": 12,
+      "type": "OQC",
+      "Description": "Packaging Check",
+      "list": [
+        {
+          "sub_step": 1,
+          "Description": "Check power cord type (if installed PSU, add one more)",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Check List",
+              "options": [
+                "Checked"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 2,
+          "Description": "Appliance SN matched with BOX SN",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Check List",
+              "options": [
+                "Checked"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 3,
+          "Description": "Plastic Bag in Good Condition",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Check List",
+              "options": [
+                "Checked"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 4,
+          "Description": "All Screws Assembly Well",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Check List",
+              "options": [
+                "Checked"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 5,
+          "Description": "Warranty Label",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Check List",
+              "options": [
+                "Checked"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 6,
+          "Description": "Sealed the Box",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Check List",
+              "options": [
+                "Checked"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
