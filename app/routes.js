@@ -1,5 +1,4 @@
 // grab the nerd model we just created
-var Nerd = require('./models/nerd');
 var api  = require('./etravelerAPI');
 
 module.exports = function(app) {
