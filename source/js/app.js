@@ -12,6 +12,7 @@ angular.module('sampleApp',
 		'FormGenCtrl.js',
 		
 		'TravelerService', 
-		'FormService'
+		'FormService',
+		'DocNumService'
 	]
 );

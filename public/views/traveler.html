@@ -7,7 +7,7 @@
 			<label for='select-formId'>Select a Template:</label>
 			<select class='form-control' id='select-formId' ng-model='formId' ng-change='updateForm()' ng-disabled='travelerData.created'>
 				<option value="">---Please select---</option>
-				<option ng-repeat='option in formList' value='{{option._id}}'>Doc. {{option.formNo}} Rev. {{option.formRev}}</option>
+				<option ng-repeat='option in formList |filter:{isPublish:true}' value='{{option._id}}'>Doc. {{option.formNo}} Rev. {{option.formRev}}</option>
 			</select>
 		</div>
 	</form>
@@ -30,7 +30,17 @@
 </div>
 
 <div name='itemRecord'>
+	<div class='form-group'>
+		<label class='control-label' for='docNumSelect'>Select Document#:</label>
+		<select class='form-control' id='docNumSelect'>
+			<option>1</option>
+		</select>
+	</div>
 	<div class='form-inline' role='form'>
+		<div class='form-group'>
+			<label for='docNum'>Document#</label>
+			<input type="text" id='docNum' class='form-control' ng-model='docNum.docNum'>
+		</div>
 		<div class='form-group' ng-repeat='item in forms.itemRecord'>
 			<label for='{{item.Description}}'>{{item.Description}}: </label>
 			<input ng-if="!item.select && !item.radio && !item.checkbox" type='text' class='form-control' id='{{item.Description}}' ng-model='travelerData.itemRecord[item.id]'>

@@ -5,7 +5,7 @@ angular.module('FormGenCtrl.js', ['ui.bootstrap.tabs'])
 
 		$scope.submit = function(password){
 			if(!password || password === ''){
-				var password = prompt('password');
+				password = prompt('password');
 			}
 			if(password === '123'){
 			Form.create($scope.template)
@@ -49,7 +49,7 @@ angular.module('FormGenCtrl.js', ['ui.bootstrap.tabs'])
 					initCreate();
 				
 			}
-		}
+		};
 
 		$scope.setSelectTab = function(n){
 			$scope.selectTab = n;
@@ -151,9 +151,13 @@ angular.module('FormGenCtrl.js', ['ui.bootstrap.tabs'])
 		};
 
 		$scope.editOption = function(address, input){
+      console.log(typeof input);
+      console.log(input);
 			if(address){
 				address.options = [];
-				input = input.split(',');
+        if(typeof input === 'string'){
+				  input = input.split(',');
+        }
 				for(let i=0;i<input.length;i++){
 					address.options[i] = input[i].trim();
 				}
@@ -161,19 +165,45 @@ angular.module('FormGenCtrl.js', ['ui.bootstrap.tabs'])
 			}
 		};
 
+    $scope.updateForm = function() {
+          $scope.travelerData = {};
+          if($scope.formId){
+            Form.get($scope.formId)
+              .success(function(data){
+                // $scope.forms = data;        
+                // // find the last subStep
+                // $scope.lastStep = data.steps.length;
+                // // init the travelerData from formData
+                // $scope.travelerData.formId = data._id;
+                // $scope.travelerData.formRev = data.formRev;
+                // $scope.travelerData.formNo = data.formNo;
+                // $scope.travelerData.customer = data.customer;
+                // $scope.travelerData.status = 'OPEN';
+                $scope.create= data;
+              });
+          }
+    };
 
 		var initCreate = function(){
 			$scope.create = {};
 			$scope.create.isPublish = false;
-		}
+		};
+
+    var loadFormList = function(){
+      Form.getFormList()
+        .success(function(data){
+          $scope.formList = data;
+      });
+    };
 
 		var main = function(){
 
 			initCreate();
+      loadFormList();
 		
 			$scope.inputItemRecordType = 'text';
 			$scope.jsonView = false;
-		}
+		};
 
 		main();
 	}]);

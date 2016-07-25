@@ -1,4 +1,19 @@
 <div class='container-fluid'>
+  <form role='form'>
+    <div class='form-group'>
+      <label for='select-formId'>Select a Template:</label>
+      <select class='form-control' id='select-formId' ng-model='formId' ng-change='updateForm()' ng-disabled='travelerData.created'>
+        <option value="">---Please select---</option>
+        <!-- <option ng-repeat='option in formList' value='{{option._id}}'>Publish {{option.isPublish}} Doc. {{option.formNo}} Rev. {{option.formRev}}</option> -->
+        <optgroup label="Publish">
+          <option ng-repeat='option in formList | filter:{isPublish:true}' value='{{option._id}}'>Doc. {{option.formNo}} Rev. {{option.formRev}}</option>
+        </optgroup>
+        <optgroup label="Not Publish">
+          <option ng-repeat='option in formList | filter:{isPublish:false}' value='{{option._id}}'>Doc. {{option.formNo}} Rev. {{option.formRev}}</option>
+        </optgroup>
+      </select>
+    </div>
+  </form>
   <br>
   <div class='row'>
 		<div class='col-sm-6'>
@@ -175,10 +190,13 @@
       <button class='btn' ng-click='save()'>
         <i class="fa fa-floppy-o" aria-hidden="true"> Save</i>
       </button>
+      <button class='btn btn-warning' ng-click=''>
+        <i class="fa fa-folder-open-o" aria-hidden="true"> New</i>
+      </button>
       <button class='btn btn-danger' ng-click='delete()'>
         <i class="fa fa-trash-o" aria-hidden="true"> Delete</i>
       </button>
-    
+      
       <br>
       <div ng-show='!jsonView'>
       <h4 ng-show='create.formNo'>Doc. No. {{create.formNo}}</h4>

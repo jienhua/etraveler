@@ -1,6 +1,6 @@
 angular.module('TravelerCtrl', [])
 	
-	.controller('TravelerController', ['$scope','Traveler', 'Form','$stateParams', function($scope, Traveler, Form, $stateParams){
+	.controller('TravelerController', ['$scope','Traveler', 'Form', 'DocNum', '$stateParams', function($scope, Traveler, Form, DocNum, $stateParams){
 
 		$scope.checkReadyReview = function(){
 			if($scope.travelerData.status && $scope.travelerData.status !== 'OPEN'){
@@ -26,6 +26,7 @@ angular.module('TravelerCtrl', [])
 						$scope.travelerData.formNo = data.formNo;
 						$scope.travelerData.customer = data.customer;
 						$scope.travelerData.status = 'OPEN';
+						loadDocNumList(data._id);
 					});
 			}
 		};
@@ -166,19 +167,13 @@ angular.module('TravelerCtrl', [])
 			$scope.isNew = true;
 		};
 
-		// var startWatch = function(){
-		// 	$scope.$watch(
-		// 		'travelerData.step',
-		// 		function(newValue, oldValue){
-		// 			if(!$scope.isNew){
-		// 				$scope.isNew = true;
-		// 			}else{
-		// 				// console.log($scope.currentStep + ';'+$scope.currentSubStep+'changed');
-		// 				appendSubStepEditInfo();
-		// 			}
-		// 		}, true
-		// 	);
-		// };
+		var loadDocNumList = function(id){
+			DocNum.getDocNumList(id)
+				.success(function(data){
+					console.log(data);
+					console.log(1233123);
+				});
+		};
 
 		var main = function(){
 			reset();
