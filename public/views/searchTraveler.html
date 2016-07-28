@@ -1,16 +1,46 @@
-<div class='container'>
+<div class='container-fluid'>
 	<div class='row'>
-		<div class='col-md-6'>
+		<div class='col-md-4'>
 			<h2>Search Traveler</h2>
-			<div id='sn-search-input'>
-				<div class='input-group col-md-12'>
-					<input type="number" class='form-control input-lg' placeholder="Serial Number" ng-model='searchInput'>
+			
+			<form class='form-inline well'>
+				<div class='form-group'>
+					<select class='form-control' ng-model='searchOption'>
+						<option value='docNum'>Doc#</option>
+						<option value='sn'>SN</option>
+					</select>
+				</div>
+				<div class='form-group input-group'>
+					<input type="text" class='form-control' placeholder='Search' ng-model='searchInput'>
 					<span class='input-group-btn'>
-						<button class='btn btn-info btn-lg' type='button' ng-click='search()'>
+						<button class='btn btn-info' type='button' ng-click='search()'>
 							<i class='glyphicon glyphicon-search'></i>
 						</button>
 					</span>
 				</div>
+			</form>
+
+		</div> <!-- col-md-6 -->
+
+		<div class='col-md-8'>
+			<div class='col-md-4'>
+				<h5>Completed: {{stat.COMPLETED}}</h5>
+				<h5>Panding For Review: {{stat['PANDING FOR REVIEW']}}</h5>
+				<h5>Open: {{stat.OPEN}}</h5>
+				<h5>Reject: {{stat.REJECT}}</h5>
+				<hr>
+				<h5>Process Percentage ( (complated+rejcect) / total): {{stat.pecComplete}}%</h5>
+				<h5>Rejected Percentage: {{stat.pecReject}}%</h5>
+			</div>
+			<div class='col-md-4'>
+				<canvas id="pie" class="chart chart-pie"
+  					chart-data="pieData1" chart-labels="pieLabels1" chart-options="options">
+				</canvas> 
+			</div>
+			<div class='col-md-4'>
+				<canvas id="pie" class="chart chart-pie"
+  					chart-data="pieData2" chart-labels="pieLabels2" chart-options="options">
+				</canvas> 
 			</div>
 		</div>
 	</div>
@@ -22,6 +52,7 @@
 		<table class='table table-bordered table-striped'>
 			<thead>
 				<tr>
+					<th>Doc#</th>
 					<th>Status</th>
 					<th>Form</th>
 					<th>Serial Number</th>
@@ -32,6 +63,7 @@
 			</thead>
 			<tbody>
 				<tr ng-repeat='item in result'>
+					<td>{{item.itemRecord.docNum}}</td>
 					<td>{{item.status}}</td>
 					<td>Doc.{{item.formNo}} Rev. {{item.formRev}}</td>
 					<td>{{item.sn}}</td>
@@ -52,6 +84,6 @@
 </div>
 
 
-{{searchInput}}
+<!-- {{searchInput}}
 <br>
-{{result}}
+{{result}} -->

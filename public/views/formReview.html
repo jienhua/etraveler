@@ -37,16 +37,20 @@
 	</div>
 
 	<h3>Item Record</h3>
-			
+			{{docNum.docNumData}}
 	<table class='table table-bordered'>
 		<tbody>
 			<tr>
+				<td class='tableHead'>Doc #</td>
 				<td ng-repeat='item in forms.itemRecord' class='tableHead'>{{item.Description}}</td>
 			</tr>
 			<tr>
+				<td>
+					{{docNum.docNumData.docNum}}
+				</td>
 				<td ng-repeat='item in forms.itemRecord'>
-					<div ng-if='!item.select && !item.radio && !item.checkbox'>{{travelerData.itemRecord[item.id]}}</div>
-					<div ng-if='item.select'>{{travelerData.itemRecord[item.id].select}}</div>
+					<div ng-if='!docNum.docNumData.attribute[item.Description].select && !docNum.docNumData.attribute[item.Description].radio && !docNum.docNumData.attribute[item.Description].checkbox'> {{docNum.docNumData.attribute[item.Description]}}</div>
+					<div ng-if='docNum.docNumData.attribute[item.Description].select'>{{docNum.docNumData.attribute[item.Description].select}}</div>
 				</td>
 			</tr>
 		</tbody>
