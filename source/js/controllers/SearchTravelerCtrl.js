@@ -38,6 +38,10 @@ angular.module('SearchTravelerCtrl', ['chart.js'])
 				});
 		};
 
+		// $scope.printTraveler = function(_id, formId){
+		// 	window.open('traveler?_id='+_id+'&formId='+formId+'&action=print', '_blank');
+		// }
+
 		var findStatistics = function(){
 			$scope.stat = {}
 			$scope.pieLabels1=[];

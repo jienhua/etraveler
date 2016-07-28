@@ -46,7 +46,7 @@
 	</div>
 </div>
 
-<div ng-if='isSearch'>
+<div ng-if='isSearch' id='div-id-selector'>
 	<div ng-if='result.length > 0'>
 		<h2>Total Data matchs: {{result.length}}</h2>
 		<table class='table table-bordered table-striped'>
@@ -59,6 +59,7 @@
 					<th>Created At</th>
 					<th>Edit</th>
 					<th>Delete</th>
+					<!-- <th>Print</th> -->
 				</tr>
 			</thead>
 			<tbody>
@@ -70,6 +71,7 @@
 					<td>{{item.createAt | date: 'medium'}}</td>
 					<td><i class="fa fa-pencil-square-o fa-2x edit-icon" ng-click='editTraveler(item._id, item.formId)'></i></td>
 					<td><i class="fa fa-trash-o fa-2x trash-icon" ng-click='removeTraveler(item._id)'></i></td>
+					<!-- <td><i class="fa fa-print fa-2x edit-icon" ng-click='printTraveler(item._id, item.formId)'></i></td> -->
 				</tr>
 			</tbody>
 		</table>

@@ -248,6 +248,17 @@ angular.module('TravelerCtrl', [])
 				});
 		}
 
+		$scope.printTraveler = function(){
+			var printContents = document.getElementById('div-id-selector').innerHTML;
+		    var popupWin = window.open('', '_blank', 'width=800,height=800,scrollbars=no,menubar=no,toolbar=no,location=no,status=no,titlebar=no,top=50');
+		    popupWin.window.focus();
+		    popupWin.document.open();
+		    popupWin.document.write('<!DOCTYPE html><html><head><title>TITLE OF THE PRINT OUT</title>' +
+		        '<link rel="stylesheet" type="text/css" href="libs/bootstrap/dist/css/bootstrap.min.css">' +
+		        '</head><body onload="window.print(); window.close();"><div>' + printContents + '</div></html>');
+		    popupWin.document.close();
+		}
+
 		var main = function(){
 
 			$scope.topCollapse=false;
@@ -274,7 +285,7 @@ angular.module('TravelerCtrl', [])
 						loadItemRecord();
 					});
 			}
-			// startWatch();
+			
 		};
 
 		main();
