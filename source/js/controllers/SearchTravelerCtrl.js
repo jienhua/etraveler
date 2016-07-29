@@ -62,11 +62,11 @@ angular.module('SearchTravelerCtrl', ['chart.js'])
 			if($scope.stat.REJECT){
 				reject = $scope.stat.REJECT;
 			}
-			$scope.stat.pecComplete = (($scope.stat.COMPLETED)+(reject))/(data.length)*100;
+			$scope.stat.pecComplete = ((($scope.stat.COMPLETED)+(reject))/(data.length)*100).toFixed(2);
 			
 			// calulate percent of reject out of total
 			if(($scope.stat.REJECT)/(data.length)*100){
-				$scope.stat.pecReject = ($scope.stat.REJECT)/(data.length)*100;
+				$scope.stat.pecReject = (($scope.stat.REJECT)/(data.length)*100).toFixed(2);
 			}else{
 				$scope.stat.pecReject = 0;
 			}

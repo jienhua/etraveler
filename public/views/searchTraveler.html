@@ -22,25 +22,27 @@
 
 		</div> <!-- col-md-6 -->
 
-		<div class='col-md-8'>
+		<div class='col-md-8' ng-if='isSearch && result.length > 0'>
 			<div class='col-md-4'>
-				<h5>Completed: {{stat.COMPLETED}}</h5>
-				<h5>Panding For Review: {{stat['PANDING FOR REVIEW']}}</h5>
-				<h5>Open: {{stat.OPEN}}</h5>
-				<h5>Reject: {{stat.REJECT}}</h5>
+				<h5><strong>Completed:</strong> {{stat.COMPLETED}}</h5>
+				<h5><strong>Panding For Review:</strong> {{stat['PANDING FOR REVIEW']}}</h5>
+				<h5><strong>Open:</strong> {{stat.OPEN}}</h5>
+				<h5><strong>Reject:</strong> {{stat.REJECT}}</h5>
 				<hr>
-				<h5>Process Percentage ( (complated+rejcect) / total): {{stat.pecComplete}}%</h5>
-				<h5>Rejected Percentage: {{stat.pecReject}}%</h5>
+				<h5><strong>Process Percentage ( [complated+rejcect] / total):</strong> {{stat.pecComplete}}%</h5>
+				<h5><strong>Rejected Percentage:</strong> {{stat.pecReject}}%</h5>
 			</div>
 			<div class='col-md-4'>
 				<canvas id="pie" class="chart chart-pie"
   					chart-data="pieData1" chart-labels="pieLabels1" chart-options="options">
 				</canvas> 
+				<h5 class='text-center'><strong>Distribution Chart</strong></h5>
 			</div>
 			<div class='col-md-4'>
 				<canvas id="pie" class="chart chart-pie"
   					chart-data="pieData2" chart-labels="pieLabels2" chart-options="options">
 				</canvas> 
+				<h5 class='text-center'><strong>Process Chart</strong></h5>
 			</div>
 		</div>
 	</div>

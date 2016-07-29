@@ -42,7 +42,7 @@ angular.module('TravelerCtrl', [])
 						$scope.travelerData.formNo = data.formNo;
 						$scope.travelerData.customer = data.customer;
 						$scope.travelerData.status = 'OPEN';
-						loadDocNumList(data._id)
+						loadDocNumList(data._id, ()=>{});
 					});
 			}
 		};
@@ -156,6 +156,21 @@ angular.module('TravelerCtrl', [])
 			return false;
 		};
 
+		$scope.printTraveler = function(){
+			var printContents = document.getElementById('div-id-selector').innerHTML;
+		    var popupWin = window.open('', '_blank', 'width=800,height=800,scrollbars=no,menubar=no,toolbar=no,location=no,status=no,titlebar=no,top=50');
+		    popupWin.window.focus();
+		    popupWin.document.open();
+		    popupWin.document.write('<!DOCTYPE html><html><head><title>TITLE OF THE PRINT OUT</title>' +
+		        '<link rel="stylesheet" type="text/css" href="libs/boosaveDocNumtstrap/dist/css/bootstrap.min.css">' +
+		        '</head><body onload="window.print(); window.close();"><div>' + printContents + '</div></html>');
+		    popupWin.document.close();
+		}
+
+		/************************
+		 *
+		 *
+		 ************************/
 		$scope.saveDocNum = function(){
 			$scope.docNum.docNumData.formId = $scope.travelerData.formId;
 			$scope.docNum.docNumData.formRev = $scope.travelerData.formRev;
@@ -166,17 +181,32 @@ angular.module('TravelerCtrl', [])
 			// console.log($scope.docNum.docNumData);
 			DocNum.create($scope.docNum.docNumData)
 				.success(function(data){
-					loadDocNumList($scope.travelerData.formId);
+					loadDocNumList($scope.travelerData.formId, (list)=>{
+						for(let i=0; i<list.length;i++){
+							if(list[i]._id === data._id){
+								$scope.docNum.docNumData = data;
+								$scope.docNum.docNumSelect = i.toString();
+							}
+						}
+					});
+					
 				});
 		};
 
 		$scope.editDocNum = function(){
-			// console.log($scope.docNum.docNumData);
-			setDocNumLabel('edit');
+			// setDocNumLabel('edit');
 			DocNum.editDocNumData($scope.docNum.docNumData)
 				.success(function(data){
-					loadDocNumList($scope.travelerData.formId);
+					loadDocNumList($scope.travelerData.formId, ()=>{});
 				});
+		};
+
+		$scope.checkForSN = function(){
+
+			// Traveler.get($scope.travelerData.sn)
+			// 		.success(function(data){
+			// 			console.log(data);
+			// 		});
 		};
 
 		var setNumDoctoTraveler = function(){
@@ -197,14 +227,14 @@ angular.module('TravelerCtrl', [])
 				}
 			}
 
-			if(action === 'edit'){
-				for(let i=0; i<$scope.docNum.docNumSelectList.length;i++){
-					if($scope.docNum.docNumSelectList[i].docNum === $scope.docNum.docNumData.docNum &&
-						$scope.docNum.docNumSelectList[i]._id !== $scope.docNum.docNumData._id){
-						count += 1;
-					}
-				}
-			}
+			// if(action === 'edit'){
+			// 	for(let i=0; i<$scope.docNum.docNumSelectList.length;i++){
+			// 		if($scope.docNum.docNumSelectList[i].docNum === $scope.docNum.docNumData.docNum &&
+			// 			$scope.docNum.docNumSelectList[i]._id !== $scope.docNum.docNumData._id){
+			// 			count += 1;
+			// 		}
+			// 	}
+			// }
 			$scope.docNum.docNumData.label = count;
 		};
 
@@ -225,10 +255,11 @@ angular.module('TravelerCtrl', [])
 			$scope.isNew = true;
 		};
 
-		var loadDocNumList = function(id){
+		var loadDocNumList = function(id, callback){
 			DocNum.getDocNumList(id)
 				.success(function(data){
 					$scope.docNum.docNumSelectList = data;
+					callback(data);
 				});
 		};
 
@@ -246,17 +277,6 @@ angular.module('TravelerCtrl', [])
 						}
 					}
 				});
-		}
-
-		$scope.printTraveler = function(){
-			var printContents = document.getElementById('div-id-selector').innerHTML;
-		    var popupWin = window.open('', '_blank', 'width=800,height=800,scrollbars=no,menubar=no,toolbar=no,location=no,status=no,titlebar=no,top=50');
-		    popupWin.window.focus();
-		    popupWin.document.open();
-		    popupWin.document.write('<!DOCTYPE html><html><head><title>TITLE OF THE PRINT OUT</title>' +
-		        '<link rel="stylesheet" type="text/css" href="libs/bootstrap/dist/css/bootstrap.min.css">' +
-		        '</head><body onload="window.print(); window.close();"><div>' + printContents + '</div></html>');
-		    popupWin.document.close();
 		}
 
 		var main = function(){

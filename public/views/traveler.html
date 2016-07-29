@@ -36,7 +36,7 @@
 	<div ng-if='!travelerData.readyReview && formId' class='container'>
 		<div name='header' ng-show='!topCollapse'>
 			<h4>
-				Serial Number: <input type="text" ng-model='travelerData.sn'/>
+				Serial Number: <input type="text" ng-model='travelerData.sn' ng-blur='checkForSN()' autofocus/>
 				Customer: {{forms.customer}}
 				Status:{{travelerData.status}}	
 				<span>
@@ -60,8 +60,6 @@
 				</select>
 			</div>
 
-			<!-- going to changeVVVVVVVVV -->
-			<!-- {{docNum.docNumSelectList}} -->
 			<div class='form-inline' role='form'>
 				<div class='form-group'>
 					<label for='docNum'>Document#</label>
@@ -92,25 +90,9 @@
 				</div>
 			</div>
 
-			<!--going to change ^^^^^^-->
-
-<!-- 			<form class='form-forizontal'>
-				<div class='form-group'>
-					<label for='docNum' class='control-label col-sm-2'>Document#</label>
-					<div class='col-sm-10'>
-						<input type="text" id='docNum' class='form-control' ng-model='docNum.docNumData.docNum'>
-					</div>
-				</div>
-				
-			</form> -->
-
-			<!-- {{docNum.docNumData}} -->
 			<br>
 			<hr style='margin-top: 1px; margin-bottom: 4px'>
 		</div>
-
-
-
 
 	<div name='steps'>
 
@@ -205,14 +187,9 @@
 					<div id='status-buttons-sub' class='text-right'>
 						<a ng-class='{active: currentSubStep == subStep.sub_step}' ng-repeat='subStep in step.list' ng-if='currentStep==step.step' ng-click='statusSubPage(subStep.sub_step)'><span>{{step.step}}.{{subStep.sub_step}}</span></a>
 					</div>
-				</div>	
-
-				
-			</div> 
-
-			
+				</div>			
+			</div> 	
 	</div>
-
 </div>
 
 <div ng-show='travelerData.readyReview' ui-view='formReview' id='div-id-selector'></div>
