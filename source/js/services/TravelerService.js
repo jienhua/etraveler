@@ -16,8 +16,8 @@ angular.module('TravelerService', [])
                 return reviewData;
             },
 
-            get: function(_id){
-                return $http.get('/api/traveler?_id='+ _id);
+            get: function(type, data){
+                return $http.get('/api/traveler?type='+type+'&data='+data);
             },
 
             save: function(data){

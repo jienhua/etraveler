@@ -203,10 +203,20 @@ angular.module('TravelerCtrl', [])
 
 		$scope.checkForSN = function(){
 
-			// Traveler.get($scope.travelerData.sn)
-			// 		.success(function(data){
-			// 			console.log(data);
-			// 		});
+			Traveler.normalSearch('sn', $scope.travelerData.sn)
+					.success(function(data){
+						if(data.length >0 ){
+							$scope.isSNExist = true;
+							$scope.searchSN = data;
+						}else{
+							$scope.isSNExist = false;
+						}
+					});
+		};
+
+		$scope.setTravelerData = function(){
+			$scope.travelerData = $scope.searchSN[$scope.selectSN];
+			loadItemRecord();
 		};
 
 		var setNumDoctoTraveler = function(){
@@ -279,13 +289,20 @@ angular.module('TravelerCtrl', [])
 				});
 		}
 
-		var main = function(){
-
+		var init = function(){
 			$scope.topCollapse=false;
-			reset();
-			loadFormList();
 			$scope.username = 'John Snow';
 			$scope.docNum = {};
+			$scope.isSNExist = false;
+			$scope.searchSN = {};
+			$scope.selectSN = '0';
+		}
+
+		var main = function(){
+
+			init();
+			reset();
+			loadFormList();
 
 			if($stateParams.formId){
 				$scope.formId = $stateParams.formId;
@@ -297,7 +314,7 @@ angular.module('TravelerCtrl', [])
 			// take the pramas from URL
 			if($stateParams._id){
 				$scope.isNew = false;
-				Traveler.get($stateParams._id)
+				Traveler.get('_id', $stateParams._id)
 					.success(function(data){
 						// data is a array. result could be more than one
 						// need to deal wit this.

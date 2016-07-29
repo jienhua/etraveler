@@ -6,10 +6,8 @@ module.exports = (req, res) =>{
 	var query = {};
 	console.log(typeof req.query.data);
 	if(type === 'docNum'){
-		console.log(1);
 		query["itemRecord.docNum"] = req.query.data;
 	}else{
-		console.log(2);
 		query[type] = req.query.data;
 	}
 	

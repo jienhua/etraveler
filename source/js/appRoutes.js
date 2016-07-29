@@ -23,7 +23,7 @@ angular.module('appRoutes', ['ui.router'])
 						controller: 'TravelerController'
 					},
 					'formReview@traveler':{
-						templateUrl: 'views/formReview.html',
+						templateUrl: 'views/formReview.html'
 						// controller: ['$scope', 'Traveler', 'Form',function($scope, Traveler, Form){
 						// 	$scope.reviewData = Traveler.getReviewData();
 						// 	Form.get($scope.reviewData.formId)
@@ -38,8 +38,15 @@ angular.module('appRoutes', ['ui.router'])
 
 			.state('searchTraveler',{
 				url: '/searchTraveler',
-				templateUrl: 'views/searchTraveler.html',
-				controller: 'SearchTravelerController'
+				views:{
+					'':{
+						templateUrl: 'views/searchTraveler.html',
+						controller: 'SearchTravelerController'
+					},
+					'formReview@searchTraveler':{
+						templateUrl: 'views/formReview.html'
+					}
+				}
 			})
 
 			.state('formGenerator',{

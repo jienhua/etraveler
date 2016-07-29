@@ -38,8 +38,16 @@ angular.module('SearchTravelerCtrl', ['chart.js'])
 				});
 		};
 
-		// $scope.printTraveler = function(_id, formId){
-		// 	window.open('traveler?_id='+_id+'&formId='+formId+'&action=print', '_blank');
+		// $scope.printTraveler = function(index){
+		// 	$scope.travelerData = $scope.result[index];
+		// 	// var printContents = document.getElementById('div-id-selector').innerHTML;
+		//  //    var popupWin = window.open('', '_blank', 'width=800,height=800,scrollbars=no,menubar=no,toolbar=no,location=no,status=no,titlebar=no,top=50');
+		//  //    popupWin.window.focus();
+		//  //    popupWin.document.open();
+		//  //    popupWin.document.write('<!DOCTYPE html><html><head><title>TITLE OF THE PRINT OUT</title>' +
+		//  //        '<link rel="stylesheet" type="text/css" href="libs/boosaveDocNumtstrap/dist/css/bootstrap.min.css">' +
+		//  //        '</head><body onload="window.print(); window.close();"><div>' + printContents + '</div></html>');
+		//  //    popupWin.document.close();
 		// }
 
 		var findStatistics = function(){
@@ -57,16 +65,20 @@ angular.module('SearchTravelerCtrl', ['chart.js'])
 			}
 			$scope.stat.total = data.length;
 			let reject = 0;
-
+			let completed = 0;
 			// calulate percent of total complated out of total
 			if($scope.stat.REJECT){
 				reject = $scope.stat.REJECT;
 			}
-			$scope.stat.pecComplete = ((($scope.stat.COMPLETED)+(reject))/(data.length)*100).toFixed(2);
+
+			if($scope.stat.COMPLETED){
+				completed = $scope.stat.COMPLETED;
+			}
+			$scope.stat.pecComplete = (((completed)+(reject))/(data.length)*100).toFixed(2);
 			
 			// calulate percent of reject out of total
 			if(($scope.stat.REJECT)/(data.length)*100){
-				$scope.stat.pecReject = (($scope.stat.REJECT)/(data.length)*100).toFixed(2);
+				$scope.stat.pecReject = ((reject)/(data.length)*100).toFixed(2);
 			}else{
 				$scope.stat.pecReject = 0;
 			}
@@ -76,13 +88,16 @@ angular.module('SearchTravelerCtrl', ['chart.js'])
 			}
 
 			$scope.pieLabels2 = ['Finish', 'Hold'];
-			$scope.pieData2 = [$scope.stat.COMPLETED+reject, ($scope.stat.total-($scope.stat.COMPLETED+reject))];
+			$scope.pieData2 = [completed+reject, ($scope.stat.total-(completed+reject))];
 	
 		}
 
 		var init = function(){
 			$scope.isSearch = false;
 			$scope.searchOption = 'docNum';
+			$scope.sortType = 'createAt';
+			$scope.sortReverse = false;
+			$scope.travelerData = {};
 		};
 
 		var main = function(){

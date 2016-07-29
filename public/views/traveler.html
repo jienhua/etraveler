@@ -33,20 +33,36 @@
 		</form>
 	</div>
 
-	<div ng-if='!travelerData.readyReview && formId' class='container'>
+	<div ng-show='!travelerData.readyReview && formId' class='container'>
 		<div name='header' ng-show='!topCollapse'>
-			<h4>
-				Serial Number: <input type="text" ng-model='travelerData.sn' ng-blur='checkForSN()' autofocus/>
-				Customer: {{forms.customer}}
-				Status:{{travelerData.status}}	
-				<span>
+			<div class='row'>
+				<div class='col-xs-8'>
+					<div class='col-xs-6'>
+						<h4>Serial Number: <input type="text" class='form-control' ng-model='travelerData.sn' ng-blur='checkForSN()' autofocus style='width: 200px'/></h4>
+						<span ng-if='isSNExist' style='color:red;'>* Same Serial Number detect in database.</span><br>
+						<select ng-show='isSNExist' class='form-control' style='width:auto;' ng-model='selectSN'>
+							<option ng-repeat='item in searchSN' value='{{$index}}'>
+								Create At: {{item.createAt|date: 'shortDate'}}  Status: {{item.status}}
+							</option>
+						</select>
+						<br>
+						<button ng-if='isSNExist' class='btn btn-primary btn-sm' ng-click='setTravelerData()'>
+							Open/Use
+						</button>
+					</div>
+					<div class='col-xs-6'>
+						<h4>Customer</h4><span> - {{forms.customer}}</span>
+						<h4>Status</h4><span> - {{travelerData.status}}</span>
+					</div>
+				</div>
+				<div class='col-xs-4'>
+					<br>
 					<button class='btn btn-primary btn-md pull-right' ng-click='checkReadyReview()'>
 						<i class="fa fa-check" aria-hidden="true"></i> Ready for Review						
 					</button>
-				</span>
-			</h4>
-			<br>
-			<hr style='margin-top: 1px; margin-bottom: 4px'>
+				</div>
+			</div>
+			<hr>
 		</div>
 
 		<div name='itemRecord' ng-show='!topCollapse'>

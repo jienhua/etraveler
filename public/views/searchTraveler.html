@@ -1,4 +1,4 @@
-<div class='container-fluid'>
+<div class='container-fluid hidden-print'>
 	<div class='row'>
 		<div class='col-md-4'>
 			<h2>Search Traveler</h2>
@@ -19,7 +19,6 @@
 					</span>
 				</div>
 			</form>
-
 		</div> <!-- col-md-6 -->
 
 		<div class='col-md-8' ng-if='isSearch && result.length > 0'>
@@ -48,24 +47,39 @@
 	</div>
 </div>
 
-<div ng-if='isSearch' id='div-id-selector'>
+<div ng-if='isSearch' class='hidden-print'>
 	<div ng-if='result.length > 0'>
 		<h2>Total Data matchs: {{result.length}}</h2>
 		<table class='table table-bordered table-striped'>
 			<thead>
 				<tr>
 					<th>Doc#</th>
-					<th>Status</th>
-					<th>Form</th>
-					<th>Serial Number</th>
-					<th>Created At</th>
+					<th>
+						<a href="#" ng-click="sortType = 'status'; sortReverse = !sortReverse">
+            			Status
+            			<span ng-show="sortType == 'status' && !sortReverse" class="fa fa-caret-down"></span>
+            			<span ng-show="sortType == 'status' && sortReverse" class="fa fa-caret-up">
+            		</th>
+            		<th>Form</th>
+            		<th>
+						<a href="#" ng-click="sortType = 'sn'; sortReverse = !sortReverse">
+            			Serial Number
+            			<span ng-show="sortType == 'sn' && !sortReverse" class="fa fa-caret-down"></span>
+            			<span ng-show="sortType == 'sn' && sortReverse" class="fa fa-caret-up">
+            		</th>
+            		<th>
+						<a href="#" ng-click="sortType = 'createAt'; sortReverse = !sortReverse">
+            			Created At
+            			<span ng-show="sortType == 'createAt' && !sortReverse" class="fa fa-caret-down"></span>
+            			<span ng-show="sortType == 'createAt' && sortReverse" class="fa fa-caret-up">
+            		</th>
 					<th>Edit</th>
 					<th>Delete</th>
 					<!-- <th>Print</th> -->
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat='item in result'>
+				<tr ng-repeat='item in result | orderBy:sortType:sortReverse'>
 					<td>{{item.itemRecord.docNum}}</td>
 					<td>{{item.status}}</td>
 					<td>Doc.{{item.formNo}} Rev. {{item.formRev}}</td>
@@ -73,7 +87,7 @@
 					<td>{{item.createAt | date: 'medium'}}</td>
 					<td><i class="fa fa-pencil-square-o fa-2x edit-icon" ng-click='editTraveler(item._id, item.formId)'></i></td>
 					<td><i class="fa fa-trash-o fa-2x trash-icon" ng-click='removeTraveler(item._id)'></i></td>
-					<!-- <td><i class="fa fa-print fa-2x edit-icon" ng-click='printTraveler(item._id, item.formId)'></i></td> -->
+					<!-- <td><i class="fa fa-print fa-2x edit-icon" ng-click='printTraveler($index)'></i></td> -->
 				</tr>
 			</tbody>
 		</table>
@@ -87,7 +101,4 @@
 	</div>
 </div>
 
-
-<!-- {{searchInput}}
-<br>
-{{result}} -->
+<!-- <div ui-view='formReview'  id='div-id-selector'></div> -->
