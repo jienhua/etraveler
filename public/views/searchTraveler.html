@@ -30,6 +30,7 @@
 				<hr>
 				<h5><strong>Process Percentage ( [complated+rejcect] / total):</strong> {{stat.pecComplete}}%</h5>
 				<h5><strong>Rejected Percentage:</strong> {{stat.pecReject}}%</h5>
+				<!-- <h5><strong>{{totalTimeSpend()}}</strong></h5> -->
 			</div>
 			<div class='col-md-4'>
 				<canvas id="pie" class="chart chart-pie"
@@ -73,6 +74,7 @@
             			<span ng-show="sortType == 'createAt' && !sortReverse" class="fa fa-caret-down"></span>
             			<span ng-show="sortType == 'createAt' && sortReverse" class="fa fa-caret-up">
             		</th>
+            		<!-- <th>Time Spend per Traveler</th> -->
 					<th>Edit</th>
 					<th>Delete</th>
 					<!-- <th>Print</th> -->
@@ -85,6 +87,7 @@
 					<td>Doc.{{item.formNo}} Rev. {{item.formRev}}</td>
 					<td>{{item.sn}}</td>
 					<td>{{item.createAt | date: 'medium'}}</td>
+					<!-- <td>{{timeSpend(item)}}</td> -->
 					<td><i class="fa fa-pencil-square-o fa-2x edit-icon" ng-click='editTraveler(item._id, item.formId)'></i></td>
 					<td><i class="fa fa-trash-o fa-2x trash-icon" ng-click='removeTraveler(item._id)'></i></td>
 					<!-- <td><i class="fa fa-print fa-2x edit-icon" ng-click='printTraveler($index)'></i></td> -->
@@ -101,4 +104,6 @@
 	</div>
 </div>
 
+
+<!-- <pre>{{result |json}}</pre> -->
 <!-- <div ui-view='formReview'  id='div-id-selector'></div> -->

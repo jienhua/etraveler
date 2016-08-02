@@ -49,6 +49,7 @@ angular.module('TravelerCtrl', [])
 
 		$scope.updateDocNum = function(){
 			$scope.docNum.docNumData = $scope.docNum.docNumSelectList[$scope.docNum.docNumSelect];
+			setNumDoctoTraveler();
 		};
 
 		$scope.nextStep = function(){
@@ -86,10 +87,12 @@ angular.module('TravelerCtrl', [])
 
 		$scope.save = function(){
 			if($scope.travelerData.created){
-				setNumDoctoTraveler();
+				// setNumDoctoTraveler();
 				Traveler.save($scope.travelerData)
 					.success(data =>{
 						// do something
+						alert('saved');
+						shouldCollapse();
 					});
 			}else{
 				$scope.submit();
@@ -98,13 +101,13 @@ angular.module('TravelerCtrl', [])
 
 		$scope.review = function(option){
 			if($scope.travelerData.reviewBy){
-			if(option === 'reject'){
-				$scope.travelerData.status = 'REJECT';
-			}else if(option === 'complete'){
-				$scope.travelerData.status = 'COMPLETED';
-			}
-			$scope.travelerData.reviewAt = new Date();
-			$scope.save();
+				if(option === 'reject'){
+					$scope.travelerData.status = 'REJECT';
+				}else if(option === 'complete'){
+					$scope.travelerData.status = 'COMPLETED';
+				}
+				$scope.travelerData.reviewAt = new Date();
+				$scope.save();
 			}else{
 				alert('enter reviewer name');
 			}
@@ -113,7 +116,7 @@ angular.module('TravelerCtrl', [])
 		$scope.submit = function(){
 			if($scope.username && $scope.travelerData.sn){
 				// $scope.travelerData.completed = false;
-				setNumDoctoTraveler();
+				// setNumDoctoTraveler();
 				$scope.travelerData.created = true;
 				$scope.travelerData.createdBy = $scope.username;
 				$scope.travelerData.createAt = new Date();
@@ -123,6 +126,8 @@ angular.module('TravelerCtrl', [])
 					.success( data =>{
 						// console.log(data);
 						$scope.travelerData = data;
+						alert('submit complete');
+						shouldCollapse();
 					});
 			}else{
 				alert('enter your name or serial number plz ');
@@ -157,14 +162,15 @@ angular.module('TravelerCtrl', [])
 		};
 
 		$scope.printTraveler = function(){
-			var printContents = document.getElementById('div-id-selector').innerHTML;
-		    var popupWin = window.open('', '_blank', 'width=800,height=800,scrollbars=no,menubar=no,toolbar=no,location=no,status=no,titlebar=no,top=50');
-		    popupWin.window.focus();
-		    popupWin.document.open();
-		    popupWin.document.write('<!DOCTYPE html><html><head><title>TITLE OF THE PRINT OUT</title>' +
-		        '<link rel="stylesheet" type="text/css" href="libs/boosaveDocNumtstrap/dist/css/bootstrap.min.css">' +
-		        '</head><body onload="window.print(); window.close();"><div>' + printContents + '</div></html>');
-		    popupWin.document.close();
+			// var printContents = document.getElementById('div-id-selector').innerHTML;
+		 //    var popupWin = window.open('', '_blank', 'width=800,height=800,scrollbars=no,menubar=no,toolbar=no,location=no,status=no,titlebar=no,top=50');
+		 //    popupWin.window.focus();
+		 //    popupWin.document.open();
+		 //    popupWin.document.write('<!DOCTYPE html><html><head><title>TITLE OF THE PRINT OUT</title>' +
+		 //        '<link rel="stylesheet" type="text/css" href="libs/boosaveDocNumtstrap/dist/css/bootstrap.min.css">' +
+		 //        '</head><body onload="window.print(); window.close();"><div>' + printContents + '</div></html>');
+		 //    popupWin.document.close();
+			window.print();
 		}
 
 		/************************
@@ -203,20 +209,28 @@ angular.module('TravelerCtrl', [])
 
 		$scope.checkForSN = function(){
 
-			Traveler.normalSearch('sn', $scope.travelerData.sn)
-					.success(function(data){
-						if(data.length >0 ){
-							$scope.isSNExist = true;
-							$scope.searchSN = data;
-						}else{
-							$scope.isSNExist = false;
-						}
-					});
+			if(!$scope.travelerData._id){
+				Traveler.normalSearch('sn', $scope.travelerData.sn)
+						.success(function(data){
+							if(data.length >0 ){
+								$scope.isSNExist = true;
+								$scope.searchSN = data;
+							}else{
+								$scope.isSNExist = false;
+							}
+						});
+			}
 		};
 
 		$scope.setTravelerData = function(){
 			$scope.travelerData = $scope.searchSN[$scope.selectSN];
 			loadItemRecord();
+		};
+
+		var shouldCollapse = function(){
+			if($scope.travelerData.sn  && $scope.travelerData.itemRecord.docNum){
+				$scope.topCollapse = true;
+			}
 		};
 
 		var setNumDoctoTraveler = function(){
@@ -320,6 +334,7 @@ angular.module('TravelerCtrl', [])
 						// need to deal wit this.
 						$scope.travelerData = data;
 						loadItemRecord();
+						shouldCollapse();
 					});
 			}
 			

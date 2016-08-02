@@ -8,7 +8,7 @@
 	cursor:pointer;
 }
 
-.printOnly {
+/*.printOnly {
    display : none;
 }
 
@@ -16,4 +16,4 @@
     .printOnly {
        display : block;
     }
-}
+}*/

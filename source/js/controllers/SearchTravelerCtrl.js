@@ -38,16 +38,38 @@ angular.module('SearchTravelerCtrl', ['chart.js'])
 				});
 		};
 
+		$scope.timeSpend = function(data){
+			if(data.reviewAt){
+				let diff = Math.round((new Date(data.reviewAt) - new Date(data.createAt))/1000);
+				$scope.totalTimeSpand += diff;
+				return calulateTime(diff);
+			}else{
+				let diff = Math.round((new Date() - new Date(data.createAt))/1000);
+				$scope.totalTimeSpand += diff;
+				return calulateTime(diff);
+			}
+		};
+
+		$scope.totalTimeSpend = function(){
+
+			return 5;
+		};
+
+		var calulateTime = function(seconds){
+			return Math.floor(seconds/60/60) + ' Hours and ' + Math.floor(seconds/60)%60 + 
+					' min and ' + seconds % 60 + ' sec';
+		};
+
 		// $scope.printTraveler = function(index){
 		// 	$scope.travelerData = $scope.result[index];
-		// 	// var printContents = document.getElementById('div-id-selector').innerHTML;
-		//  //    var popupWin = window.open('', '_blank', 'width=800,height=800,scrollbars=no,menubar=no,toolbar=no,location=no,status=no,titlebar=no,top=50');
-		//  //    popupWin.window.focus();
-		//  //    popupWin.document.open();
-		//  //    popupWin.document.write('<!DOCTYPE html><html><head><title>TITLE OF THE PRINT OUT</title>' +
-		//  //        '<link rel="stylesheet" type="text/css" href="libs/boosaveDocNumtstrap/dist/css/bootstrap.min.css">' +
-		//  //        '</head><body onload="window.print(); window.close();"><div>' + printContents + '</div></html>');
-		//  //    popupWin.document.close();
+			// var printContents = document.getElementById('div-id-selector').innerHTML;
+		 //    var popupWin = window.open('', '_blank', 'width=800,height=800,scrollbars=no,menubar=no,toolbar=no,location=no,status=no,titlebar=no,top=50');
+		 //    popupWin.window.focus();
+		 //    popupWin.document.open();
+		 //    popupWin.document.write('<!DOCTYPE html><html><head><title>TITLE OF THE PRINT OUT</title>' +
+		 //        '<link rel="stylesheet" type="text/css" href="libs/boosaveDocNumtstrap/dist/css/bootstrap.min.css">' +
+		 //        '</head><body onload="window.print(); window.close();"><div>' + printContents + '</div></html>');
+		 //    popupWin.document.close();
 		// }
 
 		var findStatistics = function(){
@@ -98,6 +120,7 @@ angular.module('SearchTravelerCtrl', ['chart.js'])
 			$scope.sortType = 'createAt';
 			$scope.sortReverse = false;
 			$scope.travelerData = {};
+			$scope.totalTimeSpand = 0;
 		};
 
 		var main = function(){
