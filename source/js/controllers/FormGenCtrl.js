@@ -38,16 +38,20 @@ angular.module('FormGenCtrl.js', ['ui.bootstrap.tabs'])
 		};
 
 		$scope.delete = function(){
-			if(confirm('delete template?')){
-			
-				if($scope.create._id){
-					Form.delete($scope.create._id)
-						.success(data=>{
-							alert('removed');
-						});
-				}
-					initCreate();
+			var password = prompt('password');
+			if(password === 'QQmore'){
+				if(confirm('delete template?')){
 				
+					if($scope.create._id){
+						Form.delete($scope.create._id)
+							.success(data=>{
+								alert('removed');
+							});
+					}
+						initCreate();
+				}	
+			}else{
+				alert('go home');
 			}
 		};
 

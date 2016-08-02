@@ -29,7 +29,7 @@
 		</button>
 		<button class='btn btn-primary btn-md pull-right' ng-click='save()' style='margin-right: 3px'>
 			<!-- <i class="fa fa-check" aria-hidden="true"></i>  -->
-			save				
+			Save				
 		</button>
 		<br>
 		<hr>
@@ -139,7 +139,7 @@
 					<a ng-class='{active: currentStep == step.step}' ng-repeat='step in forms.steps' ng-click='statusPage(step.step)'><span>{{step.step}}</span></a>
 				</div>
 
-				<input class='btn btn-primary myButton btn-md pull-right' ng-if='!travelerData.readyReview' type="button" value='next' ng-click='nextStep()'/>
+				<input class='btn btn-primary myButton btn-md pull-right' ng-if='!travelerData.readyReview' type="button" value='Next' ng-click='nextStep()'/>
 				<div id='steps' ng-repeat='step in forms.steps'>
 					<div class='page-header' ng-if='currentStep == step.step'>
 					 <h4>{{step.type}} :: {{step.Description}}</h4>
@@ -245,7 +245,7 @@
 <br>
 <!-- <input class='btn btn-primary myButton btn-lg pull-right' ng-if='!readySubmit' type="button" value='next' ng-click='nextStep()'/> -->
 <input class='btn btn-primary myButton btn-md pull-right hidden-print' ng-if='travelerData.readyReview && !travelerData.created' type="button" value='submit' ng-click='submit()'/>
-<input ng-show='formId' class='btn btn-primary myButton btn-md pull-right hidden-print'  type='button' value='Save/Update' ng-click='save()'/>
+<input ng-show='formId' class='btn btn-primary myButton btn-md pull-right hidden-print'  type='button' value='Save' ng-click='save()'/>
 <input class='btn btn-primary myButton btn-md pull-right hidden-print' ng-if='travelerData.readyReview' type='button' value='Go Back' ng-click='goBack()'/>
 
 
@@ -256,5 +256,5 @@
 travelerData: <pre>{{travelerData |json}}</pre><br>
 formTemplate: <pre>{{forms |json}}</pre><br>
 formId{{formId}} -->
-travelerData: <pre>{{travelerData |json}}</pre><br>
+
 </div>
