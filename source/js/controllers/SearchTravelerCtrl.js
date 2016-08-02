@@ -73,7 +73,7 @@ angular.module('SearchTravelerCtrl', ['chart.js'])
 		// }
 
 		var findStatistics = function(){
-			$scope.stat = {}
+			$scope.stat = {};
 			$scope.pieLabels1=[];
 			$scope.pieData1 = [];
 			let data = $scope.result;
@@ -112,7 +112,7 @@ angular.module('SearchTravelerCtrl', ['chart.js'])
 			$scope.pieLabels2 = ['Finish', 'Hold'];
 			$scope.pieData2 = [completed+reject, ($scope.stat.total-(completed+reject))];
 	
-		}
+		};
 
 		var init = function(){
 			$scope.isSearch = false;
@@ -125,6 +125,6 @@ angular.module('SearchTravelerCtrl', ['chart.js'])
 
 		var main = function(){
 			init();
-		}
+		};
 		main();
 	}]);

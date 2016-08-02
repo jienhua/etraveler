@@ -171,7 +171,7 @@ angular.module('TravelerCtrl', [])
 		 //        '</head><body onload="window.print(); window.close();"><div>' + printContents + '</div></html>');
 		 //    popupWin.document.close();
 			window.print();
-		}
+		};
 
 		/************************
 		 *
@@ -301,7 +301,7 @@ angular.module('TravelerCtrl', [])
 						}
 					}
 				});
-		}
+		};
 
 		var init = function(){
 			$scope.topCollapse=false;
@@ -310,7 +310,7 @@ angular.module('TravelerCtrl', [])
 			$scope.isSNExist = false;
 			$scope.searchSN = {};
 			$scope.selectSN = '0';
-		}
+		};
 
 		var main = function(){
 
