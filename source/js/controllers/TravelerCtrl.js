@@ -185,6 +185,7 @@ angular.module('TravelerCtrl', [])
 			setDocNumLabel('create');
 			delete $scope.docNum.docNumData._id;
 			// console.log($scope.docNum.docNumData);
+			// console.log($scope.docNum.docNumData.docNum);
 			DocNum.create($scope.docNum.docNumData)
 				.success(function(data){
 					loadDocNumList($scope.travelerData.formId, (list)=>{
@@ -192,6 +193,7 @@ angular.module('TravelerCtrl', [])
 							if(list[i]._id === data._id){
 								$scope.docNum.docNumData = data;
 								$scope.docNum.docNumSelect = i.toString();
+								$scope.travelerData.itemRecord = {"docNum":$scope.docNum.docNumData.docNum};
 							}
 						}
 					});
@@ -212,7 +214,7 @@ angular.module('TravelerCtrl', [])
 			if(!$scope.travelerData._id){
 				Traveler.normalSearch('sn', $scope.travelerData.sn)
 						.success(function(data){
-							if(data.length >0 ){
+							if(data.length > 0 ){
 								$scope.isSNExist = true;
 								$scope.searchSN = data;
 							}else{
