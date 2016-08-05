@@ -13,6 +13,7 @@ angular.module('sampleApp',
 		
 		'TravelerService', 
 		'FormService',
-		'DocNumService'
+		'DocNumService',
+		'CounterService'
 	]
 );

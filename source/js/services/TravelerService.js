@@ -36,8 +36,11 @@ angular.module('TravelerService', [])
                 // console.log(_id);
             	return $http.delete('/api/traveler/'+ _id);
             },
-            normalSearch: function(type, data){
-                return $http.get('/api/traveler/normalSearch?type='+type+'&data='+data);
+            normalSearch: function(type, data, select){
+                if(!select){
+                    select = '';
+                }
+                return $http.get('/api/traveler/normalSearch?type='+type+'&data='+data+'&select='+select);
             }
 	};		
 }]);

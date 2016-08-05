@@ -4,14 +4,27 @@ module.exports = (req, res) =>{
 
 	var type = req.query.type;
 	var query = {};
-	console.log(typeof req.query.data);
+	var selectInput = req.query.select;
+	var select = {};
+	// console.log(typeof req.query.data);
 	if(type === 'docNum'){
 		query["itemRecord.docNum"] = req.query.data;
 	}else{
 		query[type] = req.query.data;
 	}
+
+	if(selectInput !== ''){
 	
-	traveler.find(query,(err, data)=>{
+		selectInput = selectInput.split('|');
+		for(var i = 0;i < selectInput.length;i++){
+			if(selectInput[i] === '_id'){
+				select[selectInput[i]] = 0;
+			}else{
+				select[selectInput[i]] = 1;
+			}
+		}
+	}
+	traveler.find(query,select,(err, data)=>{
 		if(err){
 			res.send(err);
 		}

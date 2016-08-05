@@ -1,28 +1,28 @@
 <div class='container'>
 
-<div ng-show='!travelerData.readyReview''>
-	<button
-	    class='btn btn-default btn-xs pull-right hidden-print'
-	    type='button'
-	    ng-click='topCollapse = !topCollapse'
-	    ng-show='!topCollapse'
-	>
-	    <i class="fa fa-minus-square-o" aria-hidden="true"></i>
-	</button>
-	<button
-	    class='btn btn-default btn-xs pull-right hidden-print'
-	    type='button'
-	    ng-click='topCollapse = !topCollapse'
-	    ng-show='topCollapse'
+	<div ng-show='!travelerData.readyReview''>
+		<button
+		    class='btn btn-default btn-xs pull-right hidden-print'
+		    type='button'
+		    ng-click='topCollapse = !topCollapse'
+		    ng-show='!topCollapse'
+		>
+		    <i class="fa fa-minus-square-o" aria-hidden="true"></i>
+		</button>
+		<button
+		    class='btn btn-default btn-xs pull-right hidden-print'
+		    type='button'
+		    ng-click='topCollapse = !topCollapse'
+		    ng-show='topCollapse'
 
-	>  
-		<i class="fa fa-plus-square-o" aria-hidden="true"></i>
-	</button>
-</div>
-<br>
+		>  
+			<i class="fa fa-plus-square-o" aria-hidden="true"></i>
+		</button>
+	</div>
+	<br>
 	<div ng-show='topCollapse && !travelerData.readyReview'>
-		<h4>Serial Number: {{travelerData.sn}}</h4>
 		<h4>Doc Num: {{travelerData.itemRecord.docNum}}</h4>
+		<h4>Serial Number: {{travelerData.sn}}</h4>
 		<button class='btn btn-primary btn-md pull-right' ng-click='checkReadyReview()'>
 			<!-- <i class="fa fa-check" aria-hidden="true"></i>  -->
 			Ready for Review						
@@ -46,10 +46,11 @@
 				</select>
 			</div>
 		</form>
+		<br>
 	</div>
 
-	<div ng-show='!travelerData.readyReview && formId' class='container'>
-		<div name='header' ng-show='!topCollapse'>
+	<div ng-show='!travelerData.readyReview && formId'>
+<!-- 		<div name='header' ng-show='!topCollapse'>
 			<div class='row'>
 				<div class='col-xs-8'>
 					<div class='col-xs-6'>
@@ -73,17 +74,15 @@
 				<div class='col-xs-4'>
 					<br>
 					<button class='btn btn-primary btn-md pull-right' ng-click='checkReadyReview()'>
-						<!-- <i class="fa fa-check" aria-hidden="true"></i>  -->
 						Ready for Review						
 					</button>
 					<button class='btn btn-primary btn-md pull-right' ng-click='save()' style='margin-right: 3px'>
-						<!-- <i class="fa fa-check" aria-hidden="true"></i>  -->
 						save				
 					</button>
 				</div>
 			</div>
 			<hr>
-		</div>
+		</div> -->
 
 		<div name='itemRecord' ng-show='!topCollapse'>
 			<div class='form-group'>
@@ -126,135 +125,227 @@
 				</div>
 			</div>
 
+			<div class='row well'>
+				<div class='col-sm-12'>
+					<div class='col-sm-6'>
+						<h5>add sn <span ng-if='isSNExist' style='color:red;'>* Same Serial Number detect in database.</span></h5>
+						<div class='form-group input-group'>
+							<input type="text" class='form-control' placeholder='Serial Number' ng-model='inputSN'>
+							<span class='input-group-btn'>
+								<button class='btn btn-primary' ng-click='checkForSN()'>
+									<i class="fa fa-plus" aria-hidden="true"></i>
+								</button>
+							</span>
+						</div>
+					</div>
+					<!-- <div class='col-sm-6'> -->
+						<div class='col-xs-3'>
+							<h5>Search a Work</h5>
+							<div class='form-group input-group'>
+								<input type="text" class='form-control' placeholder="Searh" ng-model='inputWorkNum'>
+								<span class='input-group-btn'>
+									<button class='btn btn-primary' ng-click='checkForWorkNum()'>
+										<i class="fa fa-search" aria-hidden="true"></i>
+									</button>
+								</span>
+							</div>
+						</div>
+						<div class='col-xs-3'>
+							<h5>Create a new Work</h5>
+							<button class='btn btn-primary'>
+								Create
+							</button>
+						</div>
+					<!-- </div> -->
+				</div>
+				<div class='col-sm-12'>
+					<div class='col-sm-6'>
+						<h5>sn filter Total: {{SNListForDocNum.length}}</h5>
+						<div class='form-group input-group'>
+							<input type="text" class='form-control' placeholder="Filter" ng-model='searchSNListForDocNum.sn'>
+							<span class='input-group-btn'>
+								<button class='btn btn-primary' ng-click='selectAllList(SNListForDocNum)'> 
+									<i class="fa fa-check-square-o" aria-hidden="true"></i>
+								</button>
+							</span>
+						</div>
+						<div style="background-color:white; height:100px; width:100%; overflow:auto; padding:2px" >
+							<table>
+							<tr ng-repeat='item in SNListForDocNum |orderBy:"sn"| filter:searchSNListForDocNum'>
+								<td>
+									<input type="checkbox" 
+										   ng-model='item.checkbox'
+										   id='checkbox1+{{$index}}'
+									>
+									<label for='checkbox1+{{$index}}'>{{item.sn}} - {{item.status}} - {{item.createAt | date:medium}}</label>
+								</td>
+							</tr>
+							</table>
+						</div>
+						<button class='btn btn-primary' ng-click='moveToSelectSNList()'>
+							<i class="fa fa-arrow-right" aria-hidden="true"></i>
+						</button>
+					</div>
+					<div class='col-sm-6'>
+						<h5>select sn Total: {{selectSNList.length}}</h5>
+						<div class='form-group input-group'>
+							<input type="text" class='form-control' placeholder="Filter" ng-model='searchSelectSNList.sn'>
+							<span class='input-group-btn'>
+								<button class='btn btn-primary' ng-click='selectAllList(selectSNList)'> 
+									<i class="fa fa-check-square-o" aria-hidden="true"></i>
+								</button>
+							</span>
+						</div>
+						<div style="background-color:white; height:100px; width:100%" >
+							<table>
+								<tr ng-repeat='item in selectSNList |orderBy:"sn" | filter:searchSelectSNList'>
+									<td>
+										<input type="checkbox" 
+											   ng-model='item.checkbox'
+											   id='checkbox2+{{$index}}'
+										>
+										<label for='checkbox2+{{$index}}'>{{item.sn}} - {{item.status}} - {{item.createAt | date:medium}}</label>
+									</td>
+								</tr>
+							</table>		
+						</div>
+						<button class='btn btn-primary' ng-click='moveToSNListForDocNum()'>
+							<i class="fa fa-arrow-left" aria-hidden="true"></i>
+						</button>
+					</div>
+				</div>
+				<div class='col-sm-12'>
+					<br>
+					<button class='btn btn-primary'>
+						start with work number xxx
+					</button>
+					<button class='btn btn-primary'>
+						start without the work number
+					</button>
+				</div>
+			</div>
 			<br>
+
+			{{SNListForDocNum}}
+			<hr>
+			{{selectSNList}}
 			<hr style='margin-top: 1px; margin-bottom: 4px'>
 		</div>
 
-	<div name='steps'>
+		<div name='steps' ng-show='travelerData.sn && travelerData.itemRecord.docNum'>
 
-			<div id='form-container'>
-				<h4>Step {{currentStep}}.{{currentSubStep}}</h4>
+				<div id='form-container'>
+					<h4>Step {{currentStep}}.{{currentSubStep}}</h4>
 
-				<div id='status-buttons' class='text-right'>
-					<a ng-class='{active: currentStep == step.step}' ng-repeat='step in forms.steps' ng-click='statusPage(step.step)'><span>{{step.step}}</span></a>
-				</div>
-
-				<input class='btn btn-primary myButton btn-md pull-right' ng-if='!travelerData.readyReview' type="button" value='Next' ng-click='nextStep()'/>
-				<div id='steps' ng-repeat='step in forms.steps'>
-					<div class='page-header' ng-if='currentStep == step.step'>
-					 <h4>{{step.type}} :: {{step.Description}}</h4>
+					<div id='status-buttons' class='text-right'>
+						<a ng-class='{active: currentStep == step.step}' ng-repeat='step in forms.steps' ng-click='statusPage(step.step)'><span>{{step.step}}</span></a>
 					</div>
-					<!-- Step -->
-					<div ng-repeat='subStep in step.list'>
 
-						<!-- form -->
-						<form class='form-horizontal' role='form' ng-show='subStep.sub_step== currentSubStep && currentStep == step.step'>
-							<h4><strong>{{subStep.Description}}</strong></h4>
-		<!-- 					<div class='form-group'>
-								<label class='control-label col-sm-2'>Qulity: </label>
-								<div class='col-sm-10'>
-									<input 
-										type='number' 
-										class='form-control' 
-										placeholder='0' 
-										ng-model='travelerData.step[step.step][subStep.sub_step]["qty"]'
-										ng-change='appendSubStepEditInfo()'>
-								</div>
-							</div> -->
+					<input class='btn btn-primary myButton btn-md pull-right' ng-if='!travelerData.readyReview' type="button" value='Next' ng-click='nextStep()'/>
+					<div id='steps' ng-repeat='step in forms.steps'>
+						<div class='page-header' ng-if='currentStep == step.step'>
+						 <h4>{{step.type}} :: {{step.Description}}</h4>
+						</div>
+						<!-- Step -->
+						<div ng-repeat='subStep in step.list'>
 
-							<div ng-if='subStep.options'>
-								<div class='form-group' ng-repeat='op in subStep.options'>
-									<label class='control-label col-sm-2'>{{op.name}}:</label>
-									<div class='col-sm-10'>
-										<div ng-if='op.type ==="checkbox"'>
-										<!-- checkbox -->
-											<label
-												class='checkbox-inline' 
-												ng-repeat='checkOp in op.options'
-											>
-												<input 
-													type="checkbox" 
-													value='{{checkOp}}'
-													ng-model='travelerData.step[step.step][subStep.sub_step]["options"][$parent.$index][$index]'
-													ng-change='appendSubStepEditInfo()'
-													>{{checkOp}}
-											</label>
-										</div>
-										<div ng-if='op.type ==="select"'>
-										<!-- select -->
-											<select 
-												class='form-control'
-												ng-model='travelerData.step[step.step][subStep.sub_step]["options"][$parent.$index]'
-												ng-change='appendSubStepEditInfo()'>
-												<option value=''>---Please select---</option>
-												<option ng-repeat='selectOp in op.options'
-														value='{{$index}}'>{{selectOp}}</option>
-											</select>
-										</div>
-										<!-- radio -->
-										<div ng-if='op.type ==="radio"'>
-											<label ng-repeat='radioOp in op.options'
-												   class='radio-inline'>
-												<input 
-													type="radio"
-													name="radio"
-													value='{{$index}}'
+							<!-- form -->
+							<form class='form-horizontal' role='form' ng-show='subStep.sub_step== currentSubStep && currentStep == step.step'>
+								<h4><strong>{{subStep.Description}}</strong></h4>
+
+								<div ng-if='subStep.options'>
+									<div class='form-group' ng-repeat='op in subStep.options'>
+										<label class='control-label col-sm-2'>{{op.name}}:</label>
+										<div class='col-sm-10'>
+											<div ng-if='op.type ==="checkbox"'>
+											<!-- checkbox -->
+												<label
+													class='checkbox-inline' 
+													ng-repeat='checkOp in op.options'
+												>
+													<input 
+														type="checkbox" 
+														value='{{checkOp}}'
+														ng-model='travelerData.step[step.step][subStep.sub_step]["options"][$parent.$index][$index]'
+														ng-change='appendSubStepEditInfo()'
+														>{{checkOp}}
+												</label>
+											</div>
+											<div ng-if='op.type ==="select"'>
+											<!-- select -->
+												<select 
+													class='form-control'
 													ng-model='travelerData.step[step.step][subStep.sub_step]["options"][$parent.$index]'
-													ng-change='appendSubStepEditInfo()'
-													>{{radioOp}}
-											</label>
+													ng-change='appendSubStepEditInfo()'>
+													<option value=''>---Please select---</option>
+													<option ng-repeat='selectOp in op.options'
+															value='{{$index}}'>{{selectOp}}</option>
+												</select>
+											</div>
+											<!-- radio -->
+											<div ng-if='op.type ==="radio"'>
+												<label ng-repeat='radioOp in op.options'
+													   class='radio-inline'>
+													<input 
+														type="radio"
+														name="radio"
+														value='{{$index}}'
+														ng-model='travelerData.step[step.step][subStep.sub_step]["options"][$parent.$index]'
+														ng-change='appendSubStepEditInfo()'
+														>{{radioOp}}
+												</label>
+											</div>
 										</div>
 									</div>
 								</div>
-							</div>
 
-							<div class='form-group'>
-								<label class='control-label col-sm-2'>Qulity: </label>
-								<div class='col-sm-10'>
-									<input 
-										type='number' 
-										class='form-control' 
-										placeholder='0' 
-										ng-model='travelerData.step[step.step][subStep.sub_step]["qty"]'
-										ng-change='appendSubStepEditInfo()'>
+								<div class='form-group'>
+									<label class='control-label col-sm-2'>Qulity: </label>
+									<div class='col-sm-10'>
+										<input 
+											type='number' 
+											class='form-control' 
+											placeholder='0' 
+											ng-model='travelerData.step[step.step][subStep.sub_step]["qty"]'
+											ng-change='appendSubStepEditInfo()'>
+									</div>
+								</div>	
+
+								<!-- comment -->
+								<div class='form-group'>
+									<label for='comment' class='control-label col-sm-2'>Comment: </label>
+									<div class='col-sm-10'>
+										<textarea class='form-control' row='5' id='comment' ng-model='travelerData.step[step.step][subStep.sub_step]["comment"]' ng-change='appendSubStepEditInfo()'
+										></textarea>
+									</div>
 								</div>
-							</div>	
+							</form>
+						</div>
 
-							<!-- comment -->
-							<div class='form-group'>
-								<label for='comment' class='control-label col-sm-2'>Comment: </label>
-								<div class='col-sm-10'>
-									<textarea class='form-control' row='5' id='comment' ng-model='travelerData.step[step.step][subStep.sub_step]["comment"]' ng-change='appendSubStepEditInfo()'
-									></textarea>
-								</div>
-							</div>
-						</form>
-					</div>
-
-					<!-- status sub page -->
-					<div id='status-buttons-sub' class='text-right'>
-						<a ng-class='{active: currentSubStep == subStep.sub_step}' ng-repeat='subStep in step.list' ng-if='currentStep==step.step' ng-click='statusSubPage(subStep.sub_step)'><span>{{step.step}}.{{subStep.sub_step}}</span></a>
-					</div>
-				</div>			
-			</div> 	
+						<!-- status sub page -->
+						<div id='status-buttons-sub' class='text-right'>
+							<a ng-class='{active: currentSubStep == subStep.sub_step}' ng-repeat='subStep in step.list' ng-if='currentStep==step.step' ng-click='statusSubPage(subStep.sub_step)'><span>{{step.step}}.{{subStep.sub_step}}</span></a>
+						</div>
+					</div>			
+				</div> 	
+		</div>
 	</div>
-</div>
 
-<div ng-show='travelerData.readyReview' ui-view='formReview' id='div-id-selector'></div>
+	<div ng-show='travelerData.readyReview' ui-view='formReview' id='div-id-selector'></div>
 
-<br>
-<!-- <input class='btn btn-primary myButton btn-lg pull-right' ng-if='!readySubmit' type="button" value='next' ng-click='nextStep()'/> -->
-<input class='btn btn-primary myButton btn-md pull-right hidden-print' ng-if='travelerData.readyReview && !travelerData.created' type="button" value='submit' ng-click='submit()'/>
-<input ng-show='formId' class='btn btn-primary myButton btn-md pull-right hidden-print'  type='button' value='Save' ng-click='save()'/>
-<input class='btn btn-primary myButton btn-md pull-right hidden-print' ng-if='travelerData.readyReview' type='button' value='Go Back' ng-click='goBack()'/>
+	<br>
+	<!-- <input class='btn btn-primary myButton btn-lg pull-right' ng-if='!readySubmit' type="button" value='next' ng-click='nextStep()'/> -->
+	<input class='btn btn-primary myButton btn-md pull-right hidden-print' ng-if='travelerData.readyReview && !travelerData.created' type="button" value='submit' ng-click='submit()'/>
+	<input ng-show='formId' class='btn btn-primary myButton btn-md pull-right hidden-print'  type='button' value='Save' ng-click='save()'/>
+	<input class='btn btn-primary myButton btn-md pull-right hidden-print' ng-if='travelerData.readyReview' type='button' value='Go Back' ng-click='goBack()'/>
 
 
-<!-- <br>
-<br>
-<br>
-<br>
-travelerData: <pre>{{travelerData |json}}</pre><br>
-formTemplate: <pre>{{forms |json}}</pre><br>
-formId{{formId}} -->
+	<!-- <br>
+	<br>
+	<br>
+	<br>
+	travelerData: <pre>{{travelerData |json}}</pre><br>
+	formTemplate: <pre>{{forms |json}}</pre><br>
+	formId{{formId}} -->
 
 </div>
