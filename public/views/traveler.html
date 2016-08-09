@@ -23,6 +23,7 @@
 	<div ng-show='topCollapse && !travelerData.readyReview'>
 		<h4>Doc Num: {{travelerData.itemRecord.docNum}}</h4>
 		<h4>Serial Number: {{travelerData.sn}}</h4>
+		<h4 ng-show='isWorkFind'>Work Number: {{input.inputWorkNum}}</h4>
 		<button class='btn btn-primary btn-md pull-right' ng-click='checkReadyReview()'>
 			<!-- <i class="fa fa-check" aria-hidden="true"></i>  -->
 			Ready for Review						
@@ -50,190 +51,244 @@
 	</div>
 
 	<div ng-show='!travelerData.readyReview && formId'>
-<!-- 		<div name='header' ng-show='!topCollapse'>
-			<div class='row'>
-				<div class='col-xs-8'>
-					<div class='col-xs-6'>
-						<h4>Serial Number: <input type="text" class='form-control' ng-model='travelerData.sn' ng-blur='checkForSN()' autofocus style='width: 200px'/></h4>
-						<span ng-if='isSNExist' style='color:red;'>* Same Serial Number detect in database.</span><br>
-						<select ng-show='isSNExist' class='form-control' style='width:auto;' ng-model='selectSN'>
-							<option ng-repeat='item in searchSN' value='{{$index}}'>
-								Create At: {{item.createAt|date: 'shortDate'}}  Status: {{item.status}}
-							</option>
-						</select>
-						<br>
-						<button ng-if='isSNExist' class='btn btn-primary btn-sm' ng-click='setTravelerData()'>
-							Open/Use
-						</button>
-					</div>
-					<div class='col-xs-6'>
-						<h4>Customer</h4><span> - {{forms.customer}}</span>
-						<h4>Status</h4><span> - {{travelerData.status}}</span>
-					</div>
-				</div>
-				<div class='col-xs-4'>
-					<br>
-					<button class='btn btn-primary btn-md pull-right' ng-click='checkReadyReview()'>
-						Ready for Review						
-					</button>
-					<button class='btn btn-primary btn-md pull-right' ng-click='save()' style='margin-right: 3px'>
-						save				
-					</button>
-				</div>
-			</div>
-			<hr>
-		</div> -->
 
 		<div name='itemRecord' ng-show='!topCollapse'>
-			<div class='form-group'>
-				<label class='control-label' for='docNumSelect'>Select Document#:</label>
-				<select ng-init='docNum.docNumSelect="new"' class='form-control' id='docNumSelect' ng-model='docNum.docNumSelect' ng-change='updateDocNum()'>
-					<option value='new'>Create New Doc#</option>
-					<optgroup ng-repeat='op in docNum.docNumSelectList | unique:"docNum" | orderBy:"docNum"' label='{{op.docNum}}'>
-						<option ng-repeat='chilop in docNum.docNumSelectList' ng-if='chilop.docNum === op.docNum' value='{{$index}}'>Doc# {{op.docNum}} Model - {{chilop.label}}</option>
-					</optgroup>
-				</select>
-			</div>
 
-			<div class='form-inline' role='form'>
-				<div class='form-group'>
-					<label for='docNum'>Document#</label>
-					<input type="text" id='docNum' class='form-control' ng-model='docNum.docNumData.docNum' ng-disabled='docNum.docNumSelect !== "new"'>
-				</div>
-				<div class='form-group' ng-repeat='item in forms.itemRecord'>
-					<label for='{{item.Description}}'>{{item.Description}}: </label>
-					<input ng-if="!item.select && !item.radio && !item.checkbox" type='text' class='form-control' id='{{item.Description}}' ng-model='docNum.docNumData.attribute[item.Description]'>
-					
-					<!-- select -->
-					<select class='form-control' ng-if='item.select' ng-model='docNum.docNumData.attribute[item.Description]["select"]'>
-						<option value="">---Please select---</option>
-						<option ng-repeat='option in item.select.options' value='{{option}}'>
-							{{option}}
-						</option>
-					</select>
-				</div>
+			<uib-tabset active="activeForm">
+				<!-- Single TAB //////////////////////////////////////////////////////////////////////////////// -->
+		     	<uib-tab index="0" heading="Single">
+		        	<div class='row'>
+						<div class='col-xs-8'>
+							<div class='col-xs-6'>
 
-				<div class='form-group' ng-if='docNum.docNumSelect !== "new"'>
-					<button class='btn btn-primary btn-md pull-right' ng-click='editDocNum()'>
-						Edit/Save						
-					</button>
-				</div>
-				<div class='form-group' ng-if='docNum.docNumSelect === "new"'>
-					<button class='btn btn-primary btn-md pull-right' ng-click='saveDocNum()'>
-						Create						
-					</button>
-				</div>
-			</div>
+								<br>
+								<div class='form-group input-group'>
+									<input type="text" class='form-control' placeholder='Search Serial Number' ng-model='travelerData.sn' autofocus />
+									<span class='input-group-btn'>
+										<button class='btn btn-primary' type='button' ng-click='searchSN()'>
+											<i class='glyphicon glyphicon-search'></i>
+										</button>
+									</span>
+								</div>
+								<span ng-show='isSNMoreThanOne' style='color:red;'>* Same Serial Number detect more than one in database.</span><br>
 
-			<div class='row well'>
-				<div class='col-sm-12'>
-					<div class='col-sm-6'>
-						<h5>add sn <span ng-if='isSNExist' style='color:red;'>* Same Serial Number detect in database.</span></h5>
-						<div class='form-group input-group'>
-							<input type="text" class='form-control' placeholder='Serial Number' ng-model='inputSN'>
-							<span class='input-group-btn'>
-								<button class='btn btn-primary' ng-click='checkForSN()'>
-									<i class="fa fa-plus" aria-hidden="true"></i>
+
+								<select ng-show='isSNMoreThanOne' class='form-control' style='width:auto;' ng-model='selectSearchSN'>
+									<option ng-repeat='item in searchSNList' value='{{$index}}'>
+										Create At: {{item.createAt|date: 'shortDate'}}  Status: {{item.status}} {{$index}}
+									</option>
+								</select>
+								
+
+								<br>
+								<button ng-show='isSNMoreThanOne' class='btn btn-primary btn-sm' ng-click='setTravelerData(selectSearchSN)'>
+									Open/Use
 								</button>
-							</span>
-						</div>
-					</div>
-					<!-- <div class='col-sm-6'> -->
-						<div class='col-xs-3'>
-							<h5>Search a Work</h5>
-							<div class='form-group input-group'>
-								<input type="text" class='form-control' placeholder="Searh" ng-model='inputWorkNum'>
-								<span class='input-group-btn'>
-									<button class='btn btn-primary' ng-click='checkForWorkNum()'>
-										<i class="fa fa-search" aria-hidden="true"></i>
-									</button>
-								</span>
+							</div>
+							<div class='col-xs-6'>
+								<h4>Customer</h4><span> - {{forms.customer}}</span>
+								<h4>Status</h4><span> - {{travelerData.status}}</span>
 							</div>
 						</div>
-						<div class='col-xs-3'>
-							<h5>Create a new Work</h5>
-							<button class='btn btn-primary'>
-								Create
+						<div class='col-xs-4'>
+							<br>
+							<button class='btn btn-primary btn-md pull-right' ng-click='checkReadyReview()'>
+								Ready for Review						
+							</button>
+							<button class='btn btn-primary btn-md pull-right' ng-click='save()' style='margin-right: 3px'>
+								save				
 							</button>
 						</div>
-					<!-- </div> -->
-				</div>
-				<div class='col-sm-12'>
-					<div class='col-sm-6'>
-						<h5>sn filter Total: {{SNListForDocNum.length}}</h5>
-						<div class='form-group input-group'>
-							<input type="text" class='form-control' placeholder="Filter" ng-model='searchSNListForDocNum.sn'>
-							<span class='input-group-btn'>
-								<button class='btn btn-primary' ng-click='selectAllList(SNListForDocNum)'> 
-									<i class="fa fa-check-square-o" aria-hidden="true"></i>
-								</button>
-							</span>
-						</div>
-						<div style="background-color:white; height:100px; width:100%; overflow:auto; padding:2px" >
-							<table>
-							<tr ng-repeat='item in SNListForDocNum |orderBy:"sn"| filter:searchSNListForDocNum'>
-								<td>
-									<input type="checkbox" 
-										   ng-model='item.checkbox'
-										   id='checkbox1+{{$index}}'
-									>
-									<label for='checkbox1+{{$index}}'>{{item.sn}} - {{item.status}} - {{item.createAt | date:medium}}</label>
-								</td>
-							</tr>
-							</table>
-						</div>
-						<button class='btn btn-primary' ng-click='moveToSelectSNList()'>
-							<i class="fa fa-arrow-right" aria-hidden="true"></i>
-						</button>
 					</div>
-					<div class='col-sm-6'>
-						<h5>select sn Total: {{selectSNList.length}}</h5>
-						<div class='form-group input-group'>
-							<input type="text" class='form-control' placeholder="Filter" ng-model='searchSelectSNList.sn'>
-							<span class='input-group-btn'>
-								<button class='btn btn-primary' ng-click='selectAllList(selectSNList)'> 
-									<i class="fa fa-check-square-o" aria-hidden="true"></i>
-								</button>
-							</span>
-						</div>
-						<div style="background-color:white; height:100px; width:100%" >
-							<table>
-								<tr ng-repeat='item in selectSNList |orderBy:"sn" | filter:searchSelectSNList'>
-									<td>
-										<input type="checkbox" 
-											   ng-model='item.checkbox'
-											   id='checkbox2+{{$index}}'
-										>
-										<label for='checkbox2+{{$index}}'>{{item.sn}} - {{item.status}} - {{item.createAt | date:medium}}</label>
-									</td>
-								</tr>
-							</table>		
-						</div>
-						<button class='btn btn-primary' ng-click='moveToSNListForDocNum()'>
-							<i class="fa fa-arrow-left" aria-hidden="true"></i>
-						</button>
+								  		<div class='form-group'>
+						<label class='control-label' for='docNumSelect'>Select Document#:</label>
+							<select ng-init='docNum.docNumSelect="new"' class='form-control' id='docNumSelect' ng-model='docNum.docNumSelect' ng-change='updateDocNum()'>
+								<option value='new'>Create New Doc#</option>
+								<optgroup ng-repeat='op in docNum.docNumSelectList | unique:"docNum" | orderBy:"docNum"' label='{{op.docNum}}'>
+									<option ng-repeat='chilop in docNum.docNumSelectList' ng-show='chilop.docNum === op.docNum' value='{{$index}}'>Doc# {{op.docNum}} Model - {{chilop.label}}</option>
+								</optgroup>
+							</select>
 					</div>
-				</div>
-				<div class='col-sm-12'>
-					<br>
-					<button class='btn btn-primary'>
-						start with work number xxx
-					</button>
-					<button class='btn btn-primary'>
-						start without the work number
-					</button>
-				</div>
-			</div>
-			<br>
+					<div class='form-inline' role='form'>
+						<div class='form-group'>
+							<label for='docNum'>Document#</label>
+							<input type="text" id='docNum' class='form-control' ng-model='docNum.docNumData.docNum' ng-disabled='docNum.docNumSelect !== "new"'>
+						</div>
+						<div class='form-group' ng-repeat='item in forms.itemRecord'>
+							<label for='{{item.Description}}'>{{item.Description}}: </label>
+							<input ng-show="!item.select && !item.radio && !item.checkbox" type='text' class='form-control' id='{{item.Description}}' ng-model='docNum.docNumData.attribute[item.Description]'>
+									
+							<!-- select -->
+							<select class='form-control' ng-show='item.select' ng-model='docNum.docNumData.attribute[item.Description]["select"]'>
+								<option value="">---Please select---</option>
+								<option ng-repeat='option in item.select.options' value='{{option}}'>
+									{{option}}
+								</option>
+							</select>
+						</div>
 
-			{{SNListForDocNum}}
+						<div class='form-group' ng-show='docNum.docNumSelect !== "new"'>
+							<button class='btn btn-primary btn-md pull-right' ng-click='editDocNum()'>
+								Edit/Save						
+							</button>
+						</div>
+						<div class='form-group' ng-show='docNum.docNumSelect === "new"'>
+							<button class='btn btn-primary btn-md pull-right' ng-click='saveDocNum()'>
+								Create						
+							</button>
+						</div>
+					</div>
+		    	</uib-tab>
+		      	<!-- Group TAB //////////////////////////////////////////////////////////////////////////////// -->
+				<uib-tab index="1" heading="Group">
+			  		<div class='form-group'>
+						<label class='control-label' for='docNumSelect'>Select Document#:</label>
+							<select ng-init='docNum.docNumSelect="new"' class='form-control' id='docNumSelect' ng-model='docNum.docNumSelect' ng-change='updateDocNum()'>
+								<option value='new'>Create New Doc#</option>
+								<optgroup ng-repeat='op in docNum.docNumSelectList | unique:"docNum" | orderBy:"docNum"' label='{{op.docNum}}'>
+									<option ng-repeat='chilop in docNum.docNumSelectList' ng-show='chilop.docNum === op.docNum' value='{{$index}}'>Doc# {{op.docNum}} Model - {{chilop.label}}</option>
+								</optgroup>
+							</select>
+					</div>
+					<div class='form-inline' role='form'>
+						<div class='form-group'>
+							<label for='docNum'>Document#</label>
+							<input type="text" id='docNum' class='form-control' ng-model='docNum.docNumData.docNum' ng-disabled='docNum.docNumSelect !== "new"'>
+						</div>
+						<div class='form-group' ng-repeat='item in forms.itemRecord'>
+							<label for='{{item.Description}}'>{{item.Description}}: </label>
+							<input ng-show="!item.select && !item.radio && !item.checkbox" type='text' class='form-control' id='{{item.Description}}' ng-model='docNum.docNumData.attribute[item.Description]'>
+									
+							<!-- select -->
+							<select class='form-control' ng-show='item.select' ng-model='docNum.docNumData.attribute[item.Description]["select"]'>
+								<option value="">---Please select---</option>
+								<option ng-repeat='option in item.select.options' value='{{option}}'>
+									{{option}}
+								</option>
+							</select>
+						</div>
+
+						<div class='form-group' ng-show='docNum.docNumSelect !== "new"'>
+							<button class='btn btn-primary btn-md pull-right' ng-click='editDocNum()'>
+								Edit/Save						
+							</button>
+						</div>
+						<div class='form-group' ng-show='docNum.docNumSelect === "new"'>
+							<button class='btn btn-primary btn-md pull-right' ng-click='saveDocNum()'>
+								Create						
+							</button>
+						</div>
+					</div>
+					<div class='row well'>
+						<div class='col-sm-12'>
+							<div class='col-sm-6'>
+								<h5>add sn <span ng-show='isSNExist' style='color:red;'>* Same Serial Number detect in database.</span></h5>
+								<div class='form-group input-group'>
+									<input type="text" class='form-control' placeholder='Serial Number' ng-model='inputSN'>
+									<span class='input-group-btn'>
+										<button class='btn btn-primary' ng-click='checkForSN()'>
+											<i class="fa fa-plus" aria-hidden="true"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+							<!-- <div class='col-sm-6'> -->
+							<div class='col-xs-3'>
+								<h5>Search a Work</h5>
+								<div class='form-group input-group'>
+									<input type="text" class='form-control' placeholder="Search" ng-model='input.inputWorkNum'>
+										<span class='input-group-btn'>
+											<button class='btn btn-primary' ng-click='searchWorkNum(input.inputWorkNum)'>
+												<i class="fa fa-search" aria-hidden="true"></i>
+											</button>
+										</span>
+								</div>
+							</div>
+							<div class='col-xs-3'>
+								<h5>Create a new Work</h5>
+								<button class='btn btn-primary' ng-click='createWork()'>
+									<i class="fa fa-files-o" aria-hidden="true"> Create</i>
+								</button>
+							</div>
+							<!-- </div> -->
+						</div>
+						<div class='col-sm-12'>
+							<div class='col-sm-6'>
+								<h5>sn filter Total: {{SNListForDocNum.length}}</h5>
+									<div class='form-group input-group'>
+										<input type="text" class='form-control' placeholder="Filter" ng-model='searchSNListForDocNum.sn'>
+										<span class='input-group-btn'>
+											<button class='btn btn-primary' ng-click='selectAllList(SNListForDocNum)'> 
+												<i class="fa fa-check-square-o" aria-hidden="true"></i>
+											</button>
+										</span>
+									</div>
+									<div style="background-color:white; height:100px; width:100%; overflow:auto; padding:2px" >
+										<table>
+											<tr ng-repeat='item in SNListForDocNum |orderBy:"sn"| filter:searchSNListForDocNum'>
+												<td>
+													<input type="checkbox" 
+														   ng-model='item.checkbox'
+														   id='checkbox1+{{$index}}'
+															>
+													<label for='checkbox1+{{$index}}'>{{item.sn}} - {{item.status}} - {{item.createAt | date:medium}} <span ng-show='item.workNum'> -  Work#: {{item.workNum}}</span></label>
+												</td>
+											</tr>
+										</table>
+									</div>
+									<button class='btn btn-primary' ng-click='moveToSelectSNList()'>
+										<i class="fa fa-arrow-right" aria-hidden="true"></i>
+									</button>
+							</div>
+							<div class='col-sm-6'>
+								<h5>select sn Total: {{selectSNList.length}}</h5>
+								<div class='form-group input-group'>
+									<input type="text" class='form-control' placeholder="Filter" ng-model='searchSelectSNList.sn'>
+									<span class='input-group-btn'>
+										<button class='btn btn-primary' ng-click='selectAllList(selectSNList)'> 
+											<i class="fa fa-check-square-o" aria-hidden="true"></i>
+										</button>
+									</span>
+								</div>
+								<div style="background-color:white; height:100px; width:100%; overflow:auto; padding:2px" >
+									<table>
+										<tr ng-repeat='item in selectSNList |orderBy:"sn" | filter:searchSelectSNList'>
+											<td>
+												<input type="checkbox" 
+													   ng-model='item.checkbox'
+													   id='checkbox2+{{$index}}'
+												>
+												<label for='checkbox2+{{$index}}'>{{item.sn}} - {{item.status}} - {{item.createAt | date:medium}} <span ng-show='item.workNum'> - Work#: {{item.workNum}}</span></label>
+											</td>
+										</tr>
+									</table>		
+								</div>
+								<button class='btn btn-primary' ng-click='moveToSNListForDocNum()'>
+									<i class="fa fa-arrow-left" aria-hidden="true"></i>
+								</button>
+							</div>
+						</div>
+						<div class='col-sm-12'>
+							<br>
+							<!-- <select ng-init='selectSN = "all"' class='form-control' ng-model='selectSN' ng-change='loadTraveler(selectSN)'>
+								<option value='all'>Apply Change For All</option>
+								<option ng-repeat='item in selectSNList | orderBy:"sn"' value='{{item._id}}'> {{item.sn}}</option>
+							</select> -->
+
+						</div>
+					</div>
+				</uib-tab>
+	    	</uib-tabset>
+			
+			<!-- {{SNListForDocNum}}
 			<hr>
-			{{selectSNList}}
+			{{selectSNList}} -->
+			<br>
 			<hr style='margin-top: 1px; margin-bottom: 4px'>
 		</div>
 
-		<div name='steps' ng-show='travelerData.sn && travelerData.itemRecord.docNum'>
-
+		<div name='steps' ng-show='isStartWork && selectSNList.length>0'>
+				<h4 ng-show='isWorkFind'>Work Number: {{input.inputWorkNum}}</h4>
 				<div id='form-container'>
 					<h4>Step {{currentStep}}.{{currentSubStep}}</h4>
 
@@ -241,9 +296,9 @@
 						<a ng-class='{active: currentStep == step.step}' ng-repeat='step in forms.steps' ng-click='statusPage(step.step)'><span>{{step.step}}</span></a>
 					</div>
 
-					<input class='btn btn-primary myButton btn-md pull-right' ng-if='!travelerData.readyReview' type="button" value='Next' ng-click='nextStep()'/>
+					<input class='btn btn-primary myButton btn-md pull-right' ng-show='!travelerData.readyReview' type="button" value='Next' ng-click='nextStep()'/>
 					<div id='steps' ng-repeat='step in forms.steps'>
-						<div class='page-header' ng-if='currentStep == step.step'>
+						<div class='page-header' ng-show='currentStep == step.step'>
 						 <h4>{{step.type}} :: {{step.Description}}</h4>
 						</div>
 						<!-- Step -->
@@ -253,11 +308,11 @@
 							<form class='form-horizontal' role='form' ng-show='subStep.sub_step== currentSubStep && currentStep == step.step'>
 								<h4><strong>{{subStep.Description}}</strong></h4>
 
-								<div ng-if='subStep.options'>
+								<div ng-show='subStep.options'>
 									<div class='form-group' ng-repeat='op in subStep.options'>
 										<label class='control-label col-sm-2'>{{op.name}}:</label>
 										<div class='col-sm-10'>
-											<div ng-if='op.type ==="checkbox"'>
+											<div ng-show='op.type ==="checkbox"'>
 											<!-- checkbox -->
 												<label
 													class='checkbox-inline' 
@@ -271,7 +326,7 @@
 														>{{checkOp}}
 												</label>
 											</div>
-											<div ng-if='op.type ==="select"'>
+											<div ng-show='op.type ==="select"'>
 											<!-- select -->
 												<select 
 													class='form-control'
@@ -283,7 +338,7 @@
 												</select>
 											</div>
 											<!-- radio -->
-											<div ng-if='op.type ==="radio"'>
+											<div ng-show='op.type ==="radio"'>
 												<label ng-repeat='radioOp in op.options'
 													   class='radio-inline'>
 													<input 
@@ -324,7 +379,7 @@
 
 						<!-- status sub page -->
 						<div id='status-buttons-sub' class='text-right'>
-							<a ng-class='{active: currentSubStep == subStep.sub_step}' ng-repeat='subStep in step.list' ng-if='currentStep==step.step' ng-click='statusSubPage(subStep.sub_step)'><span>{{step.step}}.{{subStep.sub_step}}</span></a>
+							<a ng-class='{active: currentSubStep == subStep.sub_step}' ng-repeat='subStep in step.list' ng-show='currentStep==step.step' ng-click='statusSubPage(subStep.sub_step)'><span>{{step.step}}.{{subStep.sub_step}}</span></a>
 						</div>
 					</div>			
 				</div> 	
@@ -334,18 +389,21 @@
 	<div ng-show='travelerData.readyReview' ui-view='formReview' id='div-id-selector'></div>
 
 	<br>
-	<!-- <input class='btn btn-primary myButton btn-lg pull-right' ng-if='!readySubmit' type="button" value='next' ng-click='nextStep()'/> -->
-	<input class='btn btn-primary myButton btn-md pull-right hidden-print' ng-if='travelerData.readyReview && !travelerData.created' type="button" value='submit' ng-click='submit()'/>
+	<!-- <input class='btn btn-primary myButton btn-lg pull-right' ng-show='!readySubmit' type="button" value='next' ng-click='nextStep()'/> -->
+	<input class='btn btn-primary myButton btn-md pull-right hidden-print' ng-show='travelerData.readyReview && !travelerData.created' type="button" value='submit' ng-click='submit()'/>
 	<input ng-show='formId' class='btn btn-primary myButton btn-md pull-right hidden-print'  type='button' value='Save' ng-click='save()'/>
-	<input class='btn btn-primary myButton btn-md pull-right hidden-print' ng-if='travelerData.readyReview' type='button' value='Go Back' ng-click='goBack()'/>
+	<input class='btn btn-primary myButton btn-md pull-right hidden-print' ng-show='travelerData.readyReview' type='button' value='Go Back' ng-click='goBack()'/>
 
 
-	<!-- <br>
+	<br>
 	<br>
 	<br>
 	<br>
 	travelerData: <pre>{{travelerData |json}}</pre><br>
-	formTemplate: <pre>{{forms |json}}</pre><br>
-	formId{{formId}} -->
+	<pre>{{testarea |json}}</pre>
+	<pre>{{selectSNList}}</pre>
+	<pre>{{isStartWork}}</pre>
+	<!-- formTemplate: <pre>{{forms |json}}</pre><br> -->
+	<!-- formId{{formId}} -->
 
 </div>

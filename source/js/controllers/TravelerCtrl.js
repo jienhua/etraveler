@@ -16,7 +16,7 @@ angular.module('TravelerCtrl', [])
 		};
 	})
 	
-	.controller('TravelerController', ['$scope','Traveler', 'Form', 'DocNum', '$stateParams', function($scope, Traveler, Form, DocNum, $stateParams){
+	.controller('TravelerController', ['$scope','Traveler', 'Form', 'DocNum', 'Counter', '$stateParams', function($scope, Traveler, Form, DocNum, Counter, $stateParams){
 
 		$scope.checkReadyReview = function(){
 			if($scope.travelerData.status && $scope.travelerData.status !== 'OPEN'){
@@ -48,12 +48,14 @@ angular.module('TravelerCtrl', [])
 		};
 
 		$scope.updateDocNum = function(){
+			$scope.selectSNList = [];
+			$scope.isWorkFind = false;
 			$scope.docNum.docNumData = $scope.docNum.docNumSelectList[$scope.docNum.docNumSelect];
 			setNumDoctoTraveler();
 
 			// call a function to use docnum to return the list of serial number associate with 
 			// this docnum
-			getSNList($scope.docNum.docNumData.docNum);
+			getSNList($scope.docNum.docNumData._id);
 		};
 
 		$scope.nextStep = function(){
@@ -90,17 +92,20 @@ angular.module('TravelerCtrl', [])
 		};
 
 		$scope.save = function(){
-			if($scope.travelerData.created){
-				// setNumDoctoTraveler();
-				Traveler.save($scope.travelerData)
-					.success(data =>{
-						// do something
-						alert('saved');
-						shouldCollapse();
-					});
-			}else{
-				$scope.submit();
+			
+			let idList = [];
+			for(let i = 0;i < $scope.selectSNList.length;i++){
+				idList.push($scope.selectSNList[i]._id);
 			}
+
+			let data = {
+				idList : idList,
+				travelerData: $scope.travelerData
+			};
+			Traveler.updateMultiple(data)
+				.success(data =>{
+
+				});
 		};
 
 		$scope.review = function(option){
@@ -264,11 +269,6 @@ angular.module('TravelerCtrl', [])
 			}
 		};
 
-		$scope.setTravelerData = function(){
-			$scope.travelerData = $scope.searchSN[$scope.selectSN];
-			loadItemRecord();
-		};
-
 		$scope.moveToSelectSNList = function(){
 			// console.log($scope.SNListForDocNum.length);
 	
@@ -308,8 +308,67 @@ angular.module('TravelerCtrl', [])
 			}
 		};
 
+		$scope.loadTraveler = function(input){
+			if(input){
+				$scope.selectSN = input;
+			}
+			Traveler.normalSearch('_id', $scope.selectSN)
+				.success(data =>{
+					$scope.travelerData = data[0];
+					
+				});
+		};
+
+		$scope.searchSN = function(){
+			$scope.selectSNList = [];
+			Traveler.normalSearch('sn', $scope.travelerData.sn, 'sn|createAt|status')
+				.success(data =>{
+					$scope.isSNMoreThanOne = false;
+					if(data.length > 1){
+						$scope.isSNMoreThanOne = true;
+						$scope.searchSNList = data;
+					}else{
+						$scope.selectSNList.push({"_id":data[0]._id, "sn":data[0].sn});
+						$scope.selectSN = data[0]._id;
+						$scope.loadTraveler();
+						// console.log($scope.travelerData.formId);
+						loadItemRecord();
+					}
+				});
+		};
+
+		$scope.setTravelerData = function(data){
+			$scope.selectSNList = [];
+			$scope.selectSNList.push({"_id":$scope.searchSNList[data]._id, "sn": $scope.searchSNList[data].sn});
+			$scope.selectSN = $scope.searchSNList[data]._id;
+			$scope.loadTraveler();
+			loadItemRecord();
+		};
+
+		$scope.createWork = function(){
+			if($scope.selectSNList.length > 2){
+				Counter.nextSequenceValue({name:'workNum'})
+					.success(data=>{
+						alert('work number ' +data.sequence_value+ ' created');
+						$scope.travelerData.workNum = data.sequence_value.toString();
+						$scope.save();
+					});
+			}
+		};
+
+		$scope.searchWorkNum = function(input){
+			$scope.isWorkFind =false;
+			Traveler.normalSearch('workNum', input, 'sn|createAt|status|workNum')
+				.success(data=>{
+					$scope.selectSNList = data;
+					if(data.length>0){
+						$scope.isWorkFind = true;
+					}
+				});
+		};
+
 		var createNewTraveler = function(item){
-			console.log(item.sn);
+			// console.log(item.sn);
 			if($scope.username){
 				$scope.travelerData.sn = item.sn;
 				$scope.travelerData.created = true;
@@ -322,8 +381,8 @@ angular.module('TravelerCtrl', [])
 			}
 		};
 
-		var getSNList = function(docNum){
-			Traveler.normalSearch('docNum', docNum, '_id|sn|status|createAt')
+		var getSNList = function(input){
+			Traveler.normalSearch('itemRecord.docNumId', input, 'sn|status|createAt|workNum')
 				.success(data =>{
 					$scope.SNListForDocNum = data;
 				});
@@ -410,11 +469,17 @@ angular.module('TravelerCtrl', [])
 			$scope.username = 'John Snow';
 			$scope.docNum = {};
 			$scope.isSNExist = false;
-			$scope.searchSN = {};
-			$scope.selectSN = '0';
+			$scope.isSNMoreThanOne = false;
+			// $scope.searchSN = {};
+			$scope.searchSNList = [];
+			$scope.selectSN = '';
 			$scope.SNListForDocNum = [];
 			$scope.selectSNList = [];
 			$scope.isUseWorkNum = false;
+			$scope.isStartWork = true;
+			$scope.selectSearchSN='0';
+			$scope.isWorkFind = false;
+			$scope.input={};
 		};
 
 		var main = function(){
@@ -440,6 +505,7 @@ angular.module('TravelerCtrl', [])
 						$scope.travelerData = data;
 						loadItemRecord();
 						shouldCollapse();
+						$scope.selectSNList.push({"_id":data._id, "sn":data.sn});
 					});
 			}
 			

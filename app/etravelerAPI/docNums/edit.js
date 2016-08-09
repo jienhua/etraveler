@@ -8,8 +8,10 @@ module.exports = (req, res) =>{
 		{"_id":id},
 		req.body,
 		(err, data)=>{
-			if(err)
+			if(err){
 				res.send(err);
-			res.json({message:'updated!'})
+			}else{
+				res.json({message:'updated!'});
+			}
 		});
 };

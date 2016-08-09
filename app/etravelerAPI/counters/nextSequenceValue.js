@@ -4,8 +4,10 @@ module.exports = (req, res) =>{
 
 	var name = req.body.name;
 	Counter.findOneAndUpdate({"name":name},{$inc:{sequence_value:1}}, function(err, data){
-		if(err)
+		if(err){
 			res.send(err);
-		res.status(200).json(data);
+		}else{
+			res.status(200).json(data);
+		}
 	});
 };

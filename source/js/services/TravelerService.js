@@ -41,6 +41,9 @@ angular.module('TravelerService', [])
                     select = '';
                 }
                 return $http.get('/api/traveler/normalSearch?type='+type+'&data='+data+'&select='+select);
+            },
+            updateMultiple: function(data){
+                return $http.put('/api/traveler/updateMultiple', data);
             }
 	};		
 }]);

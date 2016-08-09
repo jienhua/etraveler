@@ -6,9 +6,11 @@ module.exports = (req, res) => {
 	var formId = req.params.formId;
 
 	formTemplates.findOne({'_id': formId}, (err,data)=>{
-		if(err)
+		if(err){
 			res.send(err);
-		res.json(data);
+		}else{
+			res.json(data);
+		}
 	});
 	
 	// res.status(200).json({forms});

@@ -19,9 +19,10 @@ module.exports = (req, res) => {
 	var query = {};
 	query[req.query.type] = req.query.data;
 	Traveler.findOne(query, (err, data)=>{
-		if(err)
+		if(err){
 			res.send(err);
-		res.json(data);
-	
+		}else{
+			res.json(data);
+		}
 	})
 };

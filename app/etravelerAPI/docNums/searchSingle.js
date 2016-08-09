@@ -7,9 +7,11 @@ module.exports = (req, res) =>{
 	query[type] = req.query.data;
 
 	docNum.findOne(query, (err, data)=>{
-		if(err)
+		if(err){
 			res.send(err);
-		res.json(data);
+		}else{
+			res.json(data);
+		}
 	})
 
 };

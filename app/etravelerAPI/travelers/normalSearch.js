@@ -7,9 +7,12 @@ module.exports = (req, res) =>{
 	var selectInput = req.query.select;
 	var select = {};
 	// console.log(typeof req.query.data);
-	if(type === 'docNum'){
+	if(type === 'itemRecord.docNum' || type === 'docNum'){
 		query["itemRecord.docNum"] = req.query.data;
-	}else{
+	}else if(type==='itemRecord.docNumId'){
+		query["itemRecord.docNumId"] = req.query.data;
+	}
+	else{
 		query[type] = req.query.data;
 	}
 
@@ -27,7 +30,8 @@ module.exports = (req, res) =>{
 	traveler.find(query,select,(err, data)=>{
 		if(err){
 			res.send(err);
+		}else{
+			res.json(data);
 		}
-		res.json(data);
 	});
 };

@@ -5,10 +5,11 @@ module.exports = (req, res) => {
 	// console.log(req.params._id);
 	Traveler.remove({"_id":req.params._id}, (err, data) =>{
 
-		if(err)
+		if(err){
 			res.send(err);
-
-		res.json({message:'delted!'});
+		}else{
+			res.json({message:'delted!'});
+		}
 	});
 
 };

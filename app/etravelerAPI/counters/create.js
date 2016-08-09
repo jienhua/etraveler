@@ -3,9 +3,10 @@ var Counter = require('../../models/counters');
 module.exports = (req, res) =>{
 
 	Counter.create(req.body, (err, data) =>{
-		if(err)
+		if(err){
 			res.send(err);
-
-		res.status(200).json(data);
+		}else{
+			res.status(200).json(data);
+		}
 	});
 };

@@ -3,8 +3,10 @@ var docNum = require('../../models/docNum');
 module.exports = (req, res) => {
 
 	docNum.create(req.body, (err, data) =>{
-		if(err)
+		if(err){
 			res.send(err);
-		res.status(200).json(data);	
+		}else{
+			res.status(200).json(data);
+		}	
 	})
 };
