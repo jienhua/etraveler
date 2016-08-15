@@ -7,7 +7,7 @@ module.exports = (req, res) =>{
 	var selectInput = req.query.select;
 	var select = {};
 	// console.log(typeof req.query.data);
-	if(type === 'itemRecord.docNum' || type === 'docNum'){
+	if(type === 'itemRecord.docNum'){
 		query["itemRecord.docNum"] = req.query.data;
 	}else if(type==='itemRecord.docNumId'){
 		query["itemRecord.docNumId"] = req.query.data;

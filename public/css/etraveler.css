@@ -39,3 +39,10 @@
 	background:#989898; 
 }
 
+.pointer{
+	cursor: pointer; 
+}
+
+.evenRow{
+	background-color: #f0f0f5;
+}

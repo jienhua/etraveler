@@ -11,7 +11,7 @@ module.exports = (req, res) => {
 			if(err){
 				res.send(err);
 			}else{
-				res.json({message:'form udpated!'});
+				res.json(data);
 			}
 		}
 	)

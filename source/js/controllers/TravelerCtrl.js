@@ -91,7 +91,7 @@ angular.module('TravelerCtrl', [])
 			$scope.checkReadyReview();
 		};
 
-		$scope.save = function(){
+		$scope.save = function(callback){
 			
 			let idList = [];
 			for(let i = 0;i < $scope.selectSNList.length;i++){
@@ -102,9 +102,13 @@ angular.module('TravelerCtrl', [])
 				idList : idList,
 				travelerData: $scope.travelerData
 			};
+			if(idList.length > 1){
+				delete data.travelerData.sn;
+			}
 			Traveler.updateMultiple(data)
 				.success(data =>{
-
+					if(callback)
+						callback(data);
 				});
 		};
 
@@ -182,10 +186,7 @@ angular.module('TravelerCtrl', [])
 			window.print();
 		};
 
-		/************************
-		 *
-		 *
-		 ************************/
+
 		$scope.saveDocNum = function(){
 			$scope.docNum.docNumData.formId = $scope.travelerData.formId;
 			$scope.docNum.docNumData.formRev = $scope.travelerData.formRev;
@@ -209,62 +210,37 @@ angular.module('TravelerCtrl', [])
 
 		$scope.editDocNum = function(){
 			// setDocNumLabel('edit');
+			// console.log(JSON.stringify($scope.docNum.docNumData));
 			DocNum.editDocNumData($scope.docNum.docNumData)
 				.success(function(data){
 					loadDocNumList($scope.travelerData.formId, ()=>{});
 				});
 		};
 
-		$scope.checkForSN = function(){
+		$scope.checkForSN = function(data){
 
-			// if(!$scope.travelerData._id){
-			// 	Traveler.normalSearch('sn', $scope.travelerData.sn)
-			// 			.success(function(data){
-			// 				if(data.length > 0 ){
-			// 					$scope.isSNExist = true;
-			// 					$scope.searchSN = data;
-			// 				}else{
-			// 					$scope.isSNExist = false;
-			// 				}
-			// 			});
-			// }
-
-			if($scope.inputSN){
-				// Traveler.normalSearch('sn', $scope.inputSN, '_id|sn')
-				// 	.success(data=>{
-				// 		if(data.length > 0){
-				// 			$scope.isSNExist = true;
-				// 			if(confirm('SN already exist. do you want to create a new traveler with same sn?')){
-				// 				$scope.isSNExist = false;
-				// 				$scope.SNListForDocNum.append({
-				// 					"sn": $scope.inputSN
-				// 				});
-				// 				$scope.inputSN = '';
-				// 			}
-				// 		}else{
-				// 			$scope.isSNExist = false;
-				// 		}
-				// 	});
-				$scope.isSNExist = false;
+			if(data){
+				$scope.isSNExistMoreThanOne = false;
 				for(let i = 0; i < $scope.SNListForDocNum.length; i++){
-					if($scope.SNListForDocNum[i].sn === $scope.inputSN){
-						$scope.isSNExist = true;
+					if($scope.SNListForDocNum[i].sn === data){
+						$scope.isSNExistMoreThanOne = true;
 						if(confirm('SN already exist. do you want to create a new traveler with same sn?')){
-							$scope.isSNExist = false;
+							$scope.isSNExistMoreThanOne = false;
 						}
 						break;
 					}
 				}
-				if(!$scope.isSNExist){
-					$scope.isSNExist = false;
+
+				if(!$scope.isSNExistMoreThanOne){
+					$scope.isSNExistMoreThanOne = false;
 					let item = {
-						"sn": $scope.inputSN,
+						"sn": data,
 						"status": "OPEN",
 						"createAt": new Date
 					}
-					$scope.SNListForDocNum.push(item);
 					createNewTraveler(item);
-					$scope.inputSN = '';
+					data = '';
+					item = {};
 				}
 			}
 		};
@@ -319,22 +295,30 @@ angular.module('TravelerCtrl', [])
 				});
 		};
 
-		$scope.searchSN = function(){
-			$scope.selectSNList = [];
-			Traveler.normalSearch('sn', $scope.travelerData.sn, 'sn|createAt|status')
-				.success(data =>{
-					$scope.isSNMoreThanOne = false;
-					if(data.length > 1){
-						$scope.isSNMoreThanOne = true;
-						$scope.searchSNList = data;
-					}else{
-						$scope.selectSNList.push({"_id":data[0]._id, "sn":data[0].sn});
-						$scope.selectSN = data[0]._id;
-						$scope.loadTraveler();
-						// console.log($scope.travelerData.formId);
-						loadItemRecord();
-					}
-				});
+		$scope.searchSN = function(sn){
+
+			if(sn){
+				$scope.searchSNList= [];
+				$scope.clearAfterChangeTab();
+				$scope.selectSNList = [];
+				Traveler.normalSearch('sn', sn, 'sn|createAt|status')
+					.success(data =>{
+						$scope.isSNExist = true;
+						$scope.isSNMoreThanOne = false;
+						if(data.length > 1){
+							$scope.isSNMoreThanOne = true;
+							$scope.searchSNList = data;
+						}else if(data.length == 1){
+							$scope.selectSNList.push({"_id":data[0]._id, "sn":data[0].sn});
+							$scope.selectSN = data[0]._id;
+							$scope.loadTraveler();
+							loadItemRecord(data[0].formId);
+							// $scope.isStartWork = true;
+						}else{
+							$scope.isSNExist = false;
+						}
+					});
+			}
 		};
 
 		$scope.setTravelerData = function(data){
@@ -343,10 +327,12 @@ angular.module('TravelerCtrl', [])
 			$scope.selectSN = $scope.searchSNList[data]._id;
 			$scope.loadTraveler();
 			loadItemRecord();
+			// $scope.isStartWork = true;
 		};
 
 		$scope.createWork = function(){
-			if($scope.selectSNList.length > 2){
+
+			if($scope.selectSNList.length > 0){
 				Counter.nextSequenceValue({name:'workNum'})
 					.success(data=>{
 						alert('work number ' +data.sequence_value+ ' created');
@@ -358,25 +344,118 @@ angular.module('TravelerCtrl', [])
 
 		$scope.searchWorkNum = function(input){
 			$scope.isWorkFind =false;
-			Traveler.normalSearch('workNum', input, 'sn|createAt|status|workNum')
+			$scope.clearAfterChangeTab();
+			Traveler.normalSearch('workNum', input, 'sn|createAt|status|workNum|formId|itemRecord.docNumId|itemRecord.docNum')
 				.success(data=>{
 					$scope.selectSNList = data;
 					if(data.length>0){
 						$scope.isWorkFind = true;
+						$scope.travelerData['itemRecord'] = {
+							docNumId:data[0].itemRecord.docNumId,
+							docNum:data[0].itemRecord.docNum
+						};
+						loadItemRecord(data[0].formId);
+
+						Traveler.normalSearch('itemRecord.docNumId', data[0].itemRecord.docNumId, 'sn|workNum|status|createAt')
+							.success(data=>{
+								if(data.length>0){
+									for(let i =0; i < data.length;i++){
+										if(data[i].workNum !== input){
+											$scope.SNListForDocNum.push(data[i]);
+										}
+									}
+								}
+							})
 					}
 				});
 		};
 
-		var createNewTraveler = function(item){
+		$scope.clearAfterChangeTab = function(){
+			// alert(123);
+			$scope.selectSNList = [];
+			$scope.SNListForDocNum=[];
+			// let formId = $scope.formId;
+			// reset();
+			// $scope.formId = formId;
+			// $scope.updateForm();
+			$scope.isStartWork = false;
+			$scope.isWorkFind = false;
+			$scope.docNum.docNumSelect = 'new';
+			$scope.docNum.docNumData = {};
+			$scope.travelerData.created = false;
+		};
+		
+		$scope.createTraveler = function(sn){
+
+			if($scope.docNum.docNumSelect === 'new'){
+				alert('Select a Docnument Number');
+				$scope.isCollapsedItemRecord = false;
+			}else{
+				let isWantCreate = true;
+				checkSNExistDB(sn,
+					(result)=>{
+						if(result){
+							if(!confirm('Same Serial number already exist in the database. Create a new Traveler with same Serial Number?')){
+								isWantCreate = false;
+							}
+						}
+						if(isWantCreate){
+							let item = {
+								"sn": sn,
+								"status": "OPEN",
+								"createAt": new Date
+							};
+							createNewTraveler(item, (data)=>{
+								$scope.selectSNList = [];
+								$scope.selectSNList.push({
+									"_id":data._id,
+									"sn":data.sn
+								});
+								setNumDoctoTraveler();
+								$scope.save();
+								$scope.isSNExist = false;
+								// $scope.isStartWork = true;
+							});
+							// console.log($scope.docNum.docNumData);
+						}
+					});
+			}
+			
+		};
+
+		$scope.startWork = function(){
+			$scope.isStartWork = true;
+			$scope.topCollapse = true;
+		};
+
+		var checkSNExistDB = function(sn, callback){
+			$scope.isSNExist = false;
+			Traveler.normalSearch('sn', sn, 'sn')
+				.success(data => {
+					if(data.length > 0){
+						$scope.isSNExist = true;
+					}
+					callback($scope.isSNExist);
+				});
+
+		}
+
+		var createNewTraveler = function(item, callback){
 			// console.log(item.sn);
 			if($scope.username){
+				delete $scope.travelerData._id;
+				delete $scope.travelerData.step;
 				$scope.travelerData.sn = item.sn;
 				$scope.travelerData.created = true;
 				$scope.travelerData.createdBy = $scope.username;
 				$scope.travelerData.createAt = item.createAt;
 				Traveler.create($scope.travelerData)
 					.success(data => {
-
+						item._id = data._id;
+						$scope.SNListForDocNum.push(item);
+						if(callback){
+							callback(data);
+						}
 					});
 			}
 		};
@@ -450,9 +529,11 @@ angular.module('TravelerCtrl', [])
 
 		// load information for ItemRecord with 
 		// docNum. 
-		var loadItemRecord = function(){
-			
-			DocNum.getDocNumList($scope.travelerData.formId)
+		var loadItemRecord = function(formId){
+			if(!formId){
+				formId = $scope.travelerData.formId;
+			}
+			DocNum.getDocNumList(formId)
 				.success(function(data){
 					for(let i=0; i<data.length;i++){
 						if(data[i]._id === $scope.travelerData.itemRecord.docNumId){
@@ -461,6 +542,7 @@ angular.module('TravelerCtrl', [])
 							break;
 						}
 					}
+
 				});
 		};
 
@@ -468,18 +550,23 @@ angular.module('TravelerCtrl', [])
 			$scope.topCollapse=false;
 			$scope.username = 'John Snow';
 			$scope.docNum = {};
-			$scope.isSNExist = false;
+			$scope.isSNExist = true;
+			$scope.isSNExistMoreThanOne = false;
 			$scope.isSNMoreThanOne = false;
-			// $scope.searchSN = {};
 			$scope.searchSNList = [];
 			$scope.selectSN = '';
 			$scope.SNListForDocNum = [];
 			$scope.selectSNList = [];
 			$scope.isUseWorkNum = false;
-			$scope.isStartWork = true;
+			$scope.isStartWork = false;
 			$scope.selectSearchSN='0';
 			$scope.isWorkFind = false;
 			$scope.input={};
+			$scope.isCollapsed = true;
+			// $scope.isCollapsedSelectSNList = true;
+			$scope.isCollapseHeaderSNList = true;
+			$scope.isSearchClick = true;
+			$scope.isCollapsedItemRecord = true;
 		};
 
 		var main = function(){
@@ -503,7 +590,7 @@ angular.module('TravelerCtrl', [])
 						// data is a array. result could be more than one
 						// need to deal wit this.
 						$scope.travelerData = data;
-						loadItemRecord();
+						loadItemRecord(data.formId);
 						shouldCollapse();
 						$scope.selectSNList.push({"_id":data._id, "sn":data.sn});
 					});

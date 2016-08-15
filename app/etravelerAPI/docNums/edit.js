@@ -1,5 +1,6 @@
 var docNum = require('../../models/docNum');
 
+
 module.exports = (req, res) =>{
 
 	var id = req.body._id;
@@ -9,9 +10,10 @@ module.exports = (req, res) =>{
 		req.body,
 		(err, data)=>{
 			if(err){
+				console.log(err);
 				res.send(err);
 			}else{
-				res.json({message:'updated!'});
+				res.json(data);
 			}
-		});
+	});
 };
