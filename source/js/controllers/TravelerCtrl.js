@@ -26,6 +26,7 @@ angular.module('TravelerCtrl', [])
 				$scope.travelerData.status = 'PANDING FOR REVIEW';
 				$scope.travelerData.readyReview = true;
 			}
+			$scope.save();
 		};
 
 		$scope.updateForm = function() {
@@ -593,6 +594,7 @@ angular.module('TravelerCtrl', [])
 						loadItemRecord(data.formId);
 						shouldCollapse();
 						$scope.selectSNList.push({"_id":data._id, "sn":data.sn});
+						$scope.isStartWork = true;
 					});
 			}
 			

@@ -1,6 +1,6 @@
 <div class='container-fluid hidden-print'>
 	<div class='row'>
-		<div class='col-md-4'>
+		<div class='col-xs-4'>
 			<h2>Search Traveler</h2>
 			
 			<form class='form-inline well'>
@@ -13,7 +13,7 @@
 				<div class='form-group input-group'>
 					<input type="text" class='form-control' placeholder='Search' ng-model='searchInput'>
 					<span class='input-group-btn'>
-						<button class='btn btn-info' type='button' ng-click='search()'>
+						<button class='btn btn-primary' type='button' ng-click='search()'>
 							<i class='glyphicon glyphicon-search'></i>
 						</button>
 					</span>
@@ -21,7 +21,7 @@
 			</form>
 		</div> <!-- col-md-6 -->
 
-		<div class='col-md-8' ng-if='isSearch && result.length > 0'>
+		<div class='col-xs-8' ng-if='isSearch && result.length > 0'>
 			<div class='col-md-4'>
 				<h5><strong>Completed:</strong> {{stat.COMPLETED}}</h5>
 				<h5><strong>Panding For Review:</strong> {{stat['PANDING FOR REVIEW']}}</h5>
@@ -32,13 +32,13 @@
 				<h5><strong>Rejected Percentage:</strong> {{stat.pecReject}}%</h5>
 				<!-- <h5><strong>{{totalTimeSpend()}}</strong></h5> -->
 			</div>
-			<div class='col-md-4'>
+			<div class='col-xs-4'>
 				<canvas id="pie" class="chart chart-pie"
   					chart-data="pieData1" chart-labels="pieLabels1" chart-options="options">
 				</canvas> 
 				<h5 class='text-center'><strong>Distribution Chart</strong></h5>
 			</div>
-			<div class='col-md-4'>
+			<div class='col-xs-4'>
 				<canvas id="pie" class="chart chart-pie"
   					chart-data="pieData2" chart-labels="pieLabels2" chart-options="options">
 				</canvas> 

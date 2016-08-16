@@ -8,7 +8,7 @@ angular.module('SearchTravelerCtrl', ['chart.js'])
 			if($scope.searchInput){
 				if($scope.searchOption ==='sn'){
 					let sn = $scope.searchInput.toString();
-					Traveler.searchLike(sn)
+					Traveler.searchLike($scope.searchInput)
 
 						.success( data =>{
 							$scope.result=data;

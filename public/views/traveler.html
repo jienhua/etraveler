@@ -21,12 +21,18 @@
 	</div>
 	<br>
 	<div ng-show='topCollapse && !travelerData.readyReview'>
-		<h4>Doc Num: {{travelerData.itemRecord.docNum}}</h4>
-		<h4 class='pointer' ng-click='isCollapseHeaderSNList = !isCollapseHeaderSNList'>Serial Number:</h4>
-		<ul uib-collapse='isCollapseHeaderSNList'>
+		<h5>Doc Num: {{travelerData.itemRecord.docNum}}</h5>
+		<h5 class='pointer' ng-click='isCollapseHeaderSNList = !isCollapseHeaderSNList'>Serial Number: (* click to hide the list)</h5>
+		<ul uib-collapse='!isCollapseHeaderSNList'>
 			<li ng-repeat='item in selectSNList'>{{item.sn}}</li>
 		</ul>
-		<h4 ng-show='isWorkFind'>Work Number: {{input.inputWorkNum}}</h4>
+
+		<h5 ng-show='isWorkFind'>Work Number: {{input.inputWorkNum}}</h5>
+		<h5 ng-show='travelerData.status'>Status: {{travelerData.status}}</h5>
+		<h5>
+			Group: <span ng-show='travelerData.workNum'>{{travelerData.workNum}}</span>
+				   <span ng-show='!travelerData.workNum'>No Group</span> 
+		</h5>
 		<button class='btn btn-primary btn-md pull-right' ng-click='checkReadyReview()'>
 			<!-- <i class="fa fa-check" aria-hidden="true"></i>  -->
 			Ready for Review						
@@ -39,8 +45,8 @@
 		<hr>
 	</div>
 	<div ng-show='!topCollapse && !travelerData.readyReview'>
-		<input type='button' class='btn btn-warning btn-md pull-right myButton hidden-print' value='New' ng-click='new()'/>
-		<input type='button' class='btn btn-danger btn-md pull-right myButton hidden-print' value='Delete' ng-click='delete()'/>
+		<input type='button' class='btn btn-primary btn-md pull-right myButton hidden-print' value='New' ng-click='new()'/>
+		<input type='button' class='btn btn-primary btn-md pull-right myButton hidden-print' value='Delete' ng-click='delete()'/>
 		<form role='form'>
 			<div class='form-group hidden-print' style='margin-bottom: 0px'>
 				<label for='select-formId'>Select a Template:</label>
@@ -122,7 +128,7 @@
 					<div class='col-sm-12'>
 						<button type='button' class='btn btn-primary btn-sm' ng-click='isCollapsedItemRecord = !isCollapsedItemRecord'>Show DocNum Details</button>
 
-						<button type='button' class='btn btn-danger btn-sm' ng-show='selectSNList.length>0' ng-click='startWork()'>Start</button>
+						<button type='button' class='btn btn-primary btn-sm' ng-show='selectSNList.length>0' ng-click='startWork()'>Start</button>
 						<div uib-collapse='isCollapsedItemRecord'>
 							<div class='form-group' uib-collapse='isSearchClick'>
 								<label class='control-label' for='docNumSelect'>Select Document#:</label>
@@ -228,7 +234,7 @@
 								</div>
  -->
 								<button type='button' class='btn btn-primary btn-sm' ng-click='isCollapsedItemRecord = !isCollapsedItemRecord'>Show DocNum Details</button>
-								<button type='button' class='btn btn-danger btn-sm' ng-show='selectSNList.length>0' ng-click='startWork()'>Start</button>
+								<button type='button' class='btn btn-primary btn-sm' ng-show='selectSNList.length>0' ng-click='startWork()'>Start</button>
 
 								<div class='form-inline' role='form' uib-collapse='isCollapsedItemRecord'>
 									<div class='form-group'>
@@ -352,17 +358,17 @@
 										</span>
 								</div>
 								<div style="background-color:white; height:100px; width:100%; overflow:auto; padding:2px" >
-										<table>
-											<tr ng-repeat='item in SNListForDocNum |orderBy:"sn"| filter:searchSNListForDocNum'>
-												<td>
-													<input type="checkbox" 
-														   ng-model='item.checkbox'
-														   id='checkbox1+{{$index}}'
-															>
-													<label for='checkbox1+{{$index}}'>{{item.sn}} - {{item.status}} - {{item.createAt | date:medium}} <span ng-show='item.workNum'> -  Work#: {{item.workNum}}</span></label>
-												</td>
-											</tr>
-										</table>
+									<table class='table table-striped'>
+										<tr ng-repeat='item in SNListForDocNum |orderBy:"sn"| filter:searchSNListForDocNum'>
+											<td style="padding:0px">
+												<input type="checkbox" 
+													   ng-model='item.checkbox'
+													   id='checkbox1+{{$index}}'
+														>
+												<label for='checkbox1+{{$index}}'>{{item.sn}} - {{item.status}} - {{item.createAt | date:medium}} <span ng-show='item.workNum'> -  Work#: {{item.workNum}}</span></label>
+											</td>
+										</tr>
+									</table>
 								</div>
 								<button class='btn btn-primary' ng-click='moveToSelectSNList()'>
 									<i class="fa fa-arrow-right" aria-hidden="true"></i>
@@ -379,9 +385,9 @@
 									</span>
 								</div>
 								<div style="background-color:white; height:100px; width:100%; overflow:auto; padding:2px" >
-									<table>
+									<table class='table table-striped'>
 										<tr ng-repeat='item in selectSNList |orderBy:"sn" | filter:searchSelectSNList'>
-											<td>
+											<td style="padding:0px">
 												<input type="checkbox" 
 													   ng-model='item.checkbox'
 													   id='checkbox2+{{$index}}'
@@ -524,14 +530,14 @@
 	<input class='btn btn-primary myButton btn-md pull-right hidden-print' ng-show='travelerData.readyReview' type='button' value='Go Back' ng-click='goBack()'/>
 
 
+	<!-- <br>
 	<br>
 	<br>
 	<br>
-	<br>
-	travelerData: <pre>{{travelerData |json}}</pre><br>
+	travelerData: <pre>{{travelerData |json}}</pre><br> -->
 	<!-- <pre>{{testarea |json}}</pre> -->
 	<!-- <pre>{{selectSNList}}</pre> -->
-	<pre>{{isStartWork}}</pre>
+	<!-- <pre>{{isStartWork}}</pre> -->
 
 	<!-- formTemplate: <pre>{{forms |json}}</pre><br> -->
 	<!-- formId{{formId}} -->
