@@ -52,11 +52,15 @@ angular.module('TravelerCtrl', [])
 			$scope.selectSNList = [];
 			$scope.isWorkFind = false;
 			$scope.docNum.docNumData = $scope.docNum.docNumSelectList[$scope.docNum.docNumSelect];
-			setNumDoctoTraveler();
+			if($scope.docNum.docNumSelect !== 'new'){
+				setNumDoctoTraveler();
+				getSNList($scope.docNum.docNumData._id);
+			}else{
+				delete $scope.travelerData.itemRecord;
+			}
 
 			// call a function to use docnum to return the list of serial number associate with 
 			// this docnum
-			getSNList($scope.docNum.docNumData._id);
 		};
 
 		$scope.nextStep = function(){
@@ -103,9 +107,9 @@ angular.module('TravelerCtrl', [])
 				idList : idList,
 				travelerData: $scope.travelerData
 			};
-			if(idList.length > 1){
-				delete data.travelerData.sn;
-			}
+			// if(idList.length > 1){
+			delete data.travelerData.sn;
+			// }
 			Traveler.updateMultiple(data)
 				.success(data =>{
 					if(callback)
@@ -237,8 +241,13 @@ angular.module('TravelerCtrl', [])
 					let item = {
 						"sn": data,
 						"status": "OPEN",
-						"createAt": new Date
-					}
+						"createAt": new Date,
+						"itemRecord":{
+							"docNumId": $scope.docNum.docNumData._id,
+							"docNum": $scope.docNum.docNumData.docNum
+						}
+					};
+					console.log(item);
 					createNewTraveler(item);
 					data = '';
 					item = {};
@@ -332,13 +341,14 @@ angular.module('TravelerCtrl', [])
 		};
 
 		$scope.createWork = function(){
-
 			if($scope.selectSNList.length > 0){
 				Counter.nextSequenceValue({name:'workNum'})
 					.success(data=>{
 						alert('work number ' +data.sequence_value+ ' created');
 						$scope.travelerData.workNum = data.sequence_value.toString();
+						setNumDoctoTraveler();
 						$scope.save();
+						$scope.searchWorkNum(data.sequence_value);
 					});
 			}
 		};
@@ -361,12 +371,12 @@ angular.module('TravelerCtrl', [])
 							.success(data=>{
 								if(data.length>0){
 									for(let i =0; i < data.length;i++){
-										if(data[i].workNum !== input){
+										if(!data[i].workNum ||data[i].workNum !== input.toString()){
 											$scope.SNListForDocNum.push(data[i]);
 										}
 									}
 								}
-							})
+							});
 					}
 				});
 		};
@@ -446,7 +456,9 @@ angular.module('TravelerCtrl', [])
 			if($scope.username){
 				delete $scope.travelerData._id;
 				delete $scope.travelerData.step;
+				delete $scope.travelerData.workNum;
 				$scope.travelerData.sn = item.sn;
+				$scope.travelerData.itemRecord = item.itemRecord;
 				$scope.travelerData.created = true;
 				$scope.travelerData.createdBy = $scope.username;
 				$scope.travelerData.createAt = item.createAt;

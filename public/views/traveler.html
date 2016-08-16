@@ -271,13 +271,12 @@
 				</uib-tab>
 				<!-- Create a Work TAB //////////////////////////////////////////////////////////////////////////////// -->
 				<uib-tab index='2' heading='Create Group' select='clearAfterChangeTab();'>
-
 					<div class='form-group'>
 						<label class='control-label' for='docNumSelect'>Select Document#:</label>
 						<select ng-init='docNum.docNumSelect="new"' class='form-control' id='docNumSelect' ng-model='docNum.docNumSelect' ng-change='updateDocNum()' autofocus>
 								<option value='new'>Create New Doc#</option>
 								<optgroup ng-repeat='op in docNum.docNumSelectList | unique:"docNum" | orderBy:"docNum"' label='{{op.docNum}}'>
-									<option ng-repeat='chilop in docNum.docNumSelectList' ng-show='chilop.docNum === op.docNum' value='{{$index}}'>Doc# {{op.docNum}} Model - {{chilop.label}}</option>
+									<option ng-repeat='chilop in docNum.docNumSelectList' ng-show='chilop.docNum === op.docNum' value='{{$index}}'>Doc# {{chilop.docNum}} Model - {{chilop.label}}</option>
 								</optgroup>
 						</select>
 					</div>
@@ -530,11 +529,11 @@
 	<input class='btn btn-primary myButton btn-md pull-right hidden-print' ng-show='travelerData.readyReview' type='button' value='Go Back' ng-click='goBack()'/>
 
 
-	<!-- <br>
 	<br>
 	<br>
 	<br>
-	travelerData: <pre>{{travelerData |json}}</pre><br> -->
+	<br>
+	travelerData: <pre>{{travelerData |json}}</pre><br>
 	<!-- <pre>{{testarea |json}}</pre> -->
 	<!-- <pre>{{selectSNList}}</pre> -->
 	<!-- <pre>{{isStartWork}}</pre> -->

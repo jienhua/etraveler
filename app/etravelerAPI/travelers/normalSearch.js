@@ -27,6 +27,7 @@ module.exports = (req, res) =>{
 			}
 		}
 	}
+	console.log(query);
 	traveler.find(query,select,(err, data)=>{
 		if(err){
 			res.send(err);
