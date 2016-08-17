@@ -4,6 +4,9 @@ angular.module('CounterService', [])
 		return {
 			nextSequenceValue:function(input){
 				return $http.post('api/counter/nextSequenceValue/', input);
+			},
+			create: function(data){
+				return $http.post('api/counter/create', data);
 			}
 		};
 	}]);

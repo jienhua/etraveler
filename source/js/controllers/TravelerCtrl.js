@@ -127,7 +127,8 @@ angular.module('TravelerCtrl', [])
 				$scope.travelerData.reviewAt = new Date();
 				$scope.save();
 			}else{
-				alert('enter reviewer name');
+				$scope.closeAlert(0,'clear');
+				$scope.addAlert('warning', 'Enter Reviewer Name');
 			}
 		};
 
@@ -184,7 +185,8 @@ angular.module('TravelerCtrl', [])
 				$scope.travelerData.step[currentStep][currentSubStep].editTime = new Date();
 				return true;
 			}
-			alert('enter your name');
+			$scope.closeAlert(0,'clear');
+			$scope.addAlert('warning', 'Enter your Name');
 			return false;
 		};
 
@@ -352,11 +354,23 @@ angular.module('TravelerCtrl', [])
 			if($scope.selectSNList.length > 0){
 				Counter.nextSequenceValue({name:'workNum'})
 					.success(data=>{
-						alert('work number ' +data.sequence_value+ ' created');
-						$scope.travelerData.workNum = data.sequence_value.toString();
-						setNumDoctoTraveler();
-						$scope.save();
-						$scope.searchWorkNum(data.sequence_value);
+						if(data){
+							$scope.closeAlert(0,'clear');
+							$scope.addAlert('info', 'Work number ' +data.sequence_value+ ' created');
+							$scope.travelerData.workNum = data.sequence_value.toString();
+							setNumDoctoTraveler();
+							$scope.save();
+							$scope.searchWorkNum(data.sequence_value);
+						}else{
+							Counter.create(
+								{
+									"name":"workNum",
+									"sequence_value":0
+								}
+							).success(data=>{
+								$scope.createWork();
+							});
+						}
 					});
 			}
 		};
@@ -390,13 +404,8 @@ angular.module('TravelerCtrl', [])
 		};
 
 		$scope.clearAfterChangeTab = function(){
-			// alert(123);
 			$scope.selectSNList = [];
 			$scope.SNListForDocNum=[];
-			// let formId = $scope.formId;
-			// reset();
-			// $scope.formId = formId;
-			// $scope.updateForm();
 			$scope.isStartWork = false;
 			$scope.isWorkFind = false;
 			$scope.docNum.docNumSelect = 'new';
@@ -407,7 +416,8 @@ angular.module('TravelerCtrl', [])
 		$scope.createTraveler = function(sn){
 
 			if($scope.docNum.docNumSelect === 'new'){
-				alert('Select a Docnument Number');
+				$scope.closeAlert(0,'clear');
+				$scope.addAlert('warning', 'Select a Document Number');
 				$scope.isCollapsedItemRecord = false;
 			}else{
 				let isWantCreate = true;
@@ -445,6 +455,23 @@ angular.module('TravelerCtrl', [])
 		$scope.startWork = function(){
 			$scope.isStartWork = true;
 			$scope.topCollapse = true;
+		};
+
+		$scope.addAlert = function(type, msg){
+			$scope.alerts.push(
+				{
+					"type": type,
+					"msg" : msg
+				}
+			);
+		};
+
+		$scope.closeAlert = function(index, action){
+			if(action === 'clear'){
+				$scope.alerts = [];
+			}else{
+				$scope.alerts.splice(index,1);
+			}
 		};
 
 		var checkSNExistDB = function(sn, callback){
@@ -588,6 +615,7 @@ angular.module('TravelerCtrl', [])
 			$scope.isCollapseHeaderSNList = true;
 			$scope.isSearchClick = true;
 			$scope.isCollapsedItemRecord = true;
+			$scope.alerts = [];
 		};
 
 		var main = function(){

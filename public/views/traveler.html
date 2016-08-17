@@ -59,6 +59,11 @@
 		<br>
 	</div>
 
+	<div ng-repeat='alert in alerts' class='alert'
+		ng-class='"alert-" + (alert.type || "warning")' 
+		>
+		<a class="close" aria-label="close" ng-click='closeAlert($index)'>&times;</a>
+		{{alert.msg}}</div>
 	<div ng-show='!travelerData.readyReview && formId'>
 
 		<div name='itemRecord' ng-show='!topCollapse'>
