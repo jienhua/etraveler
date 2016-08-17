@@ -22,7 +22,7 @@
 	<br>
 	<div ng-show='topCollapse && !travelerData.readyReview'>
 		<h5>Doc Num: {{travelerData.itemRecord.docNum}}</h5>
-		<h5 class='pointer' ng-click='isCollapseHeaderSNList = !isCollapseHeaderSNList'>Serial Number: (* click to hide the list)</h5>
+		<h5 class='pointer' ng-click='isCollapseHeaderSNList = !isCollapseHeaderSNList'>Serial Number: <small>(* click to hide the list)</small></h5>
 		<ul uib-collapse='!isCollapseHeaderSNList'>
 			<li ng-repeat='item in selectSNList'>{{item.sn}}</li>
 		</ul>

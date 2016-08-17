@@ -14,6 +14,6 @@ travelers.get('/searchLike/:sn', searchLike);
 travelers.get('/', single);
 travelers.put('/', save);
 travelers.put('/updateMultiple',updateMultiple);
-travelers.delete('/:_id', deleteTraveler);
+travelers.post('/deleteTraveler', deleteTraveler);
 
 module.exports = travelers;

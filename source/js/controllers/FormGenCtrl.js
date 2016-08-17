@@ -7,7 +7,7 @@ angular.module('FormGenCtrl.js', ['ui.bootstrap.tabs'])
 			if(!password || password === ''){
 				password = prompt('password');
 			}
-			if(password === '123'){
+			if(password === 'QQmore'){
 			Form.create($scope.template)
 				.success(data =>{
 					// do something
@@ -22,7 +22,7 @@ angular.module('FormGenCtrl.js', ['ui.bootstrap.tabs'])
 
 		$scope.save = function(){
 			var password = prompt('password');
-			if(password ==='123'){
+			if(password ==='QQmore'){
 				if($scope.create._id){
 					Form.save($scope.create)
 					.success(data=>{

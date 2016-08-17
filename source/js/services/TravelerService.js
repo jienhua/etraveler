@@ -31,10 +31,9 @@ angular.module('TravelerService', [])
             searchLike: function(sn){
             	return $http.get('/api/traveler/searchLike/'+ sn);
             },
-            // call to DELETE a form
-            removeTraveler: function(_id, input){
-                // console.log(_id);
-            	return $http.delete('/api/traveler/'+ _id);
+            // call to DELETE forms
+            removeTraveler: function(data){
+            	return $http.post('/api/traveler/deleteTraveler', data);
             },
             normalSearch: function(type, data, select){
                 if(!select){

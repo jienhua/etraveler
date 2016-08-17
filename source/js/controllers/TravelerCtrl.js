@@ -157,12 +157,21 @@ angular.module('TravelerCtrl', [])
 		};
 
 		$scope.delete = function(){
-			alert('delete click');
-			if($scope.travelerData._id){
-				Traveler.removeTraveler($scope.travelerData._id)
-					.success(data => {
-						reset();
-					});
+
+			if($scope.selectSNList){
+				if(confirm('delete?')){
+					let idList = [];
+					for(let i = 0;i < $scope.selectSNList.length;i++){
+						idList.push($scope.selectSNList[i]._id);
+					}
+					let data = {
+						"idList": idList
+					}
+					Traveler.removeTraveler(data)
+						.success(data => {
+							reset();
+						});
+				}
 			}
 		};
 
@@ -247,7 +256,6 @@ angular.module('TravelerCtrl', [])
 							"docNum": $scope.docNum.docNumData.docNum
 						}
 					};
-					console.log(item);
 					createNewTraveler(item);
 					data = '';
 					item = {};
