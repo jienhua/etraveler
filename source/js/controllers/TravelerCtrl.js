@@ -321,7 +321,7 @@ angular.module('TravelerCtrl', [])
 				$scope.searchSNList= [];
 				$scope.clearAfterChangeTab();
 				$scope.selectSNList = [];
-				Traveler.normalSearch('sn', sn, 'sn|createAt|status')
+				Traveler.normalSearch('sn|formId', sn+'|'+$scope.formId, 'sn|createAt|status')
 					.success(data =>{
 						$scope.isSNExist = true;
 						$scope.isSNMoreThanOne = false;
@@ -478,7 +478,7 @@ angular.module('TravelerCtrl', [])
 
 		var checkSNExistDB = function(sn, callback){
 			$scope.isSNExist = false;
-			Traveler.normalSearch('sn', sn, 'sn')
+			Traveler.normalSearch('sn|formId', sn+'|'+$scope.formId, 'sn')
 				.success(data => {
 					if(data.length > 0){
 						$scope.isSNExist = true;
