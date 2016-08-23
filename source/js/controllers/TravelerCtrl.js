@@ -414,7 +414,7 @@ angular.module('TravelerCtrl', [])
 		};
 		
 		$scope.createTraveler = function(sn){
-
+			$scope.isSNExist = false;
 			if($scope.docNum.docNumSelect === 'new'){
 				$scope.closeAlert(0,'clear');
 				$scope.addAlert('warning', 'Select a Document Number');
@@ -424,6 +424,7 @@ angular.module('TravelerCtrl', [])
 				checkSNExistDB(sn,
 					(result)=>{
 						if(result){
+							$scope.isSNExist = true;
 							if(!confirm('Same Serial number already exist in the database. Create a new Traveler with same Serial Number?')){
 								isWantCreate = false;
 							}
@@ -435,6 +436,8 @@ angular.module('TravelerCtrl', [])
 								"createAt": new Date
 							};
 							createNewTraveler(item, (data)=>{
+								$scope.closeAlert(0,'clear');
+								$scope.isCollapsedItemRecord = true;
 								$scope.selectSNList = [];
 								$scope.selectSNList.push({
 									"_id":data._id,
@@ -445,7 +448,6 @@ angular.module('TravelerCtrl', [])
 								$scope.isSNExist = false;
 								// $scope.isStartWork = true;
 							});
-							// console.log($scope.docNum.docNumData);
 						}
 					});
 			}

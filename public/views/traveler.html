@@ -162,7 +162,7 @@
 									</select>
 								</div>
 
-								<div class='form-group' ng-show='docNum.docNumSelect !== "new"'>
+								<div class='form-group' ng-show='false &&docNum.docNumSelect !== "new"'>
 									<button class='btn btn-primary btn-md pull-right' ng-click='editDocNum()'>
 										Edit/Save						
 									</button>
@@ -467,7 +467,7 @@
 											<!-- select -->
 												<select 
 													class='form-control'
-													ng-model='travelerData.step[step.step][subStep.sub_step]["options"][$parent.$index]'
+													ng-model='travelerData.step[step.step][subStep.sub_step]["options"][$index]'
 													ng-change='appendSubStepEditInfo()'>
 													<option value=''>---Please select---</option>
 													<option ng-repeat='selectOp in op.options'
@@ -480,7 +480,6 @@
 													   class='radio-inline'>
 													<input 
 														type="radio"
-														name="radio"
 														value='{{$index}}'
 														ng-model='travelerData.step[step.step][subStep.sub_step]["options"][$parent.$index]'
 														ng-change='appendSubStepEditInfo()'
@@ -540,7 +539,7 @@
 	<br>
 	travelerData: <pre>{{travelerData |json}}</pre><br>
 	<!-- <pre>{{testarea |json}}</pre> -->
-	<!-- <pre>{{selectSNList}}</pre> -->
+	<pre>{{selectSNList}}</pre>
 	<!-- <pre>{{isStartWork}}</pre> -->
 
 	<!-- formTemplate: <pre>{{forms |json}}</pre><br> -->
