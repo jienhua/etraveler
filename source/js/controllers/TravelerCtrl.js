@@ -233,36 +233,37 @@ angular.module('TravelerCtrl', [])
 				});
 		};
 
-		$scope.checkForSN = function(data){
+		$scope.checkForSN = function(input){
 
-			if(data){
+			if(input){
 				$scope.isSNExistMoreThanOne = false;
-				for(let i = 0; i < $scope.SNListForDocNum.length; i++){
-					if($scope.SNListForDocNum[i].sn === data){
-						$scope.isSNExistMoreThanOne = true;
-						if(confirm('SN already exist. do you want to create a new traveler with same sn?')){
-							$scope.isSNExistMoreThanOne = false;
+				Traveler.normalSearch('sn|formId', input+'|'+$scope.formId, 'sn')
+					.success(data=>{
+						if(data.length>0){
+							$scope.isSNExistMoreThanOne = true;
+							if(confirm('SN already exist. do you want to create a new traveler with same sn?')){
+								$scope.isSNExistMoreThanOne = false;
+							}
 						}
-						break;
-					}
-				}
 
-				if(!$scope.isSNExistMoreThanOne){
-					$scope.isSNExistMoreThanOne = false;
-					let item = {
-						"sn": data,
-						"status": "OPEN",
-						"createAt": new Date,
-						"itemRecord":{
-							"docNumId": $scope.docNum.docNumData._id,
-							"docNum": $scope.docNum.docNumData.docNum
+						if(!$scope.isSNExistMoreThanOne){
+							$scope.isSNExistMoreThanOne = false;
+							let item = {
+								"sn": input,
+								"status": "OPEN",
+								"createAt": new Date,
+								"itemRecord":{
+									"docNumId": $scope.docNum.docNumData._id,
+									"docNum": $scope.docNum.docNumData.docNum
+								}
+							};
+							createNewTraveler(item);
+							input = '';
+							item = {};
 						}
-					};
-					createNewTraveler(item);
-					data = '';
-					item = {};
-				}
+					});
 			}
+
 		};
 
 		$scope.moveToSelectSNList = function(){
