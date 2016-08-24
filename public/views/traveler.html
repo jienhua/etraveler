@@ -318,69 +318,68 @@
 					</div>
 					<!-- <div class='row well' uib-collapse='docNum.docNumSelect ==="new"'> -->
 					<div class='row well'>
-						<div class='col-sm-12'>
-							<div class='col-sm-6'>
-								<h5>add sn <span ng-show='isSNExistMoreThanOne' style='color:red;'>* Same Serial Number detect in database.</span></h5>
-								<div class='form-group input-group'>
-									<input type="text" class='form-control' placeholder='Serial Number' ng-model='inputSN'>
-									<span class='input-group-btn'>
-										<button class='btn btn-primary' ng-click='checkForSN(inputSN)'>
-											<i class="fa fa-plus" aria-hidden="true"></i>
-										</button>
-									</span>
-								</div>
+						<div class='col-sm-6'>
+							<h5>add sn <span ng-show='isSNExistMoreThanOne' style='color:red;'>* Same Serial Number detect in database.</span></h5>
+							<div class='form-group input-group'>
+								<input type="text" class='form-control' placeholder='Serial Number' ng-model='inputSN'>
+								<span class='input-group-btn'>
+									<button class='btn btn-primary' ng-click='checkForSN(inputSN)'>
+										<i class="fa fa-plus" aria-hidden="true"></i>
+									</button>
+								</span>
 							</div>
-							<!-- <div class='col-sm-6'> -->
-							<div class='col-xs-3'>
-								<h5>Search a Group</h5>
-								<div class='form-group input-group'>
-									<input type="text" class='form-control' placeholder="Search" ng-model='input.inputWorkNum'>
-									<span class='input-group-btn'>
-										<button class='btn btn-primary' ng-click='searchWorkNum(input.inputWorkNum)'>
-											<i class="fa fa-search" aria-hidden="true"></i>
-										</button>
-									</span>
-								</div>
+							<div class='col-xs-12' style='padding: 0px'>
+							<h5>sn filter Total: {{SNListForDocNum.length}}</h5>
+							<div class='form-group input-group'>
+								<input type="text" class='form-control' placeholder="Filter" ng-model='searchSNListForDocNum.sn'>
+								<span class='input-group-btn'>
+									<button class='btn btn-primary' ng-click='selectAllList(SNListForDocNum)'> 
+										<i class="fa fa-check-square-o" aria-hidden="true"></i>
+									</button>
+								</span>
 							</div>
-							<div class='col-xs-3'>
-								<h5>Create a new Group</h5>
-								<button class='btn btn-primary' ng-click='createWork()'>
-									<i class="fa fa-files-o" aria-hidden="true"> Group</i>
-								</button>
+							<div style="background-color:white; height:100px; width:100%; overflow:auto; padding:2px" >
+								<table class='table table-striped'>
+									<tr ng-repeat='item in SNListForDocNum |orderBy:"sn"| filter:searchSNListForDocNum'>
+										<td style="padding:0px">
+											<input type="checkbox" 
+												   ng-model='item.checkbox'
+												   id='checkbox1+{{$index}}'
+													>
+											<label for='checkbox1+{{$index}}'>{{item.sn}} - {{item.status}} - {{item.createAt | date:medium}} <span ng-show='item.workNum'> -  Work#: {{item.workNum}}</span></label>
+										</td>
+									</tr>
+								</table>
 							</div>
-							<!-- </div> -->
+							<button class='btn btn-primary' ng-click='moveToSelectSNList()'>
+								<i class="fa fa-arrow-right" aria-hidden="true"></i>
+							</button>
+							</div>
 						</div>
-						<div class='col-sm-12'>
-							<div class='col-sm-6'>
-								<h5>sn filter Total: {{SNListForDocNum.length}}</h5>
-								<div class='form-group input-group'>
-										<input type="text" class='form-control' placeholder="Filter" ng-model='searchSNListForDocNum.sn'>
+						<div class='col-sm-6'>
+							<div class='col-sm-12' style='padding: 0px'>
+								<div class='col-xs-6' style='padding-left: 0px'>
+									<h5>Search a Group</h5>
+									<div class='form-group input-group'>
+										<input type="text" class='form-control' placeholder="Search" ng-model='input.inputWorkNum'>
 										<span class='input-group-btn'>
-											<button class='btn btn-primary' ng-click='selectAllList(SNListForDocNum)'> 
-												<i class="fa fa-check-square-o" aria-hidden="true"></i>
+											<button class='btn btn-primary' ng-click='searchWorkNum(input.inputWorkNum)'>
+												<i class="fa fa-search" aria-hidden="true"></i>
 											</button>
 										</span>
+									</div>
 								</div>
-								<div style="background-color:white; height:100px; width:100%; overflow:auto; padding:2px" >
-									<table class='table table-striped'>
-										<tr ng-repeat='item in SNListForDocNum |orderBy:"sn"| filter:searchSNListForDocNum'>
-											<td style="padding:0px">
-												<input type="checkbox" 
-													   ng-model='item.checkbox'
-													   id='checkbox1+{{$index}}'
-														>
-												<label for='checkbox1+{{$index}}'>{{item.sn}} - {{item.status}} - {{item.createAt | date:medium}} <span ng-show='item.workNum'> -  Work#: {{item.workNum}}</span></label>
-											</td>
-										</tr>
-									</table>
+								<div class='col-xs-6' style='padding-right: 0px'>
+									<h5>Create a new Group</h5>
+									<button class='btn btn-primary' ng-click='createWork()'>
+										<i class="fa fa-files-o" aria-hidden="true"> Group</i>
+									</button>
 								</div>
-								<button class='btn btn-primary' ng-click='moveToSelectSNList()'>
-									<i class="fa fa-arrow-right" aria-hidden="true"></i>
-								</button>
 							</div>
-							<div class='col-sm-6'>
+							<div class='col-xs-12' style='padding: 0px'>
 								<h5>select sn Total: {{selectSNList.length}}</h5>
 								<div class='form-group input-group'>
+									<!-- <h5>select sn Total: {{selectSNList.length}}</h5> -->
 									<input type="text" class='form-control' placeholder="Filter" ng-model='searchSelectSNList.sn'>
 									<span class='input-group-btn'>
 										<button class='btn btn-primary' ng-click='selectAllList(selectSNList)'> 
@@ -406,6 +405,7 @@
 								</button>
 							</div>
 						</div>
+		
 					</div>
 				</uib-tab>
 	    	</uib-tabset>
