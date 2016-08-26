@@ -198,14 +198,14 @@
 							</div>
 							<!-- <div class='col-sm-5' uib-collapse='isCollapsedSelectSNList' horizontal> -->
 							<div class='col-sm-4'>
-								<div class='form-group input-group'>
+								<!-- <div class='form-group input-group'> -->
 									<input type="text" class='form-control' placeholder="Filter" ng-model='searchSelectSNList.sn'>
-									<span class='input-group-btn'>
+									<!-- <span class='input-group-btn'>
 										<button class='btn btn-primary' ng-click='selectAllList(selectSNList)'> 
 											<i class="fa fa-check-square-o" aria-hidden="true"></i>
 										</button>
-									</span>
-								</div>
+									</span> -->
+								<!-- </div> -->
 								<div class='well' style="background-color:white; height:100px; width:100%; overflow:auto; padding:4px" >
 									<table class='table table-striped'>
 										<tr ng-repeat='item in selectSNList |orderBy:"sn" | filter:searchSelectSNList'>
@@ -528,18 +528,18 @@
 
 	<br>
 	<!-- <input class='btn btn-primary myButton btn-lg pull-right' ng-show='!readySubmit' type="button" value='next' ng-click='nextStep()'/> -->
-	<input class='btn btn-primary myButton btn-md pull-right hidden-print' ng-show='travelerData.readyReview && !travelerData.created' type="button" value='submit' ng-click='submit()'/>
+	<!-- <input class='btn btn-primary myButton btn-md pull-right hidden-print' ng-show='travelerData.readyReview && !travelerData.created' type="button" value='submit' ng-click='submit()'/> -->
 	<input ng-show='formId && isStartWork' class='btn btn-primary myButton btn-md pull-right hidden-print'  type='button' value='Save' ng-click='save()'/>
 	<input class='btn btn-primary myButton btn-md pull-right hidden-print' ng-show='travelerData.readyReview' type='button' value='Go Back' ng-click='goBack()'/>
 
 
+	<!-- <br>
 	<br>
 	<br>
 	<br>
-	<br>
-	travelerData: <pre>{{travelerData |json}}</pre><br>
+	travelerData: <pre>{{travelerData |json}}</pre><br> -->
 	<!-- <pre>{{testarea |json}}</pre> -->
-	<pre>{{selectSNList}}</pre>
+	<!-- <pre>{{selectSNList}}</pre> -->
 	<!-- <pre>{{isStartWork}}</pre> -->
 
 	<!-- formTemplate: <pre>{{forms |json}}</pre><br> -->

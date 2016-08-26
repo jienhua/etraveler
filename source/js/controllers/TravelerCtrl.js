@@ -19,7 +19,7 @@ angular.module('TravelerCtrl', [])
 	.controller('TravelerController', ['$scope','Traveler', 'Form', 'DocNum', 'Counter', '$stateParams', function($scope, Traveler, Form, DocNum, Counter, $stateParams){
 
 		$scope.checkReadyReview = function(){
-			if($scope.travelerData.status && $scope.travelerData.status !== 'OPEN'){
+			if($scope.travelerData.status && $scope.travelerData.status === 'PANDING FOR REVIEW'){
 				$scope.travelerData.status = 'OPEN';
 				$scope.travelerData.readyReview = false;
 			}else{
@@ -357,7 +357,7 @@ angular.module('TravelerCtrl', [])
 					.success(data=>{
 						if(data){
 							$scope.closeAlert(0,'clear');
-							$scope.addAlert('info', 'Work number ' +data.sequence_value+ ' created');
+							$scope.addAlert('info', 'Group number ' +data.sequence_value+ ' created');
 							$scope.travelerData.workNum = data.sequence_value.toString();
 							setNumDoctoTraveler();
 							$scope.save();

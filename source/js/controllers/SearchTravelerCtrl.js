@@ -31,7 +31,12 @@ angular.module('SearchTravelerCtrl', ['chart.js'])
 		};
 
 		$scope.removeTraveler = function(_id, index){
-			Traveler.removeTraveler(_id)
+			let data ={
+				idList:[
+					_id
+				]
+			};
+			Traveler.removeTraveler(data)
 				.success( data => {
 					// $scope.result=data;
 					$scope.result.splice(index, 1);
