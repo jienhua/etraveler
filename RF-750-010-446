@@ -1,0 +1,613 @@
+{
+  "_id": "581147666f77271c1ff41c4d",
+  "isPublish": true,
+  "formNo": "RF-750-010-446",
+  "formRev": "03",
+  "__v": 0,
+  "steps": [
+    {
+      "step": 1,
+      "type": "",
+      "Description": "Sub-Assembly #1 (Chassis)",
+      "list": [
+        {
+          "sub_step": 1,
+          "Description": "Visual Inspection chassis cosmetic before assembly - Philip type Sliver Screws: 1. Optical Drive (3), 2. Front Door Hinge (4), 3. Rear PSU Mounting (6).",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Check",
+              "options": [
+                "check"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 2,
+          "Description": "(R) AVAN-4184B One Shoebox W/350W PS",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Qty: 1",
+              "options": [
+                "Check"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 3,
+          "Description": "(R) Chassis Fan EVERFLOW F121225BH",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Qty: 1",
+              "options": [
+                "Check"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 4,
+          "Description": "Open Chassis Cover, Install HEX Standoff",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Qty: 16",
+              "options": [
+                "Check"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "step": 2,
+      "type": "",
+      "Description": "Labels Preparation",
+      "list": [
+        {
+          "sub_step": 1,
+          "Description": "HDD-0 (2), 2.HDD-1 (2), 3. HDD-2(2), 4. COM-1(2), 5. COM-2 (2), AUDIO (1), 7. HDD-2 (1), 8. FFM (1)",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Check",
+              "options": [
+                "Check"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "step": 3,
+      "type": "",
+      "Description": "Sub-Assembly#2. SBC Preparation",
+      "list": [
+        {
+          "sub_step": 1,
+          "Description": "(R) ROBO-8110VG2AR C206",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Qty: 1",
+              "options": [
+                "Check"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 2,
+          "Description": "(R) CPU XEON QC E3-1275V2 3.5GHZ 8M",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Qty: 1",
+              "options": [
+                "Check"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 3,
+          "Description": "(R) CPU HEATSINK XEON LGA1155 1U COPPER",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Qty: 1",
+              "options": [
+                "Check"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 4,
+          "Description": "(R) Memory DDRIII 1333 4GB D3-57CK111JEV999",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Qty: 2",
+              "options": [
+                "Check"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 5,
+          "Description": "Jumper setting on JP7 (Short 1-2,3-4)",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Check",
+              "options": [
+                "Check"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "step": 4,
+      "type": "",
+      "Description": "Sub-Assembly#3. Backplane Preparation",
+      "list": [
+        {
+          "sub_step": 1,
+          "Description": "Backplane_(R) PBPE-06P-VA1",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Qty: 1",
+              "options": [
+                "Check"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 2,
+          "Description": "Attached one Rubber Foot under Backplane",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Qty: 1",
+              "options": [
+                "Check"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 3,
+          "Description": "Insert Backplane and secure w/ 16 screw onto Chassis",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Qty: 16",
+              "options": [
+                "Check"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 4,
+          "Description": "Cable management; refer to Doc# 750-001-238.",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Qty: 1",
+              "options": [
+                "Check"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 5,
+          "Description": "Attached Mylar protective/Isolate file to Chassis wall",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Qty: 1",
+              "options": [
+                "Check"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "step": 5,
+      "type": "",
+      "Description": "Sub-Assembly #4 (Drive Bays)",
+      "list": [
+        {
+          "sub_step": 1,
+          "Description": "Install 120x120x25mm Fan, make sure Fan blow direction and spiral wrap (2 inches)",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Qty: 1",
+              "options": [
+                "Check"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 2,
+          "Description": "Drive Bays",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Drive Bay 0",
+              "options": [
+                "Empty Bay"
+              ]
+            },
+            {
+              "type": "checkbox",
+              "name": "Drive Bay 1",
+              "options": [
+                "Tray only (no drive)"
+              ]
+            },
+            {
+              "type": "checkbox",
+              "name": "Drive Bay 2",
+              "options": [
+                "500GB Hard drive with label"
+              ]
+            },
+            {
+              "type": "checkbox",
+              "name": "Qty: 1",
+              "options": [
+                "Check"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 3,
+          "Description": "FAN Guard/Filter Installation",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Qty: 1",
+              "options": [
+                "Check"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "step": 6,
+      "type": "",
+      "Description": "System Installation",
+      "list": [
+        {
+          "sub_step": 1,
+          "Description": "Insert Sub-Assembly#2_SBC into Backplane/Chassis.",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Qty: 1",
+              "options": [
+                "Check"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 2,
+          "Description": "Apply Loctite to the plastic piece on the metal bar.",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Qty: 1",
+              "options": [
+                "Check"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 3,
+          "Description": "Install Dual-Serial/ USB Combo Ports to chassis (next to SBC)",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Qty: 1",
+              "options": [
+                "Check"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 4,
+          "Description": "Cable management, refer to Varian INIZIO 8110 Vtx.pdf",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Qty: 1",
+              "options": [
+                "Check"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 5,
+          "Description": "Install Quick Installation Guide label to chassis cover",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Qty: 1",
+              "options": [
+                "Check"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 6,
+          "Description": "Attach One RJ45 Protection Cover to LAN2",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Qty: 1",
+              "options": [
+                "Check"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 7,
+          "Description": "Install Chassis Rubber Feet",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Qty: 4",
+              "options": [
+                "Check"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 8,
+          "Description": "Perform HiPot Test",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Qty: 1",
+              "options": [
+                "Check"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "step": 7,
+      "type": "",
+      "Description": "Loctite /Thread locker application",
+      "list": [
+        {
+          "sub_step": 1,
+          "Description": "Refer to Doc# 750-001-306.",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Qty: 1",
+              "options": [
+                "Check"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "step": 8,
+      "type": "",
+      "Description": "Inspection & Testing",
+      "list": [
+        {
+          "sub_step": 1,
+          "Description": "Check Chassis FAN and Filter",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Qty: 1",
+              "options": [
+                "Check"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 2,
+          "Description": "Run Functional Test by using Burn-In Test V7.1 Pro (CPU,RAM,COM1&2,all USBs, and LAN)",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Qty: 1",
+              "options": [
+                "Check"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 3,
+          "Description": "After Burn-In Test, save log file with S/N",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Qty: 1",
+              "options": [
+                "Check"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 4,
+          "Description": "Turn off PSU’S Power Switch after burn-in 24 hours",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Qty: 1",
+              "options": [
+                "Check"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "step": 9,
+      "type": "",
+      "Description": "Burn-in Test",
+      "list": [
+        {
+          "sub_step": 1,
+          "Description": "Power On the system",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Check",
+              "options": [
+                "Check"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 2,
+          "Description": "Check BIOS VER.: R2.01 (06172014)",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Check",
+              "options": [
+                "Check"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 3,
+          "Description": "Run Function Test and Burn-in Time: _____hrs.",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Check",
+              "options": [
+                "Pass",
+                "Fail"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 4,
+          "Description": "Update DMI information with SBC’s S/N",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Check",
+              "options": [
+                "Check"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "step": 10,
+      "type": "",
+      "Description": "Packaging",
+      "list": [
+        {
+          "sub_step": 1,
+          "Description": "Accessory: (Verify the information on the W/O)",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Accessory",
+              "options": [
+                "US Power Cord",
+                "UK Power Cord",
+                "Swiss Power Cord"
+              ]
+            },
+            {
+              "type": "checkbox",
+              "name": "Qty: 1",
+              "options": [
+                "Check"
+              ]
+            }
+          ]
+        },
+        {
+          "sub_step": 2,
+          "Description": "DVI to DVI and VGA dangle",
+          "options": [
+            {
+              "type": "checkbox",
+              "name": "Qty: 1",
+              "options": [
+                "Check"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "itemRecord": [
+    {
+      "id": 1,
+      "Description": "PRODUCT NAME"
+    },
+    {
+      "id": 2,
+      "Description": "CUSTOMER #"
+    },
+    {
+      "id": 3,
+      "Description": "APT PN #"
+    },
+    {
+      "id": 4,
+      "Description": "S/O #"
+    },
+    {
+      "id": 5,
+      "Description": "S/N"
+    }
+  ]
+}

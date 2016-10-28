@@ -155,8 +155,8 @@ angular.module('FormGenCtrl.js', ['ui.bootstrap.tabs'])
 		};
 
 		$scope.editOption = function(address, input){
-      console.log(typeof input);
-      console.log(input);
+      // console.log(typeof input);
+      // console.log(input);
 			if(address){
 				address.options = [];
         if(typeof input === 'string'){
@@ -203,7 +203,7 @@ angular.module('FormGenCtrl.js', ['ui.bootstrap.tabs'])
 		var main = function(){
 
 			initCreate();
-      loadFormList();
+      		loadFormList();
 		
 			$scope.inputItemRecordType = 'text';
 			$scope.jsonView = false;
