@@ -139,7 +139,7 @@
 								<label class='control-label' for='docNumSelect'>Select Document#:</label>
 								<select ng-init='docNum.docNumSelect="new"' class='form-control' id='docNumSelect' ng-model='docNum.docNumSelect' ng-change='updateDocNum()'>
 									<option value='new'>Create New Doc#</option>
-									<optgroup ng-repeat='op in docNum.docNumSelectList | unique:"docNum" | orderBy:"docNum"' label='{{op.docNum}}'>
+									<optgroup ng-repeat='op in docNum.docNumSelectList | unique:"docNum" | orderBy:"-docNum"' label='{{op.docNum}}'>
 										<option ng-repeat='chilop in docNum.docNumSelectList' ng-show='chilop.docNum === op.docNum' value='{{$index}}'>Doc# {{op.docNum}} Model - {{chilop.label}}</option>
 									</optgroup>
 								</select>
@@ -147,7 +147,7 @@
 							<div class='form-inline' role='form'>
 								<div class='form-group'>
 									<label for='docNum'>Document#</label>
-									<input type="text" id='docNum' class='form-control' ng-model='docNum.docNumData.docNum' ng-disabled='docNum.docNumSelect !== "new"'>
+									<input type="number" id='docNum' class='form-control' ng-model='docNum.docNumData.docNum' ng-disabled='docNum.docNumSelect !== "new"'>
 								</div>
 								<div class='form-group' ng-repeat='item in forms.itemRecord'>
 									<label for='{{item.Description}}'>{{item.Description}}: </label>
@@ -244,7 +244,7 @@
 								<div class='form-inline' role='form' uib-collapse='isCollapsedItemRecord'>
 									<div class='form-group'>
 										<label for='docNum'>Document#</label>
-										<input type="text" id='docNum' class='form-control' ng-model='docNum.docNumData.docNum' ng-disabled='docNum.docNumSelect !== "new"'>
+										<input type="number" id='docNum' class='form-control' ng-model='docNum.docNumData.docNum' ng-disabled='docNum.docNumSelect !== "new"'>
 									</div>
 									<div class='form-group' ng-repeat='item in forms.itemRecord'>
 										<label for='{{item.Description}}'>{{item.Description}}: </label>
@@ -280,7 +280,7 @@
 						<label class='control-label' for='docNumSelect'>Select Document#:</label>
 						<select ng-init='docNum.docNumSelect="new"' class='form-control' id='docNumSelect' ng-model='docNum.docNumSelect' ng-change='updateDocNum()' autofocus>
 								<option value='new'>Create New Doc#</option>
-								<optgroup ng-repeat='op in docNum.docNumSelectList | unique:"docNum" | orderBy:"docNum"' label='{{op.docNum}}'>
+								<optgroup ng-repeat='op in docNum.docNumSelectList | unique:"docNum" | orderBy:"-docNum"' label='{{op.docNum}}'>
 									<option ng-repeat='chilop in docNum.docNumSelectList' ng-show='chilop.docNum === op.docNum' value='{{$index}}'>Doc# {{chilop.docNum}} Model - {{chilop.label}}</option>
 								</optgroup>
 						</select>
@@ -289,7 +289,7 @@
 					<div class='form-inline' role='form' uib-collapse='isCollapsedItemRecord'>
 						<div class='form-group'>
 							<label for='docNum'>Document#</label>
-							<input type="text" id='docNum' class='form-control' ng-model='docNum.docNumData.docNum' ng-disabled='docNum.docNumSelect !== "new"'>
+							<input type="number" id='docNum' class='form-control' ng-model='docNum.docNumData.docNum' ng-disabled='docNum.docNumSelect !== "new"'>
 						</div>
 						<div class='form-group' ng-repeat='item in forms.itemRecord'>
 							<label for='{{item.Description}}'>{{item.Description}}: </label>
@@ -454,13 +454,25 @@
 												<label
 													class='checkbox-inline' 
 													ng-repeat='checkOp in op.options'
+													style="width: 100%;
+														   min-height: 34px;
+														   border-style: solid;
+														   margin-top: 2px;
+														   margin-bottom: 2px;
+														   background-color:#286090;
+														   padding: 3px;
+														   color:white;
+														   border-radius: 8px;"
 												>
 													<input 
 														type="checkbox" 
 														value='{{checkOp}}'
 														ng-model='travelerData.step[step.step][subStep.sub_step]["options"][$parent.$index][$index]'
 														ng-change='appendSubStepEditInfo()'
-														>{{checkOp}}
+														><!-- <div class='container-fluid' style='width:auto;background-color: yellow;'>{{checkOp}}</div>
+														<div class='container-fluid' style='width:100%;background-color: blue;'>{{checkOp}}</div>
+														<div class='container-fluid' style='width:400px; background-color: red;'>{{checkOp}}</div> -->
+														<strong>{{checkOp}}</strong>
 												</label>
 											</div>
 											<div ng-show='op.type ==="select"'>
