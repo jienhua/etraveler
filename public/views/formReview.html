@@ -1,19 +1,35 @@
 <div class='container'>
-	<h1 class='text-center'>Review Form</h1>
-
+	<h1 class='text-center hidden-print'>Review Form</h1>
+	<h5 class='visible-print'><strong>Review Form</strong></h5>
 	<div class='row'>
 		<div class='col-xs-6'>
-			<h4>Doc. {{forms.formNo}} Rev. {{forms.formRev}} </h4>
-			<h4 class='pointer' ng-click='isCollapseHeaderSNList = !isCollapseHeaderSNList'>Serial Number: <small class='hidden-print'>(* click to hide the list)</small></h4>
-			<ul uib-collapse='!isCollapseHeaderSNList'>
-				<li ng-repeat='item in selectSNList'>{{item.sn}}</li>
-			</ul>
+			<div class='hidden-print'>
+				<h4>Doc. {{forms.formNo}} Rev. {{forms.formRev}} </h4>
+				<h4 class='pointer' ng-click='isCollapseHeaderSNList = !isCollapseHeaderSNList'>Serial Number: <small>(* click to hide the list)</small></h4>
+				<ul uib-collapse='!isCollapseHeaderSNList'>
+					<li ng-repeat='item in selectSNList'>{{item.sn}}</li>
+				</ul>
+			</div>
+			<div class='visible-print'>
+				<h5>Doc. {{forms.formNo}} Rev. {{forms.formRev}} </h5>
+				<h5 class='pointer' ng-click='isCollapseHeaderSNList = !isCollapseHeaderSNList'>Serial Number: {{selectSNList[0].sn}}</h5>
+		<!-- 		<ul uib-collapse='!isCollapseHeaderSNList'>
+					<li ng-repeat='item in selectSNList'>{{item.sn}}</li>
+				</ul> -->
+			</div>
 		</div>
 		<div class='col-xs-6'>	
 			<!-- <div class='col-md-6'> -->
+			<div class="hidden-print">
 				<h4>Status: {{travelerData.status}}</h4>
 				<h4>Released By: {{travelerData.reviewBy}}</h4>
 				<h4>Date: {{travelerData.reviewAt | date: 'medium'}}</h4>
+			</div>
+			<div class="visible-print">
+				<h5>Status: {{travelerData.status}}</h5>
+				<h5>Released By: {{travelerData.reviewBy}}</h5>
+				<h5>Date: {{travelerData.reviewAt | date: 'shortDate'}}</h5>
+			</div>
 			<!-- </div> -->
 			<!-- <div class='col-md-6 hidden-print'> -->
 			<div class='hidden-print'>
@@ -46,9 +62,9 @@
 		</div>
 	</div>
 
-	<h3>Item Record</h3>
+	<h3 class='hidden-print'>Item Record</h3>
 			<!-- {{docNum.docNumData}} -->
-	<table class='table table-bordered'>
+	<table class='table table-bordered hidden-print'>
 		<tbody>
 			<tr>
 				<td class='tableHead'>Doc #</td>
@@ -65,14 +81,30 @@
 			</tr>
 		</tbody>
 	</table>
+	<table class='visible-print'>
+		<tr>
+			<td>Doc #</td>
+			<td ng-repeat='item in forms.itemRecord'>{{item.Description}}</td>
+		</tr>
+		<tr>
+			<td>
+				{{docNum.docNumData.docNum}}
+			</td>
+			<td ng-repeat='item in forms.itemRecord'>
+				<div ng-if='!docNum.docNumData.attribute[item.Description].select && !docNum.docNumData.attribute[item.Description].radio && !docNum.docNumData.attribute[item.Description].checkbox'> {{docNum.docNumData.attribute[item.Description]}}</div>
+				<div ng-if='docNum.docNumData.attribute[item.Description].select'>{{docNum.docNumData.attribute[item.Description].select}}</div>
+			</td>
+		</tr>
+	</table>
 
-	<h3>Steps</h3>
-	
-	<table class='table table-bordered'>
+
+	<h3 class='hidden-print'>Steps</h3>
+	<h5 class='visible-print'><strong>Steps</strong></h5>
+	<table class='table table-bordered hidden-print'>
 		<tbody ng-repeat='step in forms.steps'>
 			<tr>
 				<td class='tableHead hidden-print'>Step</td>
-				<td class='tableHead'>{{forms.steps[$index].type}} | {{forms.steps[$index].Description}}</td>
+				<td class='tableHead'>{{forms.steps[$index].type}} # {{forms.steps[$index].Description}}</td>
 				<!-- <td class='tableHead'>
 					<div class='hidden-print'>Quantity</div>
 					<div class='visible-print'>Qty</div>
@@ -84,11 +116,11 @@
 			<tr ng-repeat='item in step.list'>
 				<td class='hidden-print'>{{step.step}}.{{$index+1}}</td>
 				<td>{{forms.steps[$parent.$index].list[$index].Description}}</td>
-				<td>{{travelerData.step[step.step][$index+1].qty}}</td>
+				<!-- <td>{{travelerData.step[step.step][$index+1].qty}}</td> -->
 				<td>
 
 					<div ng-repeat='(key, op) in travelerData.step[step.step][$index+1].options'>
-						{{item.options[key].name}} -
+						<!-- {{item.options[key].name}} - -->
 						<span ng-if='item.options[key].type==="checkbox"' >
 							<span ng-if='op[$index]' ng-repeat='checkOp in item.options[key].options'>{{checkOp}} </span>
 						</span>
@@ -116,9 +148,6 @@
 						{{item.select.name}} -
 						{{travelerData.step[step.step][item.sub_step].select}}
 					</div>
-
-
-
 				</td>
 				<td>{{travelerData.step[step.step][item.sub_step].comment}}</td>
 				<td>
@@ -138,6 +167,77 @@
 <!-- 						{{travelerData.step[step.step][item.sub_step].editTime | date: 'shortDate'}} -->
 					</div>
 				</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<table class='visible-print'>
+		<tbody ng-repeat='step in forms.steps'>
+			<tr>
+				<td class=''><strong>{{forms.steps[$index].type}} # {{forms.steps[$index].Description}}</strong></td>
+				<!-- <td class='tableHead'>
+					<div class='hidden-print'>Quantity</div>
+					<div class='visible-print'>Qty</div>
+				</td> -->
+				<td class=''>Options</td>
+				<td class=''>Comment</td>
+				<td class=''>Editor</td>
+				<td>Date</td>
+			</tr>
+			<tr ng-repeat='item in step.list'>
+				<div>
+								<!-- <td class='hidden-print'>{{step.step}}.{{$index+1}}</td> -->
+				<td>{{item.Description}}</td>
+				<!-- <td>{{travelerData.step[step.step][$index+1].qty}}</td> -->
+				<td>
+
+					<div ng-repeat='(key, op) in travelerData.step[step.step][$index+1].options'>
+						<!-- {{item.options[key].name}} - -->
+						<span ng-if='item.options[key].type==="checkbox"' >
+							<span ng-if='op[$index]' ng-repeat='checkOp in item.options[key].options'>{{checkOp}} </span>
+						</span>
+						<span ng-if='item.options[key].type==="select"'>{{item.options[key].options[op]}}</span>
+
+						<span ng-if='item.options[key].type==="radio"'>{{item.options[key].options[op]}}</span>
+					</div>
+
+					<!-- if has radio option-->
+					<div ng-if='travelerData.step[step.step][item.sub_step].radio'>
+						{{item.radio.name}} -
+						{{travelerData.step[step.step][item.sub_step].radio}}
+					</div> 
+
+					<!-- if has checkbox option -->
+					<div ng-if='travelerData.step[step.step][item.sub_step].checkbox'>
+						{{item.checkbox.name}} -
+						<label class='normalFont' ng-repeat='(key, value) in travelerData.step[step.step][item.sub_step].checkbox' ng-if='value'>	
+						{{key}}&nbsp;
+						</label>
+					</div> 
+
+					<!-- if has select option -->
+					<div ng-if='travelerData.step[step.step][item.sub_step].select'>
+						{{item.select.name}} -
+						{{travelerData.step[step.step][item.sub_step].select}}
+					</div>
+				</td>
+				<td>{{travelerData.step[step.step][item.sub_step].comment}}</td>
+				<td>
+					<div class=''>
+						<div ng-if='travelerData.step[step.step][item.sub_step].editBy.split(" ").length >= 2'>
+						{{travelerData.step[step.step][item.sub_step].editBy.split(" ")[0][0]}}
+						{{travelerData.step[step.step][item.sub_step].editBy.split(" ")[travelerData.step[step.step][item.sub_step].editBy.split(" ").length-1][0]}}
+						</div>
+						<div ng-if='travelerData.step[step.step][item.sub_step].editBy.split(" ").length < 2'>
+							{{travelerData.step[step.step][item.sub_step].editBy}} 				
+						</div>
+<!-- 						{{travelerData.step[step.step][item.sub_step].editTime | date: 'shortDate'}} -->
+					</div>
+				</td>
+				<td>
+					{{travelerData.step[step.step][item.sub_step].editTime | date: 'shortDate'}}
+				</td>
+				</div>
 			</tr>
 		</tbody>
 	</table>

@@ -15,3 +15,16 @@
 .reviewPageBtn{
 	margin-top: 2px;
 }
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 5px;
+    text-align: left;    
+}
+
+td {
+	padding: 1px;
+}
